@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 7ead75fbc80c7204e8de8bbdc943fa8f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 54f9b4cab6a720a43876844b8ac04fea, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 0.9411765}
   m_FlipX: 0
   m_FlipY: 0
@@ -233,9 +233,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveYSpeed: 0.9
-  shootSpeed: 0.4
+  firingSpeed: 0.4
   projectile: {fileID: 4132169524799448920, guid: 60b54fb045102994c977aec271d96d56, type: 3}
   projectileSpeedMultiplier: 0.75
+  projectileDamage: 1
   outline: {fileID: 4716128066362477619}
   unavoidableExplosion: {fileID: 2475859108487741549, guid: 4d5fc9849c15eaa44aa67af7065e4584, type: 3}
   attackType: 4

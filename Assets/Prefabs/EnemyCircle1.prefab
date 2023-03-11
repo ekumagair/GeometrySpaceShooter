@@ -149,9 +149,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveYSpeed: 1.3
-  shootSpeed: 1.25
+  firingSpeed: 1.25
   projectile: {fileID: 4132169524799448920, guid: 60b54fb045102994c977aec271d96d56, type: 3}
   projectileSpeedMultiplier: 0.75
+  projectileDamage: 1
   outline: {fileID: 5345538799917735134}
   unavoidableExplosion: {fileID: 2475859108487741549, guid: 4d5fc9849c15eaa44aa67af7065e4584, type: 3}
   attackType: 2

@@ -6,7 +6,7 @@ using static UnityEngine.GraphicsBuffer;
 public class Enemy : MonoBehaviour
 {
     public float moveYSpeed;
-    public float shootSpeed = 1f;
+    public float firingSpeed = 1f;
     public GameObject projectile;
     public float projectileSpeedMultiplier = 1.0f;
     public int projectileDamage = 1;
@@ -45,7 +45,7 @@ public class Enemy : MonoBehaviour
 
     IEnumerator Attack()
     {
-        yield return new WaitForSeconds(shootSpeed);
+        yield return new WaitForSeconds(firingSpeed);
 
         if (transform.position.y < 6f && Player.isDead == false)
         {

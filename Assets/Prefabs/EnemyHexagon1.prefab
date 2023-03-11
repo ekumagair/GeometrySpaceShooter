@@ -233,7 +233,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveYSpeed: 0.9
-  shootSpeed: 1.5
+  firingSpeed: 1.5
   projectile: {fileID: 4132169524799448920, guid: 60b54fb045102994c977aec271d96d56, type: 3}
   projectileSpeedMultiplier: 0.6
   projectileDamage: 1

@@ -65,7 +65,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3182152719088013380, guid: 3549c14e07fbbc042a24a66a5f97049f, type: 3}
       propertyPath: pointsOnDeath
-      value: 45
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 3182152719088013380, guid: 3549c14e07fbbc042a24a66a5f97049f, type: 3}
       propertyPath: moveEnemiesOnDeath
@@ -81,7 +81,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3182152719088013381, guid: 3549c14e07fbbc042a24a66a5f97049f, type: 3}
       propertyPath: projectileDamage
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3182152719088013381, guid: 3549c14e07fbbc042a24a66a5f97049f, type: 3}
       propertyPath: projectileSpeedMultiplier

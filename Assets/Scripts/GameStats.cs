@@ -33,6 +33,7 @@ public static class GameStats
         PlayerPrefs.SetInt("player_shoot_level", Player.shootLevel);
         PlayerPrefs.SetInt("player_projectile_damage", Player.projectileDamage);
         PlayerPrefs.Save();
+        Debug.Log("Saved stats");
     }
 
     public static void LoadStats()
@@ -46,5 +47,7 @@ public static class GameStats
         Player.projectileSpeedMultiplier = PlayerPrefs.GetFloat("player_projectile_speed");
         Player.shootLevel = PlayerPrefs.GetInt("player_shoot_level");
         Player.projectileDamage = PlayerPrefs.GetInt("player_projectile_damage");
+        Debug.Log("Loaded stats");
+        Debug.Log("Set player start health to " + PlayerPrefs.GetInt("player_start_hp"));
     }
 }

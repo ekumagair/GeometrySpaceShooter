@@ -17,17 +17,8 @@ public class StartScene : MonoBehaviour
     PersistentCanvas persistentCanvas;
     Camera mainCamera;
 
-    void Start()
+    void Awake()
     {
-        persistentCanvas = GameObject.Find("PersistentCanvas").GetComponent<PersistentCanvas>();
-        mainCamera = Camera.main;
-        GameStats.currentLevelPoints = 0;
-
-        if(GameStats.points < 0)
-        {
-            GameStats.points = 0;
-        }
-
         // If has saved data, load the data and the prices for each upgrade.
         if (PlayerPrefs.HasKey("player_start_hp"))
         {
@@ -41,6 +32,18 @@ public class StartScene : MonoBehaviour
             }
 
             GameStats.LoadStats();
+        }
+    }
+
+    void Start()
+    {
+        persistentCanvas = GameObject.Find("PersistentCanvas").GetComponent<PersistentCanvas>();
+        mainCamera = Camera.main;
+        GameStats.currentLevelPoints = 0;
+
+        if(GameStats.points < 0)
+        {
+            GameStats.points = 0;
         }
 
         if(goToUpgrades)
@@ -110,6 +113,11 @@ public class StartScene : MonoBehaviour
     public void GoToUpgrades()
     {
         mainCamera.transform.position = new Vector3(10, 0, mainCamera.transform.position.z);
+    }
+
+    public void GoToCredits()
+    {
+        mainCamera.transform.position = new Vector3(20, 0, mainCamera.transform.position.z);
     }
 
     public void ChangeUpgradePage(int increment)

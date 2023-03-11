@@ -122,9 +122,9 @@ public class Upgrade : MonoBehaviour
         }
 
         // Save stats.
-        GameStats.SaveStats();
         PlayerPrefs.SetInt("upgrade_" + upgradeType.ToString() + "_price", price);
+        GameStats.SaveStats();
         Debug.Log("Saved Int: " + "upgrade_" + upgradeType.ToString() + "_price");
-        PlayerPrefs.Save();
+        Debug.Log("Saved player health is " + PlayerPrefs.GetInt("player_start_hp") + " / " + Player.startHealth);
     }
 }
