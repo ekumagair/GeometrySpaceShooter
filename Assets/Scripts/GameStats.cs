@@ -7,6 +7,7 @@ public static class GameStats
     public static int level = 1;
     public static int points = 0;
     public static int currentLevelPoints = 0;
+    public static bool multipliedCurrentScore = false;
 
     public static void AddPoints(int p)
     {

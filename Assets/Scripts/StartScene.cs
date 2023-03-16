@@ -40,8 +40,9 @@ public class StartScene : MonoBehaviour
         persistentCanvas = GameObject.Find("PersistentCanvas").GetComponent<PersistentCanvas>();
         mainCamera = Camera.main;
         GameStats.currentLevelPoints = 0;
+        GameStats.multipliedCurrentScore = false;
 
-        if(GameStats.points < 0)
+        if (GameStats.points < 0)
         {
             GameStats.points = 0;
         }

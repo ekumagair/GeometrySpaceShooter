@@ -27,6 +27,9 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+        isDead = false;
+        victory = false;
+        detectedVictory = false;
         GameStats.currentLevelPoints = 0;
         InitializePlayer();
 
@@ -108,7 +111,7 @@ public class Player : MonoBehaviour
 
             foreach (Background bg in bgs)
             {
-                bg.speed *= 3;
+                bg.speed *= 4;
             }
 
             detectedVictory = true;
@@ -138,6 +141,21 @@ public class Player : MonoBehaviour
         {
             victory = true;
             ignoreInput = true;
+            GameStats.SaveStats();
+            DestroyAllProjectiles();
+        }
+    }
+
+    public static void DestroyAllProjectiles()
+    {
+        Projectile[] projectiles = GameObject.FindObjectsOfType<Projectile>();
+
+        if(projectiles.Length > 0)
+        {
+            foreach (Projectile p in projectiles)
+            {
+                Destroy(p.gameObject);
+            }
         }
     }
 }

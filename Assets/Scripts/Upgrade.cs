@@ -14,6 +14,7 @@ public class Upgrade : MonoBehaviour
     public int price;
     public float priceMultiplier = 1.1f;
     public Button buyButton;
+    public Button adButton;
 
     public enum UpgradeType
     {
@@ -33,10 +34,20 @@ public class Upgrade : MonoBehaviour
         if(GameStats.points < price)
         {
             buyButton.interactable = false;
+
+            if (adButton != null)
+            {
+                adButton.interactable = true;
+            }
         }
         else
         {
             buyButton.interactable = true;
+
+            if (adButton != null)
+            {
+                adButton.interactable = false;
+            }
         }
 
         switch (upgradeType)

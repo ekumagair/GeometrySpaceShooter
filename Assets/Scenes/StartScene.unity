@@ -635,6 +635,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1956768158}
     m_Modifications:
+    - target: {fileID: 883925182470453946, guid: ca92492055e11b44ea19e7a7d9c25a10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 4083968496264651096}
+    - target: {fileID: 883925182470453946, guid: ca92492055e11b44ea19e7a7d9c25a10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: CreateButtonSound
+      objectReference: {fileID: 0}
     - target: {fileID: 9036581092383659984, guid: ca92492055e11b44ea19e7a7d9c25a10, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -781,6 +789,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 312451999}
     m_Modifications:
+    - target: {fileID: 883925182470453946, guid: ca92492055e11b44ea19e7a7d9c25a10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 4083968496264651096}
+    - target: {fileID: 883925182470453946, guid: ca92492055e11b44ea19e7a7d9c25a10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: CreateButtonSound
+      objectReference: {fileID: 0}
     - target: {fileID: 9036581092383659984, guid: ca92492055e11b44ea19e7a7d9c25a10, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -883,7 +899,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9036581092383659999, guid: ca92492055e11b44ea19e7a7d9c25a10, type: 3}
       propertyPath: price
-      value: 250
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 9036581092383659999, guid: ca92492055e11b44ea19e7a7d9c25a10, type: 3}
       propertyPath: upgradeType
@@ -895,7 +911,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9036581092383659999, guid: ca92492055e11b44ea19e7a7d9c25a10, type: 3}
       propertyPath: priceMultiplier
-      value: 1.075
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 9036581092966354446, guid: ca92492055e11b44ea19e7a7d9c25a10, type: 3}
       propertyPath: m_text
@@ -1720,6 +1736,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1956768158}
     m_Modifications:
+    - target: {fileID: 3436946995887580465, guid: ca92492055e11b44ea19e7a7d9c25a10, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9036581092383659984, guid: ca92492055e11b44ea19e7a7d9c25a10, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1822,7 +1842,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9036581092383659999, guid: ca92492055e11b44ea19e7a7d9c25a10, type: 3}
       propertyPath: price
-      value: 1000
+      value: 2000
       objectReference: {fileID: 0}
     - target: {fileID: 9036581092383659999, guid: ca92492055e11b44ea19e7a7d9c25a10, type: 3}
       propertyPath: upgradeType
@@ -1834,7 +1854,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9036581092383659999, guid: ca92492055e11b44ea19e7a7d9c25a10, type: 3}
       propertyPath: priceMultiplier
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 9036581092966354446, guid: ca92492055e11b44ea19e7a7d9c25a10, type: 3}
       propertyPath: m_text
@@ -1843,6 +1863,10 @@ PrefabInstance:
     - target: {fileID: 9036581092966354446, guid: ca92492055e11b44ea19e7a7d9c25a10, type: 3}
       propertyPath: m_fontSizeBase
       value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 9036581093001581282, guid: ca92492055e11b44ea19e7a7d9c25a10, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9036581093001581283, guid: ca92492055e11b44ea19e7a7d9c25a10, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
@@ -4202,6 +4226,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1956768158}
     m_Modifications:
+    - target: {fileID: 3436946995887580465, guid: ca92492055e11b44ea19e7a7d9c25a10, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9036581092383659984, guid: ca92492055e11b44ea19e7a7d9c25a10, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -4304,7 +4332,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9036581092383659999, guid: ca92492055e11b44ea19e7a7d9c25a10, type: 3}
       propertyPath: price
-      value: 600
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 9036581092383659999, guid: ca92492055e11b44ea19e7a7d9c25a10, type: 3}
       propertyPath: upgradeType
@@ -4316,11 +4344,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9036581092383659999, guid: ca92492055e11b44ea19e7a7d9c25a10, type: 3}
       propertyPath: priceMultiplier
-      value: 1.2
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9036581092966354446, guid: ca92492055e11b44ea19e7a7d9c25a10, type: 3}
       propertyPath: m_text
       value: Projectile damage
+      objectReference: {fileID: 0}
+    - target: {fileID: 9036581093001581282, guid: ca92492055e11b44ea19e7a7d9c25a10, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9036581093001581283, guid: ca92492055e11b44ea19e7a7d9c25a10, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
@@ -4348,6 +4380,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 312451999}
     m_Modifications:
+    - target: {fileID: 883925182470453946, guid: ca92492055e11b44ea19e7a7d9c25a10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 4083968496264651096}
+    - target: {fileID: 883925182470453946, guid: ca92492055e11b44ea19e7a7d9c25a10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: CreateButtonSound
+      objectReference: {fileID: 0}
     - target: {fileID: 9036581092383659984, guid: ca92492055e11b44ea19e7a7d9c25a10, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -5419,6 +5459,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 312451999}
     m_Modifications:
+    - target: {fileID: 883925182470453946, guid: ca92492055e11b44ea19e7a7d9c25a10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 4083968496264651096}
+    - target: {fileID: 883925182470453946, guid: ca92492055e11b44ea19e7a7d9c25a10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: CreateButtonSound
+      objectReference: {fileID: 0}
     - target: {fileID: 9036581092383659984, guid: ca92492055e11b44ea19e7a7d9c25a10, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -5521,7 +5569,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9036581092383659999, guid: ca92492055e11b44ea19e7a7d9c25a10, type: 3}
       propertyPath: price
-      value: 125
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 9036581092383659999, guid: ca92492055e11b44ea19e7a7d9c25a10, type: 3}
+      propertyPath: priceMultiplier
+      value: 1.3
       objectReference: {fileID: 0}
     - target: {fileID: 9036581093001581283, guid: ca92492055e11b44ea19e7a7d9c25a10, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target

@@ -8,18 +8,24 @@ public class HUD : MonoBehaviour
 {
     public GameObject statTarget;
     public TMP_Text healthNumber;
+    public TMP_Text pointsThisLevelNumberWin;
+    public TMP_Text pointsThisLevelNumberLose;
     public GameObject windowVictory;
+    public GameObject windowLose;
 
     bool createdWindow = false;
     PersistentCanvas persistentCanvas;
     Health statTargetHealth;
+    GameObject player;
 
     void Start()
     {
         persistentCanvas = GameObject.Find("PersistentCanvas").GetComponent<PersistentCanvas>();
         statTargetHealth = statTarget.GetComponent<Health>();
         windowVictory.SetActive(false);
+        windowLose.SetActive(false);
         createdWindow = false;
+        player = GameObject.FindGameObjectWithTag("Player");
 
         persistentCanvas.SetLevelText();
     }
@@ -27,6 +33,8 @@ public class HUD : MonoBehaviour
     void Update()
     {
         healthNumber.text = statTargetHealth.health.ToString();
+        pointsThisLevelNumberWin.text = GameStats.currentLevelPoints.ToString();
+        pointsThisLevelNumberLose.text = GameStats.currentLevelPoints.ToString();
 
         if (createdWindow == false)
         {
@@ -34,6 +42,14 @@ public class HUD : MonoBehaviour
             {
                 windowVictory.SetActive(true);
                 windowVictory.GetComponent<Animator>().Play("WindowAppearFromAbove");
+                GameStats.SaveStats();
+                createdWindow = true;
+            }
+            if (Player.isDead == true)
+            {
+                windowLose.SetActive(true);
+                windowLose.GetComponent<Animator>().Play("WindowAppearFromAbove");
+                GameStats.SaveStats();
                 createdWindow = true;
             }
         }
@@ -57,6 +73,18 @@ public class HUD : MonoBehaviour
                 GameStats.level++;
                 SceneManager.LoadScene("GameScene");
             }
+        }
+    }
+
+    public void RevivePlayer()
+    {
+        if (player != null)
+        {
+            player.SetActive(true);
+            player.GetComponent<Player>().InitializePlayer();
+            windowVictory.SetActive(false);
+            windowLose.SetActive(false);
+            createdWindow = false;
         }
     }
 }

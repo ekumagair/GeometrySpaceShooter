@@ -45,6 +45,13 @@ public class PersistentCanvas : MonoBehaviour
         Instantiate(soundButton, transform.position, transform.rotation);
     }
 
+    public void MultiplyCurrentScoreBy2()
+    {
+        GameStats.AddPoints(GameStats.currentLevelPoints);
+        GameStats.multipliedCurrentScore = true;
+        GameStats.SaveStats();
+    }
+
     public void NextLevel()
     {
         GameStats.level++;

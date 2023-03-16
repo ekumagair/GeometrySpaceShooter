@@ -255,4 +255,5 @@ MonoBehaviour:
   health: 3
   pointsOnDeath: 60
   moveEnemiesOnDeath: -1
+  damageEffect: {fileID: 3557494339481289917, guid: 4cd30ae57ee855c458d672a39871456c, type: 3}
   deathType: 0

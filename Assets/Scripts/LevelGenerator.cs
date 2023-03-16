@@ -7,7 +7,7 @@ public class LevelGenerator : MonoBehaviour
 {
     public int bottomPositionY = 7;
     public int levelLength = 12;
-    public int spread = 2;
+    public static int spread = 2;
     public GameObject[] enemyPrefabs;
 
     public static int campaignDifficulty = 0;
@@ -80,15 +80,15 @@ public class LevelGenerator : MonoBehaviour
 
     void SetLevelDensity(int reference)
     {
-        if(reference <= 10)
+        if(reference <= 30)
         {
             spread = 3;
         }
-        else if (reference > 10 && reference <= 30)
+        else if (reference > 30 && reference <= 50)
         {
             spread = 2;
         }
-        else if (reference > 30)
+        else if (reference > 50)
         {
             spread = 1;
         }
@@ -99,9 +99,28 @@ public class LevelGenerator : MonoBehaviour
         Enemy[] enemies = GameObject.FindObjectsOfType<Enemy>();
         foreach(Enemy enemy in enemies)
         {
-            if (enemy.gameObject.transform.position.y > 6 && enemy.gameObject.transform.position.y + y >= 6)
+            if (enemy.gameObject.transform.position.y > 6 && enemy.gameObject.transform.position.y + y >= 6 && LevelGenerator.spread > 1)
             {
-                enemy.gameObject.transform.Translate(Vector3.up * y);
+                float movementMultiplier = 1.0f;
+
+                if (y < 0)
+                {
+                    // If the position is low, move less.
+                    if (enemy.gameObject.transform.position.y + y < 8)
+                    {
+                        movementMultiplier *= 0.25f;
+                    }
+                    if (enemy.gameObject.transform.position.y + y < 12)
+                    {
+                        movementMultiplier *= 0.5f;
+                    }
+                    if (enemy.gameObject.transform.position.y + y < 24)
+                    {
+                        movementMultiplier *= 0.5f;
+                    }
+                }
+
+                enemy.gameObject.transform.Translate(Vector3.up * (y * movementMultiplier));
             }
         }
     }
