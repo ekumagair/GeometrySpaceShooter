@@ -9,16 +9,19 @@ public class LevelGenerator : MonoBehaviour
     public int levelLength = 12;
     public static int spread = 2;
     public GameObject[] enemyPrefabs;
+    public GameObject[] bossPrefabs;
 
     public static int campaignDifficulty = 0;
+    public static bool isBossStage = false;
 
     int prefabMin, prefabMax = 0;
 
     void Start()
     {
+        isBossStage = false;
         SetEnemyPrefabRange(campaignDifficulty);
-        SetLevelLength(campaignDifficulty);
         SetLevelDensity(campaignDifficulty);
+        SetLevelLength(campaignDifficulty);
 
         for (int i = 0; i < levelLength; i++)
         {
@@ -52,6 +55,21 @@ public class LevelGenerator : MonoBehaviour
                 }
             }
         }
+
+        // Create boss.
+        if(GameStats.level % 7 == 0 && GameStats.level > 1)
+        {
+            isBossStage = true;
+            int chosenBoss = (GameStats.level / 7) - 1;
+
+            if(chosenBoss > bossPrefabs.Length - 1)
+            {
+                chosenBoss = bossPrefabs.Length - 1;
+            }
+
+            DestroyAllEnemiesAboveY(16);
+            Instantiate(bossPrefabs[chosenBoss], new Vector3(0, 20, 0), transform.rotation);
+        }
     }
 
     void SetEnemyPrefabRange(int reference)
@@ -73,25 +91,25 @@ public class LevelGenerator : MonoBehaviour
         }
     }
 
-    void SetLevelLength(int reference)
-    {
-        levelLength = Mathf.Clamp((spread * 9) + (spread * Mathf.FloorToInt(reference / 1.1f)), 0, spread * 1000);
-    }
-
     void SetLevelDensity(int reference)
     {
-        if(reference <= 30)
+        if(reference <= 100)
         {
             spread = 3;
         }
-        else if (reference > 30 && reference <= 50)
+        else if (reference > 100 && reference <= 200)
         {
             spread = 2;
         }
-        else if (reference > 50)
+        else if (reference > 200)
         {
             spread = 1;
         }
+    }
+
+    void SetLevelLength(int reference)
+    {
+        levelLength = Mathf.Clamp((spread * 9) + (spread * Mathf.FloorToInt(reference / 1.1f)), 0, spread * 500);
     }
 
     public static void MoveEnemies(float y)
@@ -99,7 +117,7 @@ public class LevelGenerator : MonoBehaviour
         Enemy[] enemies = GameObject.FindObjectsOfType<Enemy>();
         foreach(Enemy enemy in enemies)
         {
-            if (enemy.gameObject.transform.position.y > 6 && enemy.gameObject.transform.position.y + y >= 6 && LevelGenerator.spread > 1)
+            if (enemy.gameObject.transform.position.y > 6 && enemy.gameObject.transform.position.y + y >= 6 && LevelGenerator.spread > 2 && enemy.canBeMovedY)
             {
                 float movementMultiplier = 1.0f;
 
@@ -121,6 +139,18 @@ public class LevelGenerator : MonoBehaviour
                 }
 
                 enemy.gameObject.transform.Translate(Vector3.up * (y * movementMultiplier));
+            }
+        }
+    }
+
+    public static void DestroyAllEnemiesAboveY(float y)
+    {
+        Enemy[] enemies = GameObject.FindObjectsOfType<Enemy>();
+        foreach (Enemy enemy in enemies)
+        {
+            if(enemy.transform.position.y > y)
+            {
+                Destroy(enemy.gameObject);
             }
         }
     }

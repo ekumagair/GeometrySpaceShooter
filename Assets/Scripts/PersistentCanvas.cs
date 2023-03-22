@@ -29,6 +29,11 @@ public class PersistentCanvas : MonoBehaviour
             {
                 GameStats.points *= GameStats.points;
             }
+            if (Input.GetKeyDown(KeyCode.V))
+            {
+                NextLevel();
+                GoToStartScene();
+            }
         }
     }
 
@@ -56,6 +61,7 @@ public class PersistentCanvas : MonoBehaviour
     {
         GameStats.level++;
         LevelGenerator.campaignDifficulty++;
+        LevelGenerator.isBossStage = false;
         GameStats.SaveStats();
     }
 

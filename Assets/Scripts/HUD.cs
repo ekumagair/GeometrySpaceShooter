@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.UI;
 
 public class HUD : MonoBehaviour
 {
@@ -12,11 +13,19 @@ public class HUD : MonoBehaviour
     public TMP_Text pointsThisLevelNumberLose;
     public GameObject windowVictory;
     public GameObject windowLose;
+    public Button pauseButton;
+    public GameObject pauseButtonSound;
+    public Sprite pauseButtonDefault;
+    public Sprite pauseButtonPressed;
+    public TMP_Text pauseText;
+
+    public static float previousTimeScale = 1.0f;
 
     bool createdWindow = false;
     PersistentCanvas persistentCanvas;
     Health statTargetHealth;
     GameObject player;
+    Image pauseButtonImage;
 
     void Start()
     {
@@ -25,7 +34,10 @@ public class HUD : MonoBehaviour
         windowVictory.SetActive(false);
         windowLose.SetActive(false);
         createdWindow = false;
+        previousTimeScale = 1.0f;
         player = GameObject.FindGameObjectWithTag("Player");
+        pauseButtonImage = pauseButton.gameObject.GetComponent<Image>();
+        pauseText.gameObject.SetActive(false);
 
         persistentCanvas.SetLevelText();
     }
@@ -38,6 +50,8 @@ public class HUD : MonoBehaviour
 
         if (createdWindow == false)
         {
+            pauseButton.gameObject.SetActive(true);
+
             if (Player.victory == true)
             {
                 windowVictory.SetActive(true);
@@ -52,6 +66,10 @@ public class HUD : MonoBehaviour
                 GameStats.SaveStats();
                 createdWindow = true;
             }
+        }
+        else
+        {
+            pauseButton.gameObject.SetActive(false);
         }
 
         if (Debug.isDebugBuild)
@@ -85,6 +103,28 @@ public class HUD : MonoBehaviour
             windowVictory.SetActive(false);
             windowLose.SetActive(false);
             createdWindow = false;
+        }
+    }
+
+    public void TogglePause()
+    {
+        if(pauseButtonSound != null)
+        {
+            Instantiate(pauseButtonSound, transform.position, transform.rotation);
+        }
+
+        if(Time.timeScale != 0.0f)
+        {
+            pauseText.gameObject.SetActive(true);
+            pauseButtonImage.sprite = pauseButtonPressed;
+            previousTimeScale = Time.timeScale;
+            Time.timeScale = 0.0f;
+        }
+        else
+        {
+            pauseText.gameObject.SetActive(false);
+            pauseButtonImage.sprite = pauseButtonDefault;
+            Time.timeScale = previousTimeScale;
         }
     }
 }

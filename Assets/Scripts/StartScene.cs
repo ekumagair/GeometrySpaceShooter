@@ -37,6 +37,7 @@ public class StartScene : MonoBehaviour
 
     void Start()
     {
+        Time.timeScale = 1.0f;
         persistentCanvas = GameObject.Find("PersistentCanvas").GetComponent<PersistentCanvas>();
         mainCamera = Camera.main;
         GameStats.currentLevelPoints = 0;
@@ -119,6 +120,11 @@ public class StartScene : MonoBehaviour
     public void GoToCredits()
     {
         mainCamera.transform.position = new Vector3(20, 0, mainCamera.transform.position.z);
+    }
+
+    public void GoToOptions()
+    {
+        mainCamera.transform.position = new Vector3(30, 0, mainCamera.transform.position.z);
     }
 
     public void ChangeUpgradePage(int increment)

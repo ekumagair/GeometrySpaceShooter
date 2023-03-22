@@ -8,6 +8,8 @@ public class Health : MonoBehaviour
     public int pointsOnDeath = 0;
     public float moveEnemiesOnDeath;
     public GameObject damageEffect;
+    public GameObject damageSound;
+    public GameObject deathParticles;
 
     public enum DeathType
     {
@@ -37,6 +39,10 @@ public class Health : MonoBehaviour
                 ifxSpriteRenderer.flipY = _sr.flipY;
             }
         }
+        if(damageSound != null)
+        {
+            Instantiate(damageSound, transform.position, transform.rotation);
+        }
 
         health -= amount;
 
@@ -61,6 +67,14 @@ public class Health : MonoBehaviour
         else if (moveEnemiesOnDeath < 0 && transform.position.y < -1)
         {
             LevelGenerator.MoveEnemies(moveEnemiesOnDeath * -2);
+        }
+
+        if(deathParticles != null)
+        {
+            var deathEffect = Instantiate(deathParticles, transform.position, transform.rotation);
+            deathEffect.transform.rotation = Quaternion.Euler(-90, 0, 0);
+            ParticleSystem.MainModule deathEffectMainModule = deathEffect.GetComponent<ParticleSystem>().main;
+            deathEffectMainModule.startColor = _sr.color;
         }
 
         switch (deathType)

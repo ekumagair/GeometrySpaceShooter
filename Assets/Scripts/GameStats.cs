@@ -33,6 +33,11 @@ public static class GameStats
         PlayerPrefs.SetFloat("player_projectile_speed", Player.projectileSpeedMultiplier);
         PlayerPrefs.SetInt("player_shoot_level", Player.shootLevel);
         PlayerPrefs.SetInt("player_projectile_damage", Player.projectileDamage);
+
+        PlayerPrefs.SetFloat("option_sfx", Options.soundVolume);
+        PlayerPrefs.SetFloat("option_music", Options.musicVolume);
+        PlayerPrefs.SetInt("option_trails", Options.projectileTrails);
+
         PlayerPrefs.Save();
         Debug.Log("Saved stats");
     }
@@ -48,6 +53,11 @@ public static class GameStats
         Player.projectileSpeedMultiplier = PlayerPrefs.GetFloat("player_projectile_speed");
         Player.shootLevel = PlayerPrefs.GetInt("player_shoot_level");
         Player.projectileDamage = PlayerPrefs.GetInt("player_projectile_damage");
+
+        Options.soundVolume = PlayerPrefs.GetFloat("option_sfx");
+        Options.musicVolume = PlayerPrefs.GetFloat("option_music");
+        Options.projectileTrails = PlayerPrefs.GetInt("option_trails");
+
         Debug.Log("Loaded stats");
         Debug.Log("Set player start health to " + PlayerPrefs.GetInt("player_start_hp"));
     }

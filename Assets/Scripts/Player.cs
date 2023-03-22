@@ -27,6 +27,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+        Time.timeScale = 1.0f;
         isDead = false;
         victory = false;
         detectedVictory = false;
@@ -111,7 +112,7 @@ public class Player : MonoBehaviour
 
             foreach (Background bg in bgs)
             {
-                bg.speed *= 4;
+                bg.speed *= 5;
             }
 
             detectedVictory = true;
@@ -128,7 +129,6 @@ public class Player : MonoBehaviour
         healthScript.health = startHealth;
         isDead = false;
         victory = false;
-        detectedVictory = false;
 
         StopAllCoroutines();
         StartCoroutine(Shoot());

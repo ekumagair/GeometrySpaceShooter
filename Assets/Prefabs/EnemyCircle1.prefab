@@ -155,6 +155,7 @@ MonoBehaviour:
   projectileDamage: 1
   outline: {fileID: 5345538799917735134}
   unavoidableExplosion: {fileID: 2475859108487741549, guid: 4d5fc9849c15eaa44aa67af7065e4584, type: 3}
+  warningBlipSound: {fileID: 4803644159576522076, guid: fabf9c5a37402994facd532672fd46d0, type: 3}
   attackType: 2
 --- !u!114 &6517342231039840153
 MonoBehaviour:

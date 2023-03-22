@@ -15,7 +15,7 @@ public class Background : MonoBehaviour
 
             if (transform.position.y <= -1 && looping)
             {
-                transform.position = Vector3.zero;
+                transform.position = new Vector3(0, 0, transform.position.z);
             }
         }
     }

@@ -24,6 +24,11 @@ public class Projectile : MonoBehaviour
         trail = GetComponentInChildren<ParticleSystem>();
         trailMainModule = trail.main;
         trailMainModule.startColor = spriteRenderer.color;
+
+        if(Options.projectileTrails == 0)
+        {
+            Destroy(trail.gameObject);
+        }
     }
 
     void Update()

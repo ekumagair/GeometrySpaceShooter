@@ -10,8 +10,13 @@ public class Enemy : MonoBehaviour
     public GameObject projectile;
     public float projectileSpeedMultiplier = 1.0f;
     public int projectileDamage = 1;
+    public float shootY = 6f;
+    public float stopY = -100f;
+    public bool canBeMovedY = true;
     public SpriteRenderer outline;
     public GameObject unavoidableExplosion;
+    public GameObject warningBlipSound;
+    public GameObject attackSound;
 
     SpriteRenderer spriteRenderer;
     GameObject player;
@@ -22,22 +27,34 @@ public class Enemy : MonoBehaviour
         ShootForward,
         ShootAtPlayer,
         SixShots,
-        ShootAtRandomAngle
+        ShootAtRandomAngle,
+        FiveShotsAtPlayer
     }
     public AttackType attackType;
+
+    // Enemy difficulties:
+    // 1 = Easy.
+    // 2 = Normal.
+    // 3 = Hard.
+    // 4 = Very hard.
+    // 5 = Ultra hard.
 
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         player = GameObject.FindGameObjectWithTag("Player");
-        outline.enabled = false;
         StartCoroutine(Attack());
         StartCoroutine(OutlineFlash());
+
+        if (outline != null)
+        {
+            outline.enabled = false;
+        }
     }
 
     void Update()
     {
-        if (Player.isDead == false)
+        if (Player.isDead == false && transform.position.y > stopY)
         {
             transform.Translate(-transform.up * moveYSpeed * Time.deltaTime);
         }
@@ -47,7 +64,7 @@ public class Enemy : MonoBehaviour
     {
         yield return new WaitForSeconds(firingSpeed);
 
-        if (transform.position.y < 6f && Player.isDead == false)
+        if (transform.position.y < shootY && Player.isDead == false)
         {
             switch (attackType)
             {
@@ -75,8 +92,21 @@ public class Enemy : MonoBehaviour
                     Combat.CreateShot(projectile, transform, Random.Range(-90f, 90f), gameObject, spriteRenderer.color, projectileSpeedMultiplier, projectileDamage);
                     break;
 
+                case AttackType.FiveShotsAtPlayer:
+                    Combat.CreateShot(projectile, transform, Combat.AimDirection(player.transform, transform) / 2 + 4f, gameObject, spriteRenderer.color, -projectileSpeedMultiplier, projectileDamage);
+                    Combat.CreateShot(projectile, transform, Combat.AimDirection(player.transform, transform) / 2 + 2f, gameObject, spriteRenderer.color, -projectileSpeedMultiplier, projectileDamage);
+                    Combat.CreateShot(projectile, transform, Combat.AimDirection(player.transform, transform) / 2, gameObject, spriteRenderer.color, -projectileSpeedMultiplier, projectileDamage);
+                    Combat.CreateShot(projectile, transform, Combat.AimDirection(player.transform, transform) / 2 - 2f, gameObject, spriteRenderer.color, -projectileSpeedMultiplier, projectileDamage);
+                    Combat.CreateShot(projectile, transform, Combat.AimDirection(player.transform, transform) / 2 - 4f, gameObject, spriteRenderer.color, -projectileSpeedMultiplier, projectileDamage);
+                    break;
+
                 default:
                     break;
+            }
+
+            if (attackSound != null)
+            {
+                Instantiate(attackSound, transform.position, transform.rotation);
             }
         }
         else
@@ -89,11 +119,16 @@ public class Enemy : MonoBehaviour
 
     IEnumerator OutlineFlash()
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.15f);
 
-        if(transform.position.y < -3)
+        if(transform.position.y < -3 && outline != null)
         {
             outline.enabled = !outline.enabled;
+
+            if (warningBlipSound != null)
+            {
+                Instantiate(warningBlipSound, transform.position, transform.rotation);
+            }
         }
         if(transform.position.y < -5)
         {
