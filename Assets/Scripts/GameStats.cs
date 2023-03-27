@@ -37,6 +37,7 @@ public static class GameStats
         PlayerPrefs.SetFloat("option_sfx", Options.soundVolume);
         PlayerPrefs.SetFloat("option_music", Options.musicVolume);
         PlayerPrefs.SetInt("option_trails", Options.projectileTrails);
+        PlayerPrefs.SetInt("option_impacts", Options.projectileImpacts);
 
         PlayerPrefs.Save();
         Debug.Log("Saved stats");
@@ -57,6 +58,7 @@ public static class GameStats
         Options.soundVolume = PlayerPrefs.GetFloat("option_sfx");
         Options.musicVolume = PlayerPrefs.GetFloat("option_music");
         Options.projectileTrails = PlayerPrefs.GetInt("option_trails");
+        Options.projectileImpacts = PlayerPrefs.GetInt("option_impacts");
 
         Debug.Log("Loaded stats");
         Debug.Log("Set player start health to " + PlayerPrefs.GetInt("player_start_hp"));

@@ -50,7 +50,7 @@ public class Player : MonoBehaviour
         }
         if(Input.touchCount > 0)
         {
-            targetPosition = Input.GetTouch(0).position;
+            targetPosition = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
         }
 
         // Prevent player from going outside of the screen.

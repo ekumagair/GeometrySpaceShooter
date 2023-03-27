@@ -16,9 +16,9 @@ public class FadeAwayEffect : MonoBehaviour
     void Update()
     {
         _sr.color = new Color(_sr.color.r, _sr.color.g, _sr.color.b, alpha);
-        alpha -= 0.0075f;
+        alpha -= 7.5f * Time.deltaTime;
 
-        transform.localScale *= 1.0025f;
+        transform.localScale *= 1.005f;
 
         if(alpha <= 0f)
         {

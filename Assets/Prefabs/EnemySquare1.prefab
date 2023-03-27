@@ -153,9 +153,13 @@ MonoBehaviour:
   projectile: {fileID: 4132169524799448920, guid: 60b54fb045102994c977aec271d96d56, type: 3}
   projectileSpeedMultiplier: 0.75
   projectileDamage: 1
+  shootY: 6
+  stopY: -100
+  canBeMovedY: 1
   outline: {fileID: 745849175171445360}
   unavoidableExplosion: {fileID: 2475859108487741549, guid: 4d5fc9849c15eaa44aa67af7065e4584, type: 3}
   warningBlipSound: {fileID: 4803644159576522076, guid: fabf9c5a37402994facd532672fd46d0, type: 3}
+  attackSound: {fileID: 0}
   attackType: 0
 --- !u!114 &3182152719088013380
 MonoBehaviour:
@@ -173,6 +177,10 @@ MonoBehaviour:
   pointsOnDeath: 20
   moveEnemiesOnDeath: -2
   damageEffect: {fileID: 3557494339481289917, guid: 5d94927cf60e7624a919c86da5f80c3b, type: 3}
+  damageSound: {fileID: 0}
+  deathParticles: {fileID: 0}
+  createDamageChangeText: 0
+  createDeathChangeText: 1
   deathType: 0
 --- !u!1 &6864443763173301191
 GameObject:

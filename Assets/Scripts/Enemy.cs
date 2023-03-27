@@ -38,6 +38,7 @@ public class Enemy : MonoBehaviour
     // 3 = Hard.
     // 4 = Very hard.
     // 5 = Ultra hard.
+    // 6 = Extreme.
 
     void Start()
     {
@@ -125,7 +126,7 @@ public class Enemy : MonoBehaviour
         {
             outline.enabled = !outline.enabled;
 
-            if (warningBlipSound != null)
+            if (warningBlipSound != null && Player.isDead == false && Player.victory == false)
             {
                 Instantiate(warningBlipSound, transform.position, transform.rotation);
             }

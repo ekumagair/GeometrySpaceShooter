@@ -7,11 +7,14 @@ using TMPro;
 
 public class StartScene : MonoBehaviour
 {
+    public GameObject[] canvases;
+    public GameObject startObjects;
     public GameObject[] upgradePages;
     public int currentUpgradePage = 0;
     public Button upgradePreviousButton;
     public Button upgradeNextButton;
     public TMP_Text upgradePageText;
+    public TMP_Text versionText;
 
     public static bool goToUpgrades = false;
     PersistentCanvas persistentCanvas;
@@ -53,6 +56,15 @@ public class StartScene : MonoBehaviour
             GoToUpgrades();
             persistentCanvas.CreateButtonSound();
             goToUpgrades = false;
+        }
+        else
+        {
+            GoToStart();
+        }
+
+        if(versionText != null)
+        {
+            versionText.text = "v" + Application.version.ToString();
         }
 
         persistentCanvas.SetLevelText();
@@ -107,24 +119,55 @@ public class StartScene : MonoBehaviour
         SceneManager.LoadScene("GameScene");
     }
 
+    void ChooseOneCanvas(int c)
+    {
+        for (int i = 0; i < canvases.Length; i++)
+        {
+            if(i == c)
+            {
+                canvases[i].gameObject.SetActive(true);
+            }
+            else
+            {
+                canvases[i].gameObject.SetActive(false);
+            }
+        }
+
+        if (startObjects != null)
+        {
+            if (c == 0)
+            {
+                startObjects.SetActive(true);
+            }
+            else
+            {
+                startObjects.SetActive(false);
+            }
+        }
+    }
+
     public void GoToStart()
     {
-        mainCamera.transform.position = new Vector3(0, 0, mainCamera.transform.position.z);
+        //mainCamera.transform.position = new Vector3(0, 0, mainCamera.transform.position.z);
+        ChooseOneCanvas(0);
     }
 
     public void GoToUpgrades()
     {
-        mainCamera.transform.position = new Vector3(10, 0, mainCamera.transform.position.z);
+        //mainCamera.transform.position = new Vector3(10, 0, mainCamera.transform.position.z);
+        ChooseOneCanvas(1);
     }
 
     public void GoToCredits()
     {
-        mainCamera.transform.position = new Vector3(20, 0, mainCamera.transform.position.z);
+        //mainCamera.transform.position = new Vector3(20, 0, mainCamera.transform.position.z);
+        ChooseOneCanvas(2);
     }
 
     public void GoToOptions()
     {
-        mainCamera.transform.position = new Vector3(30, 0, mainCamera.transform.position.z);
+        //mainCamera.transform.position = new Vector3(30, 0, mainCamera.transform.position.z);
+        ChooseOneCanvas(3);
     }
 
     public void ChangeUpgradePage(int increment)

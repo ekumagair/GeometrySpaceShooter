@@ -10,7 +10,8 @@ public class Checkbox : MonoBehaviour
 
     public enum Value
     {
-        ProjectileTrails
+        ProjectileTrails,
+        ProjectileImpacts
     }
     public Value value;
 
@@ -20,6 +21,10 @@ public class Checkbox : MonoBehaviour
         {
             case Value.ProjectileTrails:
                 checkImage.enabled = IntToBool(Options.projectileTrails);
+                break;
+
+            case Value.ProjectileImpacts:
+                checkImage.enabled = IntToBool(Options.projectileImpacts);
                 break;
 
             default:

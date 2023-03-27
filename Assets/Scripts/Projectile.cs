@@ -46,7 +46,7 @@ public class Projectile : MonoBehaviour
             {
                 hitHealth.TakeDamage(damage);
 
-                if (impactEffect != null)
+                if (impactEffect != null && Options.projectileImpacts == 1)
                 {
                     var effect = Instantiate(impactEffect, transform.position, transform.rotation);
                     ParticleSystem.MainModule effectMainModule = effect.GetComponent<ParticleSystem>().main;

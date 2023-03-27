@@ -52,7 +52,7 @@ Canvas:
   m_GameObject: {fileID: 4083968495855275539}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 2
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -76,12 +76,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -118,6 +118,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pointsNumber: {fileID: 4083968496704870538}
   soundButton: {fileID: 4803644159576522076, guid: 0f8f1ebc80d3ac9488fd3407a711dad6, type: 3}
+  numberChangeEffect: {fileID: 512185723668498091, guid: 0ec4ecad28cbd354b99a81f2655c0ed0, type: 3}
   levelText: {fileID: 0}
 --- !u!114 &3290675473484974860
 MonoBehaviour:

@@ -8,6 +8,7 @@ public class PersistentCanvas : MonoBehaviour
 {
     public TMP_Text pointsNumber;
     public GameObject soundButton;
+    public GameObject numberChangeEffect;
     public TMP_Text levelText;
 
     void Update()
@@ -48,6 +49,15 @@ public class PersistentCanvas : MonoBehaviour
     public void CreateButtonSound()
     {
         Instantiate(soundButton, transform.position, transform.rotation);
+    }
+
+    public void CreateNumberChangeEffect(Vector3 pos, string textString, Color textColor, float speedYMultiplier)
+    {
+        GameObject nc = Instantiate(numberChangeEffect, pos, transform.rotation, transform);
+        nc.GetComponent<TMP_Text>().text = textString;
+        nc.GetComponent<TMP_Text>().color = textColor;
+        nc.GetComponent<NumberChangeText>().moveYSpeed *= speedYMultiplier;
+        nc.GetComponent<RectTransform>().anchoredPosition = pos;
     }
 
     public void MultiplyCurrentScoreBy2()

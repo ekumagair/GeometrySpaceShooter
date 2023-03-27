@@ -27,21 +27,30 @@ public class Upgrade : MonoBehaviour
     }
     public UpgradeType upgradeType;
 
+    PersistentCanvas persistentCanvas;
+
+    void Start()
+    {
+        persistentCanvas = GameObject.Find("PersistentCanvas").GetComponent<PersistentCanvas>();
+    }
+
     void Update()
     {
         priceDisplay.text = price.ToString();
 
         if(GameStats.points < price)
         {
+            // If you don't have enough points, disable buy button and enable ad button.
             buyButton.interactable = false;
 
-            if (adButton != null)
+            if (adButton != null && Debug.isDebugBuild == false)
             {
                 adButton.interactable = true;
             }
         }
         else
         {
+            // If you have enough points, enable buy button and disable ad button.
             buyButton.interactable = true;
 
             if (adButton != null)
@@ -122,8 +131,13 @@ public class Upgrade : MonoBehaviour
         if (spendPoints)
         {
             GameStats.points -= price;
-        }
 
+            if (persistentCanvas != null && price > 0)
+            {
+                persistentCanvas.CreateNumberChangeEffect(new Vector3(-110, 250, 0), "-" + price.ToString(), new Color(1f, 0.5f, 0.5f), -0.25f);
+            }
+        }
+        
         price = Mathf.RoundToInt(price * priceMultiplier);
 
         // Price limit (6 digits).

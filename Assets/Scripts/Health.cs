@@ -10,6 +10,8 @@ public class Health : MonoBehaviour
     public GameObject damageEffect;
     public GameObject damageSound;
     public GameObject deathParticles;
+    public bool createDamageChangeText = false;
+    public bool createDeathChangeText = true;
 
     public enum DeathType
     {
@@ -19,10 +21,12 @@ public class Health : MonoBehaviour
     public DeathType deathType;
 
     SpriteRenderer _sr;
+    PersistentCanvas persistentCanvas;
 
     void Start()
     {
         _sr = GetComponent<SpriteRenderer>();
+        persistentCanvas = GameObject.Find("PersistentCanvas").GetComponent<PersistentCanvas>();
     }
 
     public void TakeDamage(int amount)
@@ -42,6 +46,10 @@ public class Health : MonoBehaviour
         if(damageSound != null)
         {
             Instantiate(damageSound, transform.position, transform.rotation);
+        }
+        if (persistentCanvas != null && createDamageChangeText == true)
+        {
+            persistentCanvas.CreateNumberChangeEffect(new Vector3(120, -220, 0), "-" + amount.ToString(), new Color(1f, 0.5f, 0.5f), 1);
         }
 
         health -= amount;
@@ -75,6 +83,10 @@ public class Health : MonoBehaviour
             deathEffect.transform.rotation = Quaternion.Euler(-90, 0, 0);
             ParticleSystem.MainModule deathEffectMainModule = deathEffect.GetComponent<ParticleSystem>().main;
             deathEffectMainModule.startColor = _sr.color;
+        }
+        if(persistentCanvas != null && pointsOnDeath != 0 && createDeathChangeText == true)
+        {
+            persistentCanvas.CreateNumberChangeEffect(new Vector3(-110, 250, 0), "+" + pointsOnDeath.ToString(), Color.white, -0.25f);
         }
 
         switch (deathType)

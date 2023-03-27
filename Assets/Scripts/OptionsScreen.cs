@@ -55,4 +55,17 @@ public class OptionsScreen : MonoBehaviour
         }
         GameStats.SaveStats();
     }
+
+    public void SetProjectileImpacts()
+    {
+        if (Options.projectileImpacts == 0)
+        {
+            Options.projectileImpacts = 1;
+        }
+        else
+        {
+            Options.projectileImpacts = 0;
+        }
+        GameStats.SaveStats();
+    }
 }

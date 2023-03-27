@@ -200,6 +200,8 @@ MonoBehaviour:
   damageEffect: {fileID: 0}
   damageSound: {fileID: 4803644159576522076, guid: 6838dc3bc32032e41ae20ed954469643, type: 3}
   deathParticles: {fileID: 4635442805280748183, guid: 7c84d391acd364740a22c2540b238d8d, type: 3}
+  createDamageChangeText: 0
+  createDeathChangeText: 1
   deathType: 0
 --- !u!1 &811117972281564551
 GameObject:
