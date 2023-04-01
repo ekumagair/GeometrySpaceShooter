@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5be51871efa6c3e4eae1703925c8f5ac, type: 3}
+  m_Name: Upgrades
+  m_EditorClassIdentifier: 
+  m_SharedTableData: {fileID: 11400000, guid: 02b2ce084ac8cc544b7339fde2618788, type: 2}
+  m_Tables:
+  - {fileID: 11400000, guid: 87d3c065c3fc3e24ab08d6895c6e3612, type: 2}
+  - {fileID: 11400000, guid: 6c9b2b2b372cd024f862eddca4c28f42, type: 2}
+  m_Extensions: []
+  m_Group: String Table
+  references:
+    version: 2
+    RefIds: []

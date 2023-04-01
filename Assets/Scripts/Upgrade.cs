@@ -43,7 +43,7 @@ public class Upgrade : MonoBehaviour
             // If you don't have enough points, disable buy button and enable ad button.
             buyButton.interactable = false;
 
-            if (adButton != null && Debug.isDebugBuild == false)
+            if (adButton != null && GameStats.enableAds == true)
             {
                 adButton.interactable = true;
             }
@@ -134,7 +134,7 @@ public class Upgrade : MonoBehaviour
 
             if (persistentCanvas != null && price > 0)
             {
-                persistentCanvas.CreateNumberChangeEffect(new Vector3(-110, 250, 0), "-" + price.ToString(), new Color(1f, 0.5f, 0.5f), -0.25f);
+                persistentCanvas.CreateNumberChangeEffect(new Vector3(-110, 250, 0), "-" + price.ToString(), new Color(1f, 0.5f, 0.5f), -0.5f);
             }
         }
         

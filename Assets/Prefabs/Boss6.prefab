@@ -13,11 +13,19 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: dbb79e3d47ade4749bda769a04b474f0, type: 2}
     - target: {fileID: 9075472749722388481, guid: f1a89aa41c374ef498ac5c8311eeb949, type: 3}
       propertyPath: health
-      value: 1280
+      value: 1600
       objectReference: {fileID: 0}
     - target: {fileID: 9075472749722388481, guid: f1a89aa41c374ef498ac5c8311eeb949, type: 3}
       propertyPath: pointsOnDeath
-      value: 3000
+      value: 5500
+      objectReference: {fileID: 0}
+    - target: {fileID: 9075472749722388482, guid: f1a89aa41c374ef498ac5c8311eeb949, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9075472749722388482, guid: f1a89aa41c374ef498ac5c8311eeb949, type: 3}
+      propertyPath: m_Color.g
+      value: 0.15686275
       objectReference: {fileID: 0}
     - target: {fileID: 9075472749722388483, guid: f1a89aa41c374ef498ac5c8311eeb949, type: 3}
       propertyPath: firingSpeed

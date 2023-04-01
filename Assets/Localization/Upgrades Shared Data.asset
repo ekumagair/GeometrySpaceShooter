@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: Upgrades Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: Upgrades
+  m_TableCollectionNameGuidString: 02b2ce084ac8cc544b7339fde2618788
+  m_Entries:
+  - m_Id: 6603603968
+    m_Key: upgrade_shoot_speed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 398464843776
+    m_Key: upgrade_hp
+    m_Metadata:
+      m_Items: []
+  - m_Id: 534339321856
+    m_Key: upgrade_projectile_speed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 837587501056
+    m_Key: upgrade_damage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 975068397568
+    m_Key: upgrade_shoot_level
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1196544425984
+    m_Key: upgrade_move_speed
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 4408134089919954950
+  references:
+    version: 2
+    RefIds:
+    - rid: 4408134089919954950
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1680059437729

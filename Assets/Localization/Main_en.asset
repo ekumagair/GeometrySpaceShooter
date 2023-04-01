@@ -1,0 +1,89 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Main_en
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: f97efcf57887557498dc591c4e5f0a13, type: 2}
+  m_Metadata:
+    m_Items:
+    - rid: 4408134089919954946
+  m_TableData:
+  - m_Id: 45782597632
+    m_Localized: Tap here to play
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2247280492544
+    m_Localized: Upgrades
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2287071854592
+    m_Localized: Credits
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2337839710208
+    m_Localized: Options
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3673276743680
+    m_Localized: Level {levelNumber}
+    m_Metadata:
+      m_Items:
+      - rid: 4408134089919954946
+  - m_Id: 20013068779520
+    m_Localized: Touch the screen to move and shoot
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21630170103808
+    m_Localized: Paused
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21806112768000
+    m_Localized: VICTORY!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21997507248128
+    m_Localized: Use the points you earned to buy upgrades!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22386210177024
+    m_Localized: Continue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22623054135296
+    m_Localized: Revive
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23080812085248
+    m_Localized: Restart
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23299171745792
+    m_Localized: You lost!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23807932432384
+    m_Localized: Back
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23925020622848
+    m_Localized: Page
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 4408134089919954946
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 00005b4057030000

@@ -18,6 +18,7 @@ public class HUD : MonoBehaviour
     public Sprite pauseButtonDefault;
     public Sprite pauseButtonPressed;
     public TMP_Text pauseText;
+    public TMP_Text basicInstructions;
 
     public static float previousTimeScale = 1.0f;
 
@@ -38,8 +39,6 @@ public class HUD : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         pauseButtonImage = pauseButton.gameObject.GetComponent<Image>();
         pauseText.gameObject.SetActive(false);
-
-        persistentCanvas.SetLevelText();
     }
 
     void Update()
@@ -66,18 +65,27 @@ public class HUD : MonoBehaviour
                 GameStats.SaveStats();
                 createdWindow = true;
             }
+
+            if(GameStats.level <= 2 && Player.hasInput == false && Time.timeScale != 0.0f)
+            {
+                basicInstructions.enabled = true;
+            }
+            else
+            {
+                basicInstructions.enabled = false;
+            }
         }
         else
         {
             pauseButton.gameObject.SetActive(false);
+            basicInstructions.enabled = false;
         }
 
         if (Debug.isDebugBuild)
         {
             if (Input.GetKeyDown(KeyCode.R))
             {
-                statTarget.SetActive(true);
-                statTarget.GetComponent<Player>().InitializePlayer();
+                RevivePlayer();
             }
             if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
@@ -99,7 +107,7 @@ public class HUD : MonoBehaviour
         if (player != null)
         {
             player.SetActive(true);
-            player.GetComponent<Player>().InitializePlayer();
+            player.GetComponent<Player>().InitializePlayer(5);
             windowVictory.SetActive(false);
             windowLose.SetActive(false);
             createdWindow = false;

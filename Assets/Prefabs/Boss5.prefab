@@ -77,11 +77,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 494704904219344350, guid: ec1a4c9544b361c4aa51584cbcccae45, type: 3}
       propertyPath: health
-      value: 640
+      value: 800
       objectReference: {fileID: 0}
     - target: {fileID: 494704904219344350, guid: ec1a4c9544b361c4aa51584cbcccae45, type: 3}
       propertyPath: pointsOnDeath
-      value: 2500
+      value: 4500
       objectReference: {fileID: 0}
     - target: {fileID: 1171313102821047378, guid: ec1a4c9544b361c4aa51584cbcccae45, type: 3}
       propertyPath: m_Materials.Array.data[0]

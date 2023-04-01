@@ -12,6 +12,7 @@ public class Health : MonoBehaviour
     public GameObject deathParticles;
     public bool createDamageChangeText = false;
     public bool createDeathChangeText = true;
+    public bool invincible = false;
 
     public enum DeathType
     {
@@ -27,6 +28,7 @@ public class Health : MonoBehaviour
     {
         _sr = GetComponent<SpriteRenderer>();
         persistentCanvas = GameObject.Find("PersistentCanvas").GetComponent<PersistentCanvas>();
+        invincible = false;
     }
 
     public void TakeDamage(int amount)
@@ -67,6 +69,7 @@ public class Health : MonoBehaviour
     public void Die()
     {
         GameStats.AddPoints(pointsOnDeath);
+        invincible = false;
 
         if ((moveEnemiesOnDeath < 0 && transform.position.y > 3) || moveEnemiesOnDeath > 0)
         {
@@ -86,7 +89,7 @@ public class Health : MonoBehaviour
         }
         if(persistentCanvas != null && pointsOnDeath != 0 && createDeathChangeText == true)
         {
-            persistentCanvas.CreateNumberChangeEffect(new Vector3(-110, 250, 0), "+" + pointsOnDeath.ToString(), Color.white, -0.25f);
+            persistentCanvas.CreateNumberChangeEffect(new Vector3(-110, 250, 0), "+" + pointsOnDeath.ToString(), Color.white, -0.5f);
         }
 
         switch (deathType)
@@ -106,5 +109,14 @@ public class Health : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    public IEnumerator Invincibility(float time)
+    {
+        invincible = true;
+
+        yield return new WaitForSeconds(time);
+
+        invincible = false;
     }
 }

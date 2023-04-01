@@ -39,6 +39,7 @@ public class Enemy : MonoBehaviour
     // 4 = Very hard.
     // 5 = Ultra hard.
     // 6 = Extreme.
+    // 7 = Ultra extreme.
 
     void Start()
     {

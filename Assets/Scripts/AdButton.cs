@@ -13,7 +13,7 @@ public class AdButton : MonoBehaviour
     {
         button = GetComponent<Button>();
 
-        if (Debug.isDebugBuild == true)
+        if (GameStats.enableAds == false)
         {
             button.interactable = false;
         }

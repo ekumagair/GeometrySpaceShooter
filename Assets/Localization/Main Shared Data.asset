@@ -1,0 +1,88 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: Main Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: Main
+  m_TableCollectionNameGuidString: f97efcf57887557498dc591c4e5f0a13
+  m_Entries:
+  - m_Id: 45782597632
+    m_Key: tap_to_play
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20013068779520
+    m_Key: touch_to_move_shoot
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2247280492544
+    m_Key: upgrades
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2287071854592
+    m_Key: credits
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2337839710208
+    m_Key: options
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3673276743680
+    m_Key: level
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21630170103808
+    m_Key: paused
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21806112768000
+    m_Key: victory
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23299171745792
+    m_Key: defeat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21997507248128
+    m_Key: use_points_to_buy_upgrades
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22386210177024
+    m_Key: continue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22623054135296
+    m_Key: revive
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23080812085248
+    m_Key: restart
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23807932432384
+    m_Key: back
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23925020622848
+    m_Key: page
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 4408134089001926680
+  references:
+    version: 2
+    RefIds:
+    - rid: 4408134089001926680
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1680053622832

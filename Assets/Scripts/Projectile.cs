@@ -44,20 +44,23 @@ public class Projectile : MonoBehaviour
 
             if (hitHealth != null)
             {
-                hitHealth.TakeDamage(damage);
-
-                if (impactEffect != null && Options.projectileImpacts == 1)
+                if (hitHealth.invincible == false)
                 {
-                    var effect = Instantiate(impactEffect, transform.position, transform.rotation);
-                    ParticleSystem.MainModule effectMainModule = effect.GetComponent<ParticleSystem>().main;
-                    effectMainModule.startColor = spriteRenderer.color;
-                }
-                if(impactSound != null)
-                {
-                    Instantiate(impactSound, transform.position, transform.rotation);
-                }
+                    hitHealth.TakeDamage(damage);
 
-                Destroy(gameObject);
+                    if (impactEffect != null && Options.projectileImpacts == 1)
+                    {
+                        var effect = Instantiate(impactEffect, transform.position, transform.rotation);
+                        ParticleSystem.MainModule effectMainModule = effect.GetComponent<ParticleSystem>().main;
+                        effectMainModule.startColor = spriteRenderer.color;
+                    }
+                    if (impactSound != null)
+                    {
+                        Instantiate(impactSound, transform.position, transform.rotation);
+                    }
+
+                    Destroy(gameObject);
+                }
             }
         }
     }

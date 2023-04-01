@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     public GameObject projectile;
     public GameObject finishLine;
     public bool ignoreInput = false;
+    public SpriteRenderer highlightSprite;
 
     public static int startHealth = 2;
     public static float firingSpeedDivider = 1.0f;
@@ -19,7 +20,7 @@ public class Player : MonoBehaviour
     public static bool isDead = false;
     public static bool victory = false;
 
-    bool hasInput = false;
+    public static bool hasInput = false;
     bool detectedVictory = false;
     Vector2 targetPosition;
     SpriteRenderer spriteRenderer;
@@ -32,12 +33,18 @@ public class Player : MonoBehaviour
         victory = false;
         detectedVictory = false;
         GameStats.currentLevelPoints = 0;
-        InitializePlayer();
+        InitializePlayer(0);
 
         // Fail-safe. Don't let the player do 0 or negative damage.
         if(projectileDamage < 1)
         {
             projectileDamage = 1;
+        }
+
+        // Hide highlight sprite if is ignoring input.
+        if(highlightSprite != null && ignoreInput == true)
+        {
+            highlightSprite.enabled = false;
         }
     }
 
@@ -66,9 +73,22 @@ public class Player : MonoBehaviour
         }
 
         // Move towards input.
-        if (hasInput && ignoreInput == false)
+        if (hasInput == true && ignoreInput == false)
         {
             transform.position = Vector2.MoveTowards(transform.position, targetPosition, Time.deltaTime * moveSpeed * moveSpeedMultiplier);
+        }
+
+        // Show or hide highlight sprite.
+        if(highlightSprite != null)
+        {
+            if (ignoreInput == false && victory == false && isDead == false && Time.timeScale != 0.0f)
+            {
+                highlightSprite.enabled = hasInput;
+            }
+            else
+            {
+                highlightSprite.enabled = false;
+            }
         }
 
         // Debug.
@@ -121,7 +141,7 @@ public class Player : MonoBehaviour
         StartCoroutine(Shoot());
     }
 
-    public void InitializePlayer()
+    public void InitializePlayer(float invincibilityTime)
     {
         targetPosition = transform.position;
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -133,6 +153,11 @@ public class Player : MonoBehaviour
         StopAllCoroutines();
         StartCoroutine(Shoot());
         GameStats.SaveStats();
+
+        if(invincibilityTime > 0)
+        {
+            StartCoroutine(healthScript.Invincibility(invincibilityTime));
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

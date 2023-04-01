@@ -66,8 +66,6 @@ public class StartScene : MonoBehaviour
         {
             versionText.text = "v" + Application.version.ToString();
         }
-
-        persistentCanvas.SetLevelText();
     }
 
     void Update()
@@ -104,7 +102,7 @@ public class StartScene : MonoBehaviour
 
         upgradePageText.text = (currentUpgradePage + 1).ToString() + "/" + upgradePages.Length.ToString();
 
-        if(Debug.isDebugBuild)
+        if (Debug.isDebugBuild)
         {
             if(Input.GetKeyDown(KeyCode.Delete))
             {

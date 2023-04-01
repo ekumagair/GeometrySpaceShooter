@@ -9,6 +9,8 @@ public static class GameStats
     public static int currentLevelPoints = 0;
     public static bool multipliedCurrentScore = false;
 
+    public static bool enableAds = true;
+
     public static void AddPoints(int p)
     {
         points += p;

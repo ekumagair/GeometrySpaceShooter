@@ -38,14 +38,6 @@ public class PersistentCanvas : MonoBehaviour
         }
     }
 
-    public void SetLevelText()
-    {
-        if (levelText != null)
-        {
-            levelText.text += " " + GameStats.level.ToString();
-        }
-    }
-
     public void CreateButtonSound()
     {
         Instantiate(soundButton, transform.position, transform.rotation);
