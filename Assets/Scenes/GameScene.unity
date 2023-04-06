@@ -752,7 +752,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 43.5, y: 53.5}
+  m_AnchoredPosition: {x: 43.5, y: 100}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &427766121
@@ -862,6 +862,7 @@ GameObject:
   - component: {fileID: 455587550}
   - component: {fileID: 455587549}
   - component: {fileID: 455587552}
+  - component: {fileID: 455587553}
   m_Layer: 5
   m_Name: MultiplyButton
   m_TagString: Untagged
@@ -948,9 +949,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1910363773}
-        m_TargetAssemblyTypeName: PersistentCanvas, Assembly-CSharp
-        m_MethodName: MultiplyCurrentScoreBy2
+      - m_Target: {fileID: 455587553}
+        m_TargetAssemblyTypeName: AdRewardedManager, Assembly-CSharp
+        m_MethodName: ShowAd
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1011,6 +1012,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destroyIfMultipliedScore: 1
+--- !u!114 &455587553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 455587547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89b33c8732ca8344cad52b3196c4d7d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _androidAdUnitId: Rewarded_Android
+  _iOSAdUnitId: Rewarded_iOS
+  upgradeScript: {fileID: 0}
+  persistentCanvasScript: {fileID: 1910363773}
+  hudScript: {fileID: 0}
 --- !u!1 &459219063
 GameObject:
   m_ObjectHideFlags: 0
@@ -1663,8 +1681,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 657700948}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.25, z: 9}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 8, z: 9}
+  m_LocalScale: {x: 1, y: 2.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1683,7 +1701,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -3.2898462}
+  m_Offset: {x: 0, y: -4.459739}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -1694,7 +1712,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 6, y: 4.0869756}
+  m_Size: {x: 6, y: 1.7210815}
   m_EdgeRadius: 0
 --- !u!50 &657700952
 Rigidbody2D:
@@ -2275,6 +2293,7 @@ GameObject:
   - component: {fileID: 895010414}
   - component: {fileID: 895010413}
   - component: {fileID: 895010412}
+  - component: {fileID: 895010416}
   m_Layer: 5
   m_Name: ReviveButton
   m_TagString: Untagged
@@ -2373,9 +2392,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1904484757}
-        m_TargetAssemblyTypeName: HUD, Assembly-CSharp
-        m_MethodName: RevivePlayer
+      - m_Target: {fileID: 895010416}
+        m_TargetAssemblyTypeName: AdRewardedManager, Assembly-CSharp
+        m_MethodName: ShowAd
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2423,6 +2442,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 895010410}
   m_CullTransparentMesh: 1
+--- !u!114 &895010416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 895010410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89b33c8732ca8344cad52b3196c4d7d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _androidAdUnitId: Rewarded_Android
+  _iOSAdUnitId: Rewarded_iOS
+  upgradeScript: {fileID: 0}
+  persistentCanvasScript: {fileID: 0}
+  hudScript: {fileID: 1904484757}
 --- !u!1 &896467481
 GameObject:
   m_ObjectHideFlags: 0
@@ -4097,7 +4133,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -43.5, y: 53.5}
+  m_AnchoredPosition: {x: -43.5, y: 100}
   m_SizeDelta: {x: 60, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1470479615
@@ -4278,6 +4314,84 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1608528581}
   m_CullTransparentMesh: 1
+--- !u!1 &1625710481
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1625710485}
+  - component: {fileID: 1625710484}
+  - component: {fileID: 1625710483}
+  - component: {fileID: 1625710482}
+  m_Layer: 0
+  m_Name: AdsManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1625710482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1625710481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8a8d77683783404eb9cee1790db49c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _androidAdUnitId: Interstitial_Android
+  _iOSAdUnitId: Interstitial_iOS
+--- !u!114 &1625710483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1625710481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f677bb1851e0f048b38a094ed2a0500, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bannerPosition: 4
+  _androidAdUnitId: Banner_Android
+  _iOSAdUnitId: Banner_iOS
+--- !u!114 &1625710484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1625710481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3b506987d7fbf441aa7cb36bc7b5b1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _androidGameId: 5229564
+  _iOSGameId: 5229565
+  _testMode: 1
+--- !u!4 &1625710485
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1625710481}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1679676543
 GameObject:
   m_ObjectHideFlags: 0
@@ -5566,6 +5680,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 2298314177360436753, guid: 1c34d6eb9c5a5cd47b7606832751e61b, type: 3}
+      propertyPath: adInterstitial
+      value: 
+      objectReference: {fileID: 1625710482}
     - target: {fileID: 2298314177360436755, guid: 1c34d6eb9c5a5cd47b7606832751e61b, type: 3}
       propertyPath: m_RootOrder
       value: 1

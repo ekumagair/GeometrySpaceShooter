@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.Advertisements;
 
 public class Upgrade : MonoBehaviour
 {
@@ -32,6 +33,12 @@ public class Upgrade : MonoBehaviour
     void Start()
     {
         persistentCanvas = GameObject.Find("PersistentCanvas").GetComponent<PersistentCanvas>();
+
+        // Make ad buttons disabled by default.
+        if (adButton != null)
+        {
+            adButton.interactable = false;
+        }
     }
 
     void Update()
@@ -43,7 +50,7 @@ public class Upgrade : MonoBehaviour
             // If you don't have enough points, disable buy button and enable ad button.
             buyButton.interactable = false;
 
-            if (adButton != null && GameStats.enableAds == true)
+            if (adButton != null && GameStats.enableAdButttons == true && Advertisement.isInitialized == true)
             {
                 adButton.interactable = true;
             }
