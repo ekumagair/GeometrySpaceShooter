@@ -26,6 +26,7 @@ public class Player : MonoBehaviour
     Vector2 targetPosition;
     SpriteRenderer spriteRenderer;
     Health healthScript;
+    PersistentCanvas persistentCanvas;
 
     void Start()
     {
@@ -34,6 +35,7 @@ public class Player : MonoBehaviour
         victory = false;
         detectedVictory = false;
         GameStats.currentLevelPoints = 0;
+        persistentCanvas = GameObject.Find("PersistentCanvas").GetComponent<PersistentCanvas>();
         InitializePlayer(0);
 
         // Load level end ad.
@@ -135,9 +137,9 @@ public class Player : MonoBehaviour
         {
             Instantiate(finishLine, new Vector3(-3, 7, 0), Quaternion.Euler(0, 0, 0));
 
-            Background[] bgs = FindObjectsOfType<Background>();
+            MovingObject[] bgs = FindObjectsOfType<MovingObject>();
 
-            foreach (Background bg in bgs)
+            foreach (MovingObject bg in bgs)
             {
                 bg.speed *= 5;
             }
@@ -181,6 +183,22 @@ public class Player : MonoBehaviour
             {
                 adInterstitial.ShowAd();
             }
+        }
+        else if (collision.gameObject.CompareTag("Item"))
+        {
+            Item itemScript = collision.gameObject.GetComponent<Item>();
+            GameStats.AddPoints(itemScript.givePoints);
+            persistentCanvas.CreateNumberChangeEffect(new Vector3(-85, 250, 0), "+" + itemScript.givePoints.ToString(), Color.green, -0.55f, 0.25f);
+
+            foreach (GameObject obj in itemScript.createOnCollect)
+            {
+                if (obj != null)
+                {
+                    Instantiate(obj, transform.position, transform.rotation);
+                }
+            }
+
+            Destroy(collision.gameObject);
         }
     }
 

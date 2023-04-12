@@ -13,7 +13,7 @@ public class OptionsScreen : MonoBehaviour
 
     void Start()
     {
-        if(PlayerPrefs.HasKey("option_sfx"))
+        if(SaveSystem.SaveExists())
         {
             sliderSFX.value = Options.soundVolume * 10;
             sliderMusic.value = Options.musicVolume * 10;

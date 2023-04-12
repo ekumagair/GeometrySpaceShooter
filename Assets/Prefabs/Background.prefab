@@ -2385,6 +2385,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.51
+  isLoopingBackground: 1
+  destroyIfUnderY: -100
 --- !u!1 &4157736346460965393
 GameObject:
   m_ObjectHideFlags: 0

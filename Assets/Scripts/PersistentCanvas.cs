@@ -43,12 +43,13 @@ public class PersistentCanvas : MonoBehaviour
         Instantiate(soundButton, transform.position, transform.rotation);
     }
 
-    public void CreateNumberChangeEffect(Vector3 pos, string textString, Color textColor, float speedYMultiplier)
+    public void CreateNumberChangeEffect(Vector3 pos, string textString, Color textColor, float speedYMultiplier, float fadeOutMultiplier)
     {
         GameObject nc = Instantiate(numberChangeEffect, pos, transform.rotation, transform);
         nc.GetComponent<TMP_Text>().text = textString;
         nc.GetComponent<TMP_Text>().color = textColor;
         nc.GetComponent<NumberChangeText>().moveYSpeed *= speedYMultiplier;
+        nc.GetComponent<NumberChangeText>().fadeOutSpeed *= fadeOutMultiplier;
         nc.GetComponent<RectTransform>().anchoredPosition = pos;
     }
 

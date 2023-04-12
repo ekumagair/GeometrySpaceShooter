@@ -4993,6 +4993,8 @@ MonoBehaviour:
   - {fileID: 1258217231400228645, guid: 472fb4fdb3a05084c88a60fe6be121c3, type: 3}
   - {fileID: 2135873964984218851, guid: 32f65f2325ac42049a96be72fe42ab6c, type: 3}
   - {fileID: 8073303451576382608, guid: af0abcb6044c7ad44a19c2a6cb0d1f1d, type: 3}
+  itemPrefabs:
+  - {fileID: 5349378906367868703, guid: 60baacb13fc921c4381bada386294d77, type: 3}
 --- !u!4 &1851373989
 Transform:
   m_ObjectHideFlags: 0

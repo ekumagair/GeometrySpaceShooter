@@ -8,6 +8,7 @@ public static class GameStats
     public static int points = 0;
     public static int currentLevelPoints = 0;
     public static bool multipliedCurrentScore = false;
+    public static int[] upgradePrice = new int[6];
 
     public static bool enableAdButttons = true;
 
@@ -26,6 +27,7 @@ public static class GameStats
 
     public static void SaveStats()
     {
+        /*
         PlayerPrefs.SetInt("stat_level", level);
         PlayerPrefs.SetInt("stat_points", points);
         PlayerPrefs.SetInt("stat_campaign_difficulty", LevelGenerator.campaignDifficulty);
@@ -40,13 +42,17 @@ public static class GameStats
         PlayerPrefs.SetFloat("option_music", Options.musicVolume);
         PlayerPrefs.SetInt("option_trails", Options.projectileTrails);
         PlayerPrefs.SetInt("option_impacts", Options.projectileImpacts);
+        */
 
         PlayerPrefs.Save();
+        SaveSystem.SaveData();
+
         Debug.Log("Saved stats");
     }
 
     public static void LoadStats()
     {
+        /*
         level = PlayerPrefs.GetInt("stat_level");
         points = PlayerPrefs.GetInt("stat_points");
         LevelGenerator.campaignDifficulty = PlayerPrefs.GetInt("stat_campaign_difficulty");
@@ -61,8 +67,33 @@ public static class GameStats
         Options.musicVolume = PlayerPrefs.GetFloat("option_music");
         Options.projectileTrails = PlayerPrefs.GetInt("option_trails");
         Options.projectileImpacts = PlayerPrefs.GetInt("option_impacts");
+        */
+
+        PlayerData data = SaveSystem.LoadData();
+
+        if (data != null)
+        {
+            level = data.level;
+            points = data.points;
+            LevelGenerator.campaignDifficulty = data.campaignDifficulty;
+            Player.startHealth = data.startHealth;
+            Player.firingSpeedDivider = data.firingSpeed;
+            Player.moveSpeedMultiplier = data.moveSpeed;
+            Player.projectileSpeedMultiplier = data.projectileSpeed;
+            Player.shootLevel = data.shootLevel;
+            Player.projectileDamage = data.projectileDamage;
+
+            Options.soundVolume = data.optionSfx;
+            Options.musicVolume = data.optionMusic;
+            Options.projectileTrails = data.optionTrails;
+            Options.projectileImpacts = data.optionImpacts;
+
+            for (int i = 0; i < data.upgradePrice.Length; i++)
+            {
+                GameStats.upgradePrice[i] = data.upgradePrice[i];
+            }
+        }
 
         Debug.Log("Loaded stats");
-        Debug.Log("Set player start health to " + PlayerPrefs.GetInt("player_start_hp"));
     }
 }

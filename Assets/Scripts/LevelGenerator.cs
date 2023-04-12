@@ -10,6 +10,7 @@ public class LevelGenerator : MonoBehaviour
     public static int spread = 2;
     public GameObject[] enemyPrefabs;
     public GameObject[] bossPrefabs;
+    public GameObject[] itemPrefabs;
 
     public static int campaignDifficulty = 0;
     public static bool isBossStage = false;
@@ -29,7 +30,9 @@ public class LevelGenerator : MonoBehaviour
             {
                 // Spawn main shape.
                 float randomX = Random.Range(-2f, 2f);
-                Instantiate(enemyPrefabs[Random.Range(prefabMin, prefabMax)], new Vector3(randomX, bottomPositionY + i, 0), transform.rotation);
+                Instantiate(enemyPrefabs[Random.Range(prefabMin, prefabMax)],
+                                        new Vector3(randomX, bottomPositionY + i, 0),
+                                        transform.rotation);
 
                 // Random chance to spawn another shape at the same Y position.
                 if (Random.Range(0, campaignDifficulty) > 5)
@@ -51,7 +54,9 @@ public class LevelGenerator : MonoBehaviour
                         extraShapePrefabMax = prefabMax;
                     }
 
-                    Instantiate(enemyPrefabs[Random.Range(prefabMin, extraShapePrefabMax)], new Vector3(randomX + distance, bottomPositionY + i, 0), transform.rotation);
+                    Instantiate(enemyPrefabs[Random.Range(prefabMin, extraShapePrefabMax)],
+                                            new Vector3(randomX + distance, bottomPositionY + i, 0),
+                                            transform.rotation);
                 }
             }
         }
@@ -69,6 +74,17 @@ public class LevelGenerator : MonoBehaviour
 
             DestroyAllEnemiesAboveY(16);
             Instantiate(bossPrefabs[chosenBoss], new Vector3(0, 20, 0), transform.rotation);
+        }
+        else if (GameStats.level > 30) // If this isn't a boss level.
+        {
+            // Create extra points item after level 30.
+            CreateItem(0, Random.Range(bottomPositionY + 2, levelLength / 3));
+
+            if (GameStats.level > 60)
+            {
+                // Create another extra points item after level 60.
+                CreateItem(0, Random.Range(levelLength / 3, levelLength / 2));
+            }
         }
     }
 
@@ -109,15 +125,17 @@ public class LevelGenerator : MonoBehaviour
 
     void SetLevelLength(int reference)
     {
-        levelLength = Mathf.Clamp((spread * 9) + (spread * Mathf.FloorToInt(reference / 1.1f)), 0, spread * 500);
+        levelLength = Mathf.Clamp((spread * 9) + (spread * Mathf.FloorToInt(reference / 1.3f)),
+                                   0,
+                                   spread * 400);
     }
 
     public static void MoveEnemies(float y)
     {
-        Enemy[] enemies = GameObject.FindObjectsOfType<Enemy>();
+        Enemy[] enemies = FindObjectsOfType<Enemy>();
         foreach(Enemy enemy in enemies)
         {
-            if (enemy.gameObject.transform.position.y > 6 && enemy.gameObject.transform.position.y + y >= 6 && LevelGenerator.spread > 2 && enemy.canBeMovedY)
+            if (enemy.gameObject.transform.position.y > 6 && enemy.gameObject.transform.position.y + y >= 6 && spread > 2 && enemy.canBeMovedY)
             {
                 float movementMultiplier = 1.0f;
 
@@ -145,13 +163,29 @@ public class LevelGenerator : MonoBehaviour
 
     public static void DestroyAllEnemiesAboveY(float y)
     {
-        Enemy[] enemies = GameObject.FindObjectsOfType<Enemy>();
+        Enemy[] enemies = FindObjectsOfType<Enemy>();
         foreach (Enemy enemy in enemies)
         {
             if(enemy.transform.position.y > y)
             {
                 Destroy(enemy.gameObject);
             }
+        }
+    }
+
+    void CreateItem(int i, float posY)
+    {
+        var item = Instantiate(itemPrefabs[i], new Vector3(Random.Range(-2f, 2f), bottomPositionY + posY, 0), transform.rotation);
+        Item itemScript = item.GetComponent<Item>();
+
+        switch (i)
+        {
+            case 0:
+                itemScript.givePoints = Mathf.RoundToInt(50 * levelLength);
+                break;
+
+            default:
+                break;
         }
     }
 }

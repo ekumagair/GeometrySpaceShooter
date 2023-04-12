@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.Localization.SmartFormat.Core.Extensions;
 using UnityEngine.Localization.SmartFormat.PersistentVariables;
 
-[DisplayName("Player Data")]
 public class LevelVariable : IVariable
 {
     public string xmlText;

@@ -23,18 +23,20 @@ public class StartScene : MonoBehaviour
     void Awake()
     {
         // If has saved data, load the data and the prices for each upgrade.
-        if (PlayerPrefs.HasKey("player_start_hp"))
+        if (SaveSystem.SaveExists())
         {
+            GameStats.LoadStats();
+
             Upgrade[] upgrades = FindObjectsOfType<Upgrade>();
             foreach (var upgrade in upgrades)
             {
-                if (PlayerPrefs.HasKey("upgrade_" + upgrade.upgradeType.ToString() + "_price"))
+                int gameStatsPrice = GameStats.upgradePrice[(int)upgrade.upgradeType];
+
+                if (gameStatsPrice > 0)
                 {
-                    upgrade.price = PlayerPrefs.GetInt("upgrade_" + upgrade.upgradeType.ToString() + "_price");
+                    upgrade.price = gameStatsPrice;
                 }
             }
-
-            GameStats.LoadStats();
         }
     }
 
@@ -106,6 +108,7 @@ public class StartScene : MonoBehaviour
         {
             if(Input.GetKeyDown(KeyCode.Delete))
             {
+                SaveSystem.DeleteSave();
                 PlayerPrefs.DeleteAll();
                 PlayerPrefs.Save();
             }

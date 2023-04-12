@@ -17,7 +17,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6517342231039840152, guid: 4f5cb1a6f6f267840b7f4869ad85bfc7, type: 3}
       propertyPath: firingSpeed
-      value: 0.4
+      value: 0.9
       objectReference: {fileID: 0}
     - target: {fileID: 6517342231039840152, guid: 4f5cb1a6f6f267840b7f4869ad85bfc7, type: 3}
       propertyPath: projectileDamage

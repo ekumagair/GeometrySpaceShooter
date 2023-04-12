@@ -51,7 +51,8 @@ public class Health : MonoBehaviour
         }
         if (persistentCanvas != null && createDamageChangeText == true)
         {
-            persistentCanvas.CreateNumberChangeEffect(new Vector3(120, -220, 0), "-" + amount.ToString(), new Color(1f, 0.5f, 0.5f), 1);
+            // Show lost health on the bottom right corner of the screen.
+            persistentCanvas.CreateNumberChangeEffect(new Vector3(100, -190, 0), "-" + amount.ToString(), new Color(1f, 0.5f, 0.5f), 1, 1);
         }
 
         health -= amount;
@@ -89,7 +90,8 @@ public class Health : MonoBehaviour
         }
         if(persistentCanvas != null && pointsOnDeath != 0 && createDeathChangeText == true)
         {
-            persistentCanvas.CreateNumberChangeEffect(new Vector3(-110, 250, 0), "+" + pointsOnDeath.ToString(), Color.white, -0.5f);
+            // Show gained points on the top left corner of the screen.
+            persistentCanvas.CreateNumberChangeEffect(new Vector3(-85, 250, 0), "+" + pointsOnDeath.ToString(), Color.white, -0.5f, 1);
         }
 
         switch (deathType)

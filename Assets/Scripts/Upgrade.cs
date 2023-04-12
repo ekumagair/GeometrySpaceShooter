@@ -141,7 +141,8 @@ public class Upgrade : MonoBehaviour
 
             if (persistentCanvas != null && price > 0)
             {
-                persistentCanvas.CreateNumberChangeEffect(new Vector3(-110, 250, 0), "-" + price.ToString(), new Color(1f, 0.5f, 0.5f), -0.5f);
+                // Show spent points on the top left corner of the screen.
+                persistentCanvas.CreateNumberChangeEffect(new Vector3(-85, 250, 0), "-" + price.ToString(), new Color(1f, 0.5f, 0.5f), -0.5f, 1);
             }
         }
         
@@ -154,9 +155,7 @@ public class Upgrade : MonoBehaviour
         }
 
         // Save stats.
-        PlayerPrefs.SetInt("upgrade_" + upgradeType.ToString() + "_price", price);
+        GameStats.upgradePrice[(int)upgradeType] = price;
         GameStats.SaveStats();
-        Debug.Log("Saved Int: " + "upgrade_" + upgradeType.ToString() + "_price");
-        Debug.Log("Saved player health is " + PlayerPrefs.GetInt("player_start_hp") + " / " + Player.startHealth);
     }
 }
