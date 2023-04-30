@@ -55,13 +55,13 @@ public class StartScene : MonoBehaviour
 
         if(goToUpgrades)
         {
-            GoToUpgrades();
-            persistentCanvas.CreateButtonSound();
+            GoToCanvas(1);
+            persistentCanvas.CreateButtonSound(0);
             goToUpgrades = false;
         }
         else
         {
-            GoToStart();
+            GoToCanvas(0);
         }
 
         if(versionText != null)
@@ -117,6 +117,14 @@ public class StartScene : MonoBehaviour
 
     public void PlayGame()
     {
+        GameStats.currentLevelType = 0;
+        SceneManager.LoadScene("GameScene");
+    }
+
+    public void PlayPresetLevel(int level)
+    {
+        GameStats.currentLevelType = 1;
+        PresetLevels.currentPresetLevel = level;
         SceneManager.LoadScene("GameScene");
     }
 
@@ -147,28 +155,9 @@ public class StartScene : MonoBehaviour
         }
     }
 
-    public void GoToStart()
+    public void GoToCanvas(int c)
     {
-        //mainCamera.transform.position = new Vector3(0, 0, mainCamera.transform.position.z);
-        ChooseOneCanvas(0);
-    }
-
-    public void GoToUpgrades()
-    {
-        //mainCamera.transform.position = new Vector3(10, 0, mainCamera.transform.position.z);
-        ChooseOneCanvas(1);
-    }
-
-    public void GoToCredits()
-    {
-        //mainCamera.transform.position = new Vector3(20, 0, mainCamera.transform.position.z);
-        ChooseOneCanvas(2);
-    }
-
-    public void GoToOptions()
-    {
-        //mainCamera.transform.position = new Vector3(30, 0, mainCamera.transform.position.z);
-        ChooseOneCanvas(3);
+        ChooseOneCanvas(c);
     }
 
     public void ChangeUpgradePage(int increment)

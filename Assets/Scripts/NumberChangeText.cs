@@ -9,6 +9,7 @@ public class NumberChangeText : MonoBehaviour
     public float alpha = 1;
     public float fadeOutSpeed = 1;
 
+    float speedMultiplier = 1.25f;
     TMP_Text tmp;
 
     void Start()
@@ -18,10 +19,22 @@ public class NumberChangeText : MonoBehaviour
 
     void Update()
     {
-        transform.position += transform.up * moveYSpeed * Time.deltaTime;
+        if (Time.timeScale != 0.0f)
+        {
+            transform.position += transform.up * moveYSpeed * speedMultiplier * Time.deltaTime;
 
-        tmp.color = new Color(tmp.color.r, tmp.color.g, tmp.color.b, alpha);
-        alpha -= 4f * fadeOutSpeed * Time.deltaTime;
+            if (speedMultiplier > 0)
+            {
+                speedMultiplier -= Time.deltaTime * 2;
+            }
+            if (speedMultiplier < 0)
+            {
+                speedMultiplier = 0;
+            }
+
+            tmp.color = new Color(tmp.color.r, tmp.color.g, tmp.color.b, alpha);
+            alpha -= 4f * fadeOutSpeed * Time.deltaTime;
+        }
 
         if (alpha <= 0f)
         {

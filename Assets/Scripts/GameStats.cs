@@ -12,12 +12,17 @@ public static class GameStats
 
     public static bool enableAdButttons = true;
 
+    // Level type:
+    public static int currentLevelType = 0;
+    // 0 = Main campaign.
+    // 1 = Preset level.
+
     public static void AddPoints(int p)
     {
         points += p;
         currentLevelPoints += p;
 
-        // Score limit (2 billion).
+        // Score limit (2 billion)
         if(points > 2000000000)
         {
             points = 2000000000;

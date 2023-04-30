@@ -52,7 +52,7 @@ public class Health : MonoBehaviour
         if (persistentCanvas != null && createDamageChangeText == true)
         {
             // Show lost health on the bottom right corner of the screen.
-            persistentCanvas.CreateNumberChangeEffect(new Vector3(100, -190, 0), "-" + amount.ToString(), new Color(1f, 0.5f, 0.5f), 1, 1);
+            persistentCanvas.CreateNumberChangeEffect(HUD.hudBottomRightCorner, "-" + amount.ToString(), new Color(1f, 0.5f, 0.5f), 1, 1);
         }
 
         health -= amount;
@@ -63,13 +63,17 @@ public class Health : MonoBehaviour
         }
         if(health <= 0)
         {
-            Die();
+            Die(true);
         }
     }
 
-    public void Die()
+    public void Die(bool givePoints)
     {
-        GameStats.AddPoints(pointsOnDeath);
+        if (givePoints == true)
+        {
+            GameStats.AddPoints(pointsOnDeath);
+        }
+
         invincible = false;
 
         if ((moveEnemiesOnDeath < 0 && transform.position.y > 3) || moveEnemiesOnDeath > 0)
@@ -91,7 +95,7 @@ public class Health : MonoBehaviour
         if(persistentCanvas != null && pointsOnDeath != 0 && createDeathChangeText == true)
         {
             // Show gained points on the top left corner of the screen.
-            persistentCanvas.CreateNumberChangeEffect(new Vector3(-85, 250, 0), "+" + pointsOnDeath.ToString(), Color.white, -0.5f, 1);
+            persistentCanvas.CreateNumberChangeEffect(HUD.hudTopLeftCorner, "+" + pointsOnDeath.ToString(), Color.white, -0.5f, 1);
         }
 
         switch (deathType)

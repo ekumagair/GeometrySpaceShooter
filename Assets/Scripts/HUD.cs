@@ -4,11 +4,14 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.Localization;
 
 public class HUD : MonoBehaviour
 {
     public GameObject statTarget;
     public TMP_Text healthNumber;
+    public TMP_Text levelText;
+    public TMP_Text extraLevelText;
     public TMP_Text pointsThisLevelNumberWin;
     public TMP_Text pointsThisLevelNumberLose;
     public GameObject windowVictory;
@@ -22,15 +25,16 @@ public class HUD : MonoBehaviour
 
     public static float previousTimeScale = 1.0f;
 
+    public static Vector3 hudTopLeftCorner = new Vector3(-85, 250, 0);
+    public static Vector3 hudBottomRightCorner = new Vector3(100, -190, 0);
+
     bool createdWindow = false;
-    PersistentCanvas persistentCanvas;
     Health statTargetHealth;
     GameObject player;
     Image pauseButtonImage;
 
     void Start()
     {
-        persistentCanvas = GameObject.Find("PersistentCanvas").GetComponent<PersistentCanvas>();
         statTargetHealth = statTarget.GetComponent<Health>();
         windowVictory.SetActive(false);
         windowLose.SetActive(false);
@@ -39,11 +43,27 @@ public class HUD : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         pauseButtonImage = pauseButton.gameObject.GetComponent<Image>();
         pauseText.gameObject.SetActive(false);
+
+        levelText.enabled = GameStats.currentLevelType == 0;
+        extraLevelText.enabled = GameStats.currentLevelType == 1;
     }
 
     void Update()
     {
         healthNumber.text = statTargetHealth.health.ToString();
+        if(statTargetHealth.health > Player.startHealth)
+        {
+            healthNumber.color = Color.green;
+        }
+        else if (statTargetHealth.health > Mathf.RoundToInt(Player.startHealth / 4) && statTargetHealth.health > 1 && statTargetHealth.health <= Player.startHealth)
+        {
+            healthNumber.color = Color.white;
+        }
+        else if (statTargetHealth.health <= Mathf.RoundToInt(Player.startHealth / 4) || statTargetHealth.health <= 1)
+        {
+            healthNumber.color = Color.red;
+        }
+
         pointsThisLevelNumberWin.text = GameStats.currentLevelPoints.ToString();
         pointsThisLevelNumberLose.text = GameStats.currentLevelPoints.ToString();
 

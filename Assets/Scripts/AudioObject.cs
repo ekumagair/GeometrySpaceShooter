@@ -17,7 +17,10 @@ public class AudioObject : MonoBehaviour
         audioSource.pitch *= Random.Range(pitchMultMin, pitchMultMax);
         audioSource.Play();
 
-        StartCoroutine(DestroyAfterAudio());
+        if (audioSource.loop == false)
+        {
+            StartCoroutine(DestroyAfterAudio());
+        }
     }
 
     IEnumerator DestroyAfterAudio()

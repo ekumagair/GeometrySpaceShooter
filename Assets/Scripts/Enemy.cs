@@ -19,6 +19,7 @@ public class Enemy : MonoBehaviour
     public GameObject attackSound;
 
     SpriteRenderer spriteRenderer;
+    Health healthScript;
     GameObject player;
 
     public enum AttackType
@@ -44,6 +45,7 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        healthScript = GetComponent<Health>();
         player = GameObject.FindGameObjectWithTag("Player");
         StartCoroutine(Attack());
         StartCoroutine(OutlineFlash());
@@ -143,7 +145,19 @@ public class Enemy : MonoBehaviour
     void CreateUnavoidableExplosion()
     {
         Instantiate(unavoidableExplosion, transform.position, Quaternion.Euler(-90, 0, 0));
-        player.GetComponent<Health>().TakeDamage(1);
-        Destroy(gameObject);
+
+        if (projectileDamage < 1)
+        {
+            projectileDamage = 1;
+        }
+        if (attackType == AttackType.FiveShotsAtPlayer)
+        {
+            projectileDamage *= 5;
+        }
+        player.GetComponent<Health>().TakeDamage(projectileDamage);
+
+        healthScript.moveEnemiesOnDeath = 0;
+        healthScript.pointsOnDeath = 0;
+        healthScript.Die(false);
     }
 }

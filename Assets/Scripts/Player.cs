@@ -176,7 +176,7 @@ public class Player : MonoBehaviour
             victory = true;
             ignoreInput = true;
             GameStats.SaveStats();
-            DestroyAllProjectiles();
+            Combat.DestroyAllProjectiles();
 
             // Show level end ad.
             if(adInterstitial != null)
@@ -186,9 +186,22 @@ public class Player : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("Item"))
         {
+            // Collecting an item.
             Item itemScript = collision.gameObject.GetComponent<Item>();
-            GameStats.AddPoints(itemScript.givePoints);
-            persistentCanvas.CreateNumberChangeEffect(new Vector3(-85, 250, 0), "+" + itemScript.givePoints.ToString(), Color.green, -0.55f, 0.25f);
+
+            // Give points.
+            if (itemScript.givePoints > 0)
+            {
+                GameStats.AddPoints(itemScript.givePoints);
+                persistentCanvas.CreateNumberChangeEffect(HUD.hudTopLeftCorner, "+" + itemScript.givePoints.ToString(), Color.green, -0.55f, 0.25f);
+            }
+
+            // Give health.
+            if (itemScript.giveHealth > 0)
+            {
+                healthScript.health += itemScript.giveHealth;
+                persistentCanvas.CreateNumberChangeEffect(HUD.hudBottomRightCorner, "+" + itemScript.giveHealth.ToString(), Color.green, 0.55f, 0.25f);
+            }
 
             foreach (GameObject obj in itemScript.createOnCollect)
             {
@@ -198,20 +211,8 @@ public class Player : MonoBehaviour
                 }
             }
 
+            // Destroy the item.
             Destroy(collision.gameObject);
-        }
-    }
-
-    public static void DestroyAllProjectiles()
-    {
-        Projectile[] projectiles = GameObject.FindObjectsOfType<Projectile>();
-
-        if(projectiles.Length > 0)
-        {
-            foreach (Projectile p in projectiles)
-            {
-                Destroy(p.gameObject);
-            }
         }
     }
 }

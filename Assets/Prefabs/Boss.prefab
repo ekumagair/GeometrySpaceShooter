@@ -178,7 +178,7 @@ MonoBehaviour:
   stopY: 3
   canBeMovedY: 0
   outline: {fileID: 0}
-  unavoidableExplosion: {fileID: 0}
+  unavoidableExplosion: {fileID: 2475859108487741549, guid: 4d5fc9849c15eaa44aa67af7065e4584, type: 3}
   warningBlipSound: {fileID: 0}
   attackSound: {fileID: 4803644159576522076, guid: f18808bb5cf89b04897976c05b5fe7d2, type: 3}
   attackType: 5
@@ -202,6 +202,7 @@ MonoBehaviour:
   deathParticles: {fileID: 4635442805280748183, guid: 7c84d391acd364740a22c2540b238d8d, type: 3}
   createDamageChangeText: 0
   createDeathChangeText: 1
+  invincible: 0
   deathType: 0
 --- !u!1 &811117972281564551
 GameObject:

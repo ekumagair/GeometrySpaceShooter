@@ -20,6 +20,19 @@ public class LevelGenerator : MonoBehaviour
     void Start()
     {
         isBossStage = false;
+        
+        if (GameStats.currentLevelType == 0)
+        {
+            CreateCampaignLevel();
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    void CreateCampaignLevel()
+    {
         SetEnemyPrefabRange(campaignDifficulty);
         SetLevelDensity(campaignDifficulty);
         SetLevelLength(campaignDifficulty);
@@ -62,12 +75,12 @@ public class LevelGenerator : MonoBehaviour
         }
 
         // Create boss.
-        if(GameStats.level % 7 == 0 && GameStats.level > 1)
+        if (GameStats.level % 7 == 0 && GameStats.level > 1)
         {
             isBossStage = true;
             int chosenBoss = (GameStats.level / 7) - 1;
 
-            if(chosenBoss > bossPrefabs.Length - 1)
+            if (chosenBoss > bossPrefabs.Length - 1)
             {
                 chosenBoss = bossPrefabs.Length - 1;
             }
@@ -75,14 +88,23 @@ public class LevelGenerator : MonoBehaviour
             DestroyAllEnemiesAboveY(16);
             Instantiate(bossPrefabs[chosenBoss], new Vector3(0, 20, 0), transform.rotation);
         }
-        else if (GameStats.level > 30) // If this isn't a boss level.
+        else
         {
-            // Create extra points item after level 30.
-            CreateItem(0, Random.Range(bottomPositionY + 2, levelLength / 3));
+            // If this isn't a boss level.
 
-            if (GameStats.level > 60)
+            if (GameStats.level > 20)
             {
-                // Create another extra points item after level 60.
+                // Create an extra health item.
+                CreateItem(1, Random.Range(bottomPositionY + 2, levelLength / 2));
+            }
+            if (GameStats.level > 30)
+            {
+                // Create extra points item.
+                CreateItem(0, Random.Range(bottomPositionY + 2, levelLength / 3));
+            }
+            if (GameStats.level > 50)
+            {
+                // Create another extra points item.
                 CreateItem(0, Random.Range(levelLength / 3, levelLength / 2));
             }
         }
@@ -173,15 +195,19 @@ public class LevelGenerator : MonoBehaviour
         }
     }
 
-    void CreateItem(int i, float posY)
+    void CreateItem(int type, float posY)
     {
-        var item = Instantiate(itemPrefabs[i], new Vector3(Random.Range(-2f, 2f), bottomPositionY + posY, 0), transform.rotation);
+        var item = Instantiate(itemPrefabs[type], new Vector3(Random.Range(-2f, 2f), bottomPositionY + posY, 0), transform.rotation);
         Item itemScript = item.GetComponent<Item>();
 
-        switch (i)
+        switch (type)
         {
             case 0:
-                itemScript.givePoints = Mathf.RoundToInt(50 * levelLength);
+                itemScript.givePoints = Mathf.RoundToInt(60 * levelLength);
+                break;
+
+            case 1:
+                itemScript.giveHealth = Mathf.RoundToInt(Player.startHealth / 2);
                 break;
 
             default:

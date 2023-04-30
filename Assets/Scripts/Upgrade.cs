@@ -142,7 +142,7 @@ public class Upgrade : MonoBehaviour
             if (persistentCanvas != null && price > 0)
             {
                 // Show spent points on the top left corner of the screen.
-                persistentCanvas.CreateNumberChangeEffect(new Vector3(-85, 250, 0), "-" + price.ToString(), new Color(1f, 0.5f, 0.5f), -0.5f, 1);
+                persistentCanvas.CreateNumberChangeEffect(HUD.hudTopLeftCorner, "-" + price.ToString(), new Color(1f, 0.5f, 0.5f), -0.5f, 1);
             }
         }
         

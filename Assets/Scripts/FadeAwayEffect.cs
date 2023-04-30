@@ -15,14 +15,17 @@ public class FadeAwayEffect : MonoBehaviour
 
     void Update()
     {
-        _sr.color = new Color(_sr.color.r, _sr.color.g, _sr.color.b, alpha);
-        alpha -= 7.5f * Time.deltaTime;
-
-        transform.localScale *= 1.005f;
-
-        if(alpha <= 0f)
+        if (Time.timeScale != 0.0f)
         {
-            Destroy(gameObject);
+            _sr.color = new Color(_sr.color.r, _sr.color.g, _sr.color.b, alpha);
+            alpha -= 7.5f * Time.deltaTime;
+
+            transform.localScale *= 1.005f;
+
+            if (alpha <= 0f)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }

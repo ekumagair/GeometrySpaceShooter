@@ -7,9 +7,17 @@ using TMPro;
 public class PersistentCanvas : MonoBehaviour
 {
     public TMP_Text pointsNumber;
-    public GameObject soundButton;
+    public GameObject[] soundButton;
     public GameObject numberChangeEffect;
     public TMP_Text levelText;
+
+    void Start()
+    {
+        if (GameStats.currentLevelType == 1)
+        {
+            levelText.enabled = false;
+        }
+    }
 
     void Update()
     {
@@ -38,9 +46,12 @@ public class PersistentCanvas : MonoBehaviour
         }
     }
 
-    public void CreateButtonSound()
+    public void CreateButtonSound(int b)
     {
-        Instantiate(soundButton, transform.position, transform.rotation);
+        if (soundButton[b] != null)
+        {
+            Instantiate(soundButton[b], transform.position, transform.rotation);
+        }
     }
 
     public void CreateNumberChangeEffect(Vector3 pos, string textString, Color textColor, float speedYMultiplier, float fadeOutMultiplier)
@@ -62,8 +73,13 @@ public class PersistentCanvas : MonoBehaviour
 
     public void NextLevel()
     {
-        GameStats.level++;
-        LevelGenerator.campaignDifficulty++;
+        if (GameStats.currentLevelType == 0)
+        {
+            GameStats.level++;
+            LevelGenerator.campaignDifficulty++;
+        }
+
+        GameStats.currentLevelType = 0;
         LevelGenerator.isBossStage = false;
         GameStats.SaveStats();
     }

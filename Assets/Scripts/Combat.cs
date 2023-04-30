@@ -42,4 +42,17 @@ public class Combat : MonoBehaviour
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         return angle + offset;
     }
+
+    public static void DestroyAllProjectiles()
+    {
+        Projectile[] projectiles = GameObject.FindObjectsOfType<Projectile>();
+
+        if (projectiles.Length > 0)
+        {
+            foreach (Projectile p in projectiles)
+            {
+                Destroy(p.gameObject);
+            }
+        }
+    }
 }

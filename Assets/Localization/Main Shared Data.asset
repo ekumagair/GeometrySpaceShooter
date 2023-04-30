@@ -35,6 +35,10 @@ MonoBehaviour:
     m_Key: options
     m_Metadata:
       m_Items: []
+  - m_Id: 10418431645646848
+    m_Key: extra_levels
+    m_Metadata:
+      m_Items: []
   - m_Id: 3673276743680
     m_Key: level
     m_Metadata:
@@ -73,6 +77,10 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 23925020622848
     m_Key: page
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10418875814051840
+    m_Key: unlocked
     m_Metadata:
       m_Items: []
   m_Metadata:

@@ -80,6 +80,14 @@ MonoBehaviour:
     m_Localized: Page
     m_Metadata:
       m_Items: []
+  - m_Id: 10418431645646848
+    m_Localized: Extra levels
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10418875814051840
+    m_Localized: Unlocked!
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

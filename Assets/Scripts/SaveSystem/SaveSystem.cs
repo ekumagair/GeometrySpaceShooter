@@ -3,7 +3,7 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEditor;
 
-public class SaveSystem : MonoBehaviour
+public static class SaveSystem
 {
     public static string GetSaveFilePath()
     {
