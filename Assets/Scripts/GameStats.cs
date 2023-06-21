@@ -10,7 +10,8 @@ public static class GameStats
     public static bool multipliedCurrentScore = false;
     public static int[] upgradePrice = new int[6];
 
-    public static bool enableAdButttons = true;
+    // Enable ad buttons.
+    public static bool enableAdButttons = false;
 
     // Level type:
     public static int currentLevelType = 0;

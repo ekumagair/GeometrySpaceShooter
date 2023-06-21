@@ -121,6 +121,7 @@ MonoBehaviour:
   - {fileID: 4803644159576522076, guid: 0f8f1ebc80d3ac9488fd3407a711dad6, type: 3}
   - {fileID: 4803644159576522076, guid: 44f0d2c98af3aa444b66fa04c5d96808, type: 3}
   - {fileID: 4803644159576522076, guid: c3d96be3f2f442d4ca865d16612d8ba4, type: 3}
+  - {fileID: 4803644159576522076, guid: e5a86305e69de8c4aa15812405c3ae7c, type: 3}
   numberChangeEffect: {fileID: 512185723668498091, guid: 0ec4ecad28cbd354b99a81f2655c0ed0, type: 3}
   levelText: {fileID: 0}
 --- !u!114 &3290675473484974860

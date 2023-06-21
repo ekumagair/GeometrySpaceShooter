@@ -716,6 +716,63 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!1001 &335075641
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4803644159576522076, guid: ca779cfaf48072743a3278a7e5ba871c, type: 3}
+      propertyPath: m_Name
+      value: SoundButtonKeyboard2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4803644159576522077, guid: ca779cfaf48072743a3278a7e5ba871c, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4803644159576522077, guid: ca779cfaf48072743a3278a7e5ba871c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4803644159576522077, guid: ca779cfaf48072743a3278a7e5ba871c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4803644159576522077, guid: ca779cfaf48072743a3278a7e5ba871c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4803644159576522077, guid: ca779cfaf48072743a3278a7e5ba871c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4803644159576522077, guid: ca779cfaf48072743a3278a7e5ba871c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4803644159576522077, guid: ca779cfaf48072743a3278a7e5ba871c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4803644159576522077, guid: ca779cfaf48072743a3278a7e5ba871c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4803644159576522077, guid: ca779cfaf48072743a3278a7e5ba871c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4803644159576522077, guid: ca779cfaf48072743a3278a7e5ba871c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4803644159576522077, guid: ca779cfaf48072743a3278a7e5ba871c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ca779cfaf48072743a3278a7e5ba871c, type: 3}
 --- !u!1 &362065545
 GameObject:
   m_ObjectHideFlags: 0
@@ -5437,63 +5494,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19f946c8e10c70246a1d7d4075452dab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1001 &2029139784
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4803644159576522076, guid: 0f8f1ebc80d3ac9488fd3407a711dad6, type: 3}
-      propertyPath: m_Name
-      value: SoundButtonMechanical
-      objectReference: {fileID: 0}
-    - target: {fileID: 4803644159576522077, guid: 0f8f1ebc80d3ac9488fd3407a711dad6, type: 3}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4803644159576522077, guid: 0f8f1ebc80d3ac9488fd3407a711dad6, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4803644159576522077, guid: 0f8f1ebc80d3ac9488fd3407a711dad6, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4803644159576522077, guid: 0f8f1ebc80d3ac9488fd3407a711dad6, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4803644159576522077, guid: 0f8f1ebc80d3ac9488fd3407a711dad6, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4803644159576522077, guid: 0f8f1ebc80d3ac9488fd3407a711dad6, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4803644159576522077, guid: 0f8f1ebc80d3ac9488fd3407a711dad6, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4803644159576522077, guid: 0f8f1ebc80d3ac9488fd3407a711dad6, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4803644159576522077, guid: 0f8f1ebc80d3ac9488fd3407a711dad6, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4803644159576522077, guid: 0f8f1ebc80d3ac9488fd3407a711dad6, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4803644159576522077, guid: 0f8f1ebc80d3ac9488fd3407a711dad6, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 0f8f1ebc80d3ac9488fd3407a711dad6, type: 3}
 --- !u!1 &2058211767
 GameObject:
   m_ObjectHideFlags: 0
