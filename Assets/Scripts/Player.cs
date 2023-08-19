@@ -23,6 +23,7 @@ public class Player : MonoBehaviour
 
     public static bool hasInput = false;
     bool detectedVictory = false;
+    float inputDuration = 0;
     Vector2 targetPosition;
     SpriteRenderer spriteRenderer;
     Health healthScript;
@@ -34,6 +35,7 @@ public class Player : MonoBehaviour
         isDead = false;
         victory = false;
         detectedVictory = false;
+        inputDuration = 0;
         GameStats.currentLevelPoints = 0;
         persistentCanvas = GameObject.Find("PersistentCanvas").GetComponent<PersistentCanvas>();
         InitializePlayer(0);
@@ -51,7 +53,7 @@ public class Player : MonoBehaviour
         }
 
         // Hide highlight sprite if is ignoring input.
-        if(highlightSprite != null && ignoreInput == true)
+        if (highlightSprite != null && ignoreInput == true)
         {
             highlightSprite.enabled = false;
         }
@@ -60,11 +62,11 @@ public class Player : MonoBehaviour
     void Update()
     {
         // Detect mouse or touch input.
-        if(Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0))
         {
             targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         }
-        if(Input.touchCount > 0)
+        if (Input.touchCount > 0)
         {
             targetPosition = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
         }
@@ -75,35 +77,34 @@ public class Player : MonoBehaviour
         if (Input.GetMouseButton(0) || Input.touchCount > 0)
         {
             hasInput = true;
+
+            if (inputDuration < float.MaxValue - 1.0f)
+            {
+                inputDuration += Time.deltaTime;
+            }
         }
         else
         {
             hasInput = false;
+            inputDuration = 0;
         }
 
         // Move towards input.
-        if (hasInput == true && ignoreInput == false)
+        if (HasMovementConditions())
         {
             transform.position = Vector2.MoveTowards(transform.position, targetPosition, Time.deltaTime * moveSpeed * moveSpeedMultiplier);
         }
 
         // Show or hide highlight sprite.
-        if(highlightSprite != null)
+        if (highlightSprite != null)
         {
-            if (ignoreInput == false && victory == false && isDead == false && Time.timeScale != 0.0f)
-            {
-                highlightSprite.enabled = hasInput;
-            }
-            else
-            {
-                highlightSprite.enabled = false;
-            }
+            highlightSprite.enabled = HasMovementConditions();
         }
 
         // Debug.
-        if(Debug.isDebugBuild)
+        if (Debug.isDebugBuild)
         {
-            if(Input.GetKeyDown(KeyCode.M) && ignoreInput == false)
+            if (Input.GetKeyDown(KeyCode.M) && ignoreInput == false)
             {
                 SceneManager.LoadScene("StartScene");
             }
@@ -163,7 +164,7 @@ public class Player : MonoBehaviour
         StartCoroutine(Shoot());
         GameStats.SaveStats();
 
-        if(invincibilityTime > 0)
+        if (invincibilityTime > 0)
         {
             StartCoroutine(healthScript.Invincibility(invincibilityTime));
         }
@@ -171,7 +172,7 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.CompareTag("Finish"))
+        if (collision.gameObject.CompareTag("Finish"))
         {
             victory = true;
             ignoreInput = true;
@@ -179,7 +180,7 @@ public class Player : MonoBehaviour
             Combat.DestroyAllProjectiles();
 
             // Show level end ad.
-            if(adInterstitial != null)
+            if (adInterstitial != null)
             {
                 adInterstitial.ShowAd();
             }
@@ -214,5 +215,15 @@ public class Player : MonoBehaviour
             // Destroy the item.
             Destroy(collision.gameObject);
         }
+    }
+
+    private bool IsTouchingButton()
+    {
+        return targetPosition.x > -2.5f && targetPosition.x < -1.5f && targetPosition.y > -3.8f && targetPosition.y < -2.8f;
+    }
+
+    private bool HasMovementConditions()
+    {
+        return hasInput == true && ignoreInput == false && Time.timeScale != 0.0f && victory == false && isDead == false && (!IsTouchingButton() || inputDuration > 0.5f);
     }
 }

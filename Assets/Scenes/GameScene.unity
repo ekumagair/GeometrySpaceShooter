@@ -4580,7 +4580,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _androidGameId: 5229564
   _iOSGameId: 5229565
-  _testMode: 1
+  _testMode: 0
 --- !u!4 &1625710485
 Transform:
   m_ObjectHideFlags: 0
@@ -5480,6 +5480,14 @@ PrefabInstance:
     - target: {fileID: 4083968495855275551, guid: 8d5cb0e203832e74699ec0400e6a13d9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8547929504104199736, guid: 8d5cb0e203832e74699ec0400e6a13d9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8547929504104199736, guid: 8d5cb0e203832e74699ec0400e6a13d9, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -72.599976
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8d5cb0e203832e74699ec0400e6a13d9, type: 3}

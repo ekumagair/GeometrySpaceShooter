@@ -58,7 +58,7 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-        if (Player.isDead == false && transform.position.y > stopY)
+        if (Player.isDead == false && transform.position.y > stopY && Time.timeScale > 0.0f)
         {
             transform.Translate(-transform.up * moveYSpeed * Time.deltaTime);
         }
@@ -125,7 +125,7 @@ public class Enemy : MonoBehaviour
     {
         yield return new WaitForSeconds(0.15f);
 
-        if(transform.position.y < -3 && outline != null)
+        if (transform.position.y < -3 && outline != null)
         {
             outline.enabled = !outline.enabled;
 
@@ -134,7 +134,7 @@ public class Enemy : MonoBehaviour
                 Instantiate(warningBlipSound, transform.position, transform.rotation);
             }
         }
-        if(transform.position.y < -5)
+        if (transform.position.y < -5)
         {
             CreateUnavoidableExplosion();
         }

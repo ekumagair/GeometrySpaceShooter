@@ -15,6 +15,10 @@ MonoBehaviour:
   m_TableCollectionName: Main
   m_TableCollectionNameGuidString: f97efcf57887557498dc591c4e5f0a13
   m_Entries:
+  - m_Id: 49347118960934912
+    m_Key: game_title
+    m_Metadata:
+      m_Items: []
   - m_Id: 45782597632
     m_Key: tap_to_play
     m_Metadata:

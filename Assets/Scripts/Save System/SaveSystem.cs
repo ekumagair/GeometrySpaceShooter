@@ -5,9 +5,11 @@ using UnityEditor;
 
 public static class SaveSystem
 {
+    public const string SAVEGAME_FILETYPE = ".dat";
+
     public static string GetSaveFilePath()
     {
-        return Application.persistentDataPath + "/SavedData.gss";
+        return Application.persistentDataPath + "/SavedData" + SAVEGAME_FILETYPE;
     }
 
     public static void SaveData()
@@ -48,7 +50,11 @@ public static class SaveSystem
         }
         else
         {
-            Debug.Log("Data NOT FOUND in " + path);
+            if (Debug.isDebugBuild == true)
+            {
+                Debug.Log("Data NOT FOUND in " + path);
+            }
+
             return null;
         }
     }

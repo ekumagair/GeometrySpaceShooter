@@ -86,7 +86,7 @@ public class HUD : MonoBehaviour
                 createdWindow = true;
             }
 
-            if(GameStats.level <= 2 && Player.hasInput == false && Time.timeScale != 0.0f)
+            if (GameStats.level <= 2 && Player.hasInput == false && Time.timeScale != 0.0f)
             {
                 basicInstructions.enabled = true;
             }
@@ -136,12 +136,12 @@ public class HUD : MonoBehaviour
 
     public void TogglePause()
     {
-        if(pauseButtonSound != null)
+        if (pauseButtonSound != null)
         {
             Instantiate(pauseButtonSound, transform.position, transform.rotation);
         }
 
-        if(Time.timeScale != 0.0f)
+        if (Time.timeScale != 0.0f)
         {
             pauseText.gameObject.SetActive(true);
             pauseButtonImage.sprite = pauseButtonPressed;

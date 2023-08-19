@@ -21,7 +21,7 @@ public class AdButton : MonoBehaviour
 
     void Update()
     {
-        if(destroyIfMultipliedScore && GameStats.multipliedCurrentScore)
+        if (destroyIfMultipliedScore && GameStats.multipliedCurrentScore)
         {
             Destroy(gameObject);
         }

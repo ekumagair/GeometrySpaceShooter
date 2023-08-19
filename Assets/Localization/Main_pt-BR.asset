@@ -88,6 +88,10 @@ MonoBehaviour:
     m_Localized: Desbloqueado!
     m_Metadata:
       m_Items: []
+  - m_Id: 49347118960934912
+    m_Localized: Geometry Space Shooter
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

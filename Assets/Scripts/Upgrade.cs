@@ -45,7 +45,7 @@ public class Upgrade : MonoBehaviour
     {
         priceDisplay.text = price.ToString();
 
-        if(GameStats.points < price)
+        if (GameStats.points < price)
         {
             // If you don't have enough points, disable buy button and enable ad button.
             buyButton.interactable = false;
@@ -145,17 +145,32 @@ public class Upgrade : MonoBehaviour
                 persistentCanvas.CreateNumberChangeEffect(HUD.hudTopLeftCorner, "-" + price.ToString(), new Color(1f, 0.5f, 0.5f), -0.5f, 1);
             }
         }
-        
-        price = Mathf.RoundToInt(price * priceMultiplier);
+
+        // Increase price.
+        if (price < 999999)
+        {
+            price = Mathf.RoundToInt(price * priceMultiplier);
+        }
 
         // Price limit (6 digits).
-        if(price > 999999)
+        if (price > 999999)
         {
             price = 999999;
+        }
+
+        // Amount of purchases.
+        if (GameStats.upgradePurchaseAmount[(int)upgradeType] < uint.MaxValue)
+        {
+            GameStats.upgradePurchaseAmount[(int)upgradeType] += 1;
         }
 
         // Save stats.
         GameStats.upgradePrice[(int)upgradeType] = price;
         GameStats.SaveStats();
+
+        if (Debug.isDebugBuild)
+        {
+            Debug.Log("Purchased upgrade: ID " + (int)upgradeType + ", Amount " + GameStats.upgradePurchaseAmount[(int)upgradeType] + ", Price " + GameStats.upgradePrice[(int)upgradeType]);
+        }
     }
 }

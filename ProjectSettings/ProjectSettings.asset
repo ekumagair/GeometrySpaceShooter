@@ -134,7 +134,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 0.9
+  bundleVersion: 1.0
   preloadedAssets:
   - {fileID: 11400000, guid: a3bb24b3f74bcfd418ca7701f62489b5, type: 2}
   metroInputSource: 0
@@ -158,7 +158,7 @@ PlayerSettings:
   applicationIdentifier:
     Android: com.EduardoKumagai.GeometrySpaceShooter
     Lumin: com.DefaultCompany.com.unity.template.mobile2D
-    Standalone: com.DefaultCompany.com.unity.template.mobile2D
+    Standalone: com.EduardoKumagai.GeometrySpaceShooter
     iPhone: com.DefaultCompany.com.unity.template.mobile2D
     tvOS: com.DefaultCompany.com.unity.template.mobile2D
   buildNumber:

@@ -17,11 +17,14 @@ public class StartScene : MonoBehaviour
     public TMP_Text versionText;
 
     public static bool goToUpgrades = false;
+    public static int currentCanvas = 0;
     PersistentCanvas persistentCanvas;
     Camera mainCamera;
 
     void Awake()
     {
+        Time.timeScale = 1.0f;
+
         // If has saved data, load the data and the prices for each upgrade.
         if (SaveSystem.SaveExists())
         {
@@ -42,7 +45,6 @@ public class StartScene : MonoBehaviour
 
     void Start()
     {
-        Time.timeScale = 1.0f;
         persistentCanvas = GameObject.Find("PersistentCanvas").GetComponent<PersistentCanvas>();
         mainCamera = Camera.main;
         GameStats.currentLevelPoints = 0;
@@ -53,7 +55,7 @@ public class StartScene : MonoBehaviour
             GameStats.points = 0;
         }
 
-        if(goToUpgrades)
+        if (goToUpgrades)
         {
             GoToCanvas(1);
             persistentCanvas.CreateButtonSound(0);
@@ -64,7 +66,7 @@ public class StartScene : MonoBehaviour
             GoToCanvas(0);
         }
 
-        if(versionText != null)
+        if (versionText != null)
         {
             versionText.text = "v" + Application.version.ToString();
         }
@@ -84,7 +86,7 @@ public class StartScene : MonoBehaviour
             }
         }
 
-        if(currentUpgradePage == 0)
+        if (currentUpgradePage == 0)
         {
             upgradePreviousButton.interactable = false;
         }
@@ -104,9 +106,17 @@ public class StartScene : MonoBehaviour
 
         upgradePageText.text = (currentUpgradePage + 1).ToString() + "/" + upgradePages.Length.ToString();
 
+        for (int i = 0; i < canvases.Length; i++)
+        {
+            if (canvases[i].activeSelf == true && currentCanvas != i)
+            {
+                ChooseOneCanvas(currentCanvas);
+            }
+        }
+
         if (Debug.isDebugBuild)
         {
-            if(Input.GetKeyDown(KeyCode.Delete))
+            if (Input.GetKeyDown(KeyCode.Delete))
             {
                 SaveSystem.DeleteSave();
                 PlayerPrefs.DeleteAll();
@@ -128,11 +138,16 @@ public class StartScene : MonoBehaviour
         SceneManager.LoadScene("GameScene");
     }
 
+    public void GoToCanvas(int c)
+    {
+        ChooseOneCanvas(c);
+    }
+
     void ChooseOneCanvas(int c)
     {
         for (int i = 0; i < canvases.Length; i++)
         {
-            if(i == c)
+            if (i == c)
             {
                 canvases[i].gameObject.SetActive(true);
             }
@@ -153,11 +168,8 @@ public class StartScene : MonoBehaviour
                 startObjects.SetActive(false);
             }
         }
-    }
 
-    public void GoToCanvas(int c)
-    {
-        ChooseOneCanvas(c);
+        currentCanvas = c;
     }
 
     public void ChangeUpgradePage(int increment)
