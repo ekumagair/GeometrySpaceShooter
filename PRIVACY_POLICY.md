@@ -15,8 +15,8 @@ This application collects the following data:
 | Collection of app diagnostics | App functionality, analytics |
 | User’s device and other identifiers | Advertising or marketing, analytics, app functionality, fraud prevention, security, and compliance |
 
--All of the data collected by the SDK encrypted in transit.
--None of the listed data types are collected ephemerally.
+- All of the data collected by the SDK encrypted in transit.
+- None of the listed data types are collected ephemerally.
 
 This information can also be found on Unity's documentation: https://docs.unity.com/ads/en-us/manual/GoogleDataSafety
 
