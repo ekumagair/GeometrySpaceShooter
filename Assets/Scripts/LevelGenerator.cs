@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class LevelGenerator : MonoBehaviour
@@ -15,13 +14,13 @@ public class LevelGenerator : MonoBehaviour
     public static int campaignDifficulty = 0;
     public static bool isBossStage = false;
 
-    int prefabMin, prefabMax = 0;
+    private int prefabMin, prefabMax = 0;
 
     void Start()
     {
         isBossStage = false;
         
-        if (GameStats.currentLevelType == 0)
+        if (GameStats.currentLevelType == GameStats.LevelType.MAIN)
         {
             CreateCampaignLevel();
         }
@@ -119,9 +118,9 @@ public class LevelGenerator : MonoBehaviour
         {
             prefabMin = 0;
         }
-        if (prefabMin > enemyPrefabs.Length - 1)
+        if (prefabMin > enemyPrefabs.Length - 5)
         {
-            prefabMin = enemyPrefabs.Length - 1;
+            prefabMin = enemyPrefabs.Length - 5;
         }
         if (prefabMax > enemyPrefabs.Length)
         {
@@ -131,7 +130,7 @@ public class LevelGenerator : MonoBehaviour
 
     void SetLevelDensity(int reference)
     {
-        if(reference <= 100)
+        if (reference <= 100)
         {
             spread = 3;
         }
@@ -149,7 +148,7 @@ public class LevelGenerator : MonoBehaviour
     {
         levelLength = Mathf.Clamp((spread * 9) + (spread * Mathf.FloorToInt(reference / 1.3f)),
                                    0,
-                                   spread * 400);
+                                   spread * 200);
     }
 
     public static void MoveEnemies(float y)
@@ -188,7 +187,7 @@ public class LevelGenerator : MonoBehaviour
         Enemy[] enemies = FindObjectsOfType<Enemy>();
         foreach (Enemy enemy in enemies)
         {
-            if(enemy.transform.position.y > y)
+            if (enemy.transform.position.y > y)
             {
                 Destroy(enemy.gameObject);
             }
@@ -203,11 +202,11 @@ public class LevelGenerator : MonoBehaviour
         switch (type)
         {
             case 0:
-                itemScript.givePoints = Mathf.RoundToInt(60 * levelLength);
+                itemScript.givePoints = Mathf.RoundToInt(120 * levelLength) + 100;
                 break;
 
             case 1:
-                itemScript.giveHealth = Mathf.RoundToInt(Player.startHealth / 2);
+                itemScript.giveHealth = Mathf.RoundToInt(Player.startHealth / 1.75f) + 2;
                 break;
 
             default:

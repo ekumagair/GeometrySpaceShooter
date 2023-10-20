@@ -13,7 +13,7 @@ public class OptionsScreen : MonoBehaviour
 
     void Start()
     {
-        if(SaveSystem.SaveExists())
+        if (SaveSystem.SaveExists())
         {
             sliderSFX.value = Options.soundVolume * 10;
             sliderMusic.value = Options.musicVolume * 10;
@@ -23,9 +23,16 @@ public class OptionsScreen : MonoBehaviour
             sliderSFX.value = 10;
             sliderMusic.value = 5;
         }
+
+        SetText();
     }
 
     void Update()
+    {
+        SetText();
+    }
+
+    private void SetText()
     {
         textSFX.text = "(" + Options.soundVolume * 100 + "%)";
         textMusic.text = "(" + Options.musicVolume * 100 + "%)";
@@ -45,7 +52,7 @@ public class OptionsScreen : MonoBehaviour
 
     public void SetProjectileTrails()
     {
-        if(Options.projectileTrails == 0)
+        if (Options.projectileTrails == 0)
         {
             Options.projectileTrails = 1;
         }

@@ -24,42 +24,46 @@ public class HUD : MonoBehaviour
     public TMP_Text basicInstructions;
 
     public static float previousTimeScale = 1.0f;
-
     public static Vector3 hudTopLeftCorner = new Vector3(-85, 250, 0);
     public static Vector3 hudBottomRightCorner = new Vector3(100, -190, 0);
+    public static HUD instance;
 
-    bool createdWindow = false;
-    Health statTargetHealth;
-    GameObject player;
-    Image pauseButtonImage;
+    [HideInInspector] public bool createdWindow = false;
+
+    private Health _statTargetHealth;
+    private Image _pauseButtonImage;
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     void Start()
     {
-        statTargetHealth = statTarget.GetComponent<Health>();
+        _statTargetHealth = statTarget.GetComponent<Health>();
         windowVictory.SetActive(false);
         windowLose.SetActive(false);
         createdWindow = false;
         previousTimeScale = 1.0f;
-        player = GameObject.FindGameObjectWithTag("Player");
-        pauseButtonImage = pauseButton.gameObject.GetComponent<Image>();
+        _pauseButtonImage = pauseButton.gameObject.GetComponent<Image>();
         pauseText.gameObject.SetActive(false);
 
-        levelText.enabled = GameStats.currentLevelType == 0;
-        extraLevelText.enabled = GameStats.currentLevelType == 1;
+        levelText.enabled = GameStats.currentLevelType == GameStats.LevelType.MAIN;
+        extraLevelText.enabled = GameStats.currentLevelType == GameStats.LevelType.PRESET;
     }
 
     void Update()
     {
-        healthNumber.text = statTargetHealth.health.ToString();
-        if(statTargetHealth.health > Player.startHealth)
+        healthNumber.text = _statTargetHealth.health.ToString();
+        if (_statTargetHealth.health > Player.startHealth)
         {
             healthNumber.color = Color.green;
         }
-        else if (statTargetHealth.health > Mathf.RoundToInt(Player.startHealth / 4) && statTargetHealth.health > 1 && statTargetHealth.health <= Player.startHealth)
+        else if (_statTargetHealth.health > Mathf.RoundToInt(Player.startHealth / 4) && _statTargetHealth.health > 1 && _statTargetHealth.health <= Player.startHealth)
         {
             healthNumber.color = Color.white;
         }
-        else if (statTargetHealth.health <= Mathf.RoundToInt(Player.startHealth / 4) || statTargetHealth.health <= 1)
+        else if (_statTargetHealth.health <= Mathf.RoundToInt(Player.startHealth / 4) || _statTargetHealth.health <= 1)
         {
             healthNumber.color = Color.red;
         }
@@ -105,7 +109,7 @@ public class HUD : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.R))
             {
-                RevivePlayer();
+                GameplayManager.instance.RevivePlayer();
             }
             if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
@@ -122,18 +126,6 @@ public class HUD : MonoBehaviour
         }
     }
 
-    public void RevivePlayer()
-    {
-        if (player != null)
-        {
-            player.SetActive(true);
-            player.GetComponent<Player>().InitializePlayer(5);
-            windowVictory.SetActive(false);
-            windowLose.SetActive(false);
-            createdWindow = false;
-        }
-    }
-
     public void TogglePause()
     {
         if (pauseButtonSound != null)
@@ -144,14 +136,14 @@ public class HUD : MonoBehaviour
         if (Time.timeScale != 0.0f)
         {
             pauseText.gameObject.SetActive(true);
-            pauseButtonImage.sprite = pauseButtonPressed;
+            _pauseButtonImage.sprite = pauseButtonPressed;
             previousTimeScale = Time.timeScale;
             Time.timeScale = 0.0f;
         }
         else
         {
             pauseText.gameObject.SetActive(false);
-            pauseButtonImage.sprite = pauseButtonDefault;
+            _pauseButtonImage.sprite = pauseButtonDefault;
             Time.timeScale = previousTimeScale;
         }
     }

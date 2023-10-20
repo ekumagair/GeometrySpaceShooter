@@ -22,16 +22,25 @@ public class Player : MonoBehaviour
     public static bool victory = false;
 
     public static bool hasInput = false;
-    bool detectedVictory = false;
-    float inputDuration = 0;
-    Vector2 targetPosition;
-    SpriteRenderer spriteRenderer;
-    Health healthScript;
-    PersistentCanvas persistentCanvas;
+    public static Player instance = null;
+
+    [HideInInspector]
+    public Health healthScript;
+
+    private bool detectedVictory = false;
+    private float inputDuration = 0;
+    private Vector2 targetPosition;
+    private SpriteRenderer spriteRenderer;
+    private PersistentCanvas persistentCanvas;
+
+    private void Awake()
+    {
+        Time.timeScale = 1.0f;
+        instance = this;
+    }
 
     void Start()
     {
-        Time.timeScale = 1.0f;
         isDead = false;
         victory = false;
         detectedVictory = false;
@@ -40,7 +49,7 @@ public class Player : MonoBehaviour
         persistentCanvas = GameObject.Find("PersistentCanvas").GetComponent<PersistentCanvas>();
         InitializePlayer(0);
 
-        // Load level end ad.
+        // Load level end ad, but don't show it yet.
         if (adInterstitial != null)
         {
             adInterstitial.LoadAd();

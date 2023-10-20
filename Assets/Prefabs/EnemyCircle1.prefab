@@ -149,9 +149,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveYSpeed: 1.3
-  firingSpeed: 1.3
+  firingSpeed: 1.2
   projectile: {fileID: 4132169524799448920, guid: 60b54fb045102994c977aec271d96d56, type: 3}
-  projectileSpeedMultiplier: 0.75
+  projectileSpeedMultiplier: 0.7
   projectileDamage: 1
   shootY: 6
   stopY: -100
@@ -175,6 +175,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 2
   pointsOnDeath: 40
+  afterHitInvincibleTime: 0
   moveEnemiesOnDeath: -1
   damageEffect: {fileID: 3557494339481289917, guid: 905c3b66a4929f44f8bf2dbdc695859e, type: 3}
   damageSound: {fileID: 0}

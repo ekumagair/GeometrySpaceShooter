@@ -7,27 +7,51 @@ using UnityEngine.UI;
 
 public class LocaleDropdown : MonoBehaviour
 {
-    Dropdown dropdown;
+    private Dropdown _dropdown;
+    private float _timeSinceEnable = 0;
 
     void Start()
     {
-        dropdown = GetComponent<Dropdown>();
+        _dropdown = GetComponent<Dropdown>();
 
         Locale currentSelectedLocale = LocalizationSettings.SelectedLocale;
         ILocalesProvider availableLocales = LocalizationSettings.AvailableLocales;
 
         if (currentSelectedLocale == availableLocales.GetLocale("en"))
         {
-            dropdown.value = 0;
+            _dropdown.value = 0;
         }
         else if (currentSelectedLocale == availableLocales.GetLocale("pt-BR"))
         {
-            dropdown.value = 1;
+            _dropdown.value = 1;
+        }
+    }
+
+    private void OnEnable()
+    {
+        _timeSinceEnable = 0;
+    }
+
+    private void Update()
+    {
+        if (_timeSinceEnable < float.MaxValue - 1f)
+        {
+            _timeSinceEnable += Time.deltaTime;
         }
     }
 
     public void LocaleSelected()
     {
-        LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[dropdown.value];
+        LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[_dropdown.value];
+
+        if (_timeSinceEnable > 0.2f)
+        {
+            PersistentCanvas.reference.CreateButtonSound(5);
+        }
+    }
+
+    public void OnDropdownClick()
+    {
+        PersistentCanvas.reference.CreateButtonSound(3);
     }
 }

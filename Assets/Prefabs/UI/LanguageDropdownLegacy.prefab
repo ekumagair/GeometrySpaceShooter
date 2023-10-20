@@ -302,7 +302,7 @@ GameObject:
   - component: {fileID: 2777326693203994210}
   - component: {fileID: 2777326693203994205}
   m_Layer: 5
-  m_Name: LanguageDropdown
+  m_Name: LanguageDropdownLegacy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

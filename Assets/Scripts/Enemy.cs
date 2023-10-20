@@ -34,13 +34,13 @@ public class Enemy : MonoBehaviour
     public AttackType attackType;
 
     // Enemy difficulties:
-    // 1 = Easy.
-    // 2 = Normal.
-    // 3 = Hard.
-    // 4 = Very hard.
-    // 5 = Ultra hard.
-    // 6 = Extreme.
-    // 7 = Ultra extreme.
+    // 1 = Very easy.
+    // 2 = Easy.
+    // 3 = Normal.
+    // 4 = Hard.
+    // 5 = Very hard.
+    // 6 = Ultra hard.
+    // 7 = Extreme.
 
     void Start()
     {

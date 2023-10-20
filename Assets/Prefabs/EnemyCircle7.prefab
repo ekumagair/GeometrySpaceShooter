@@ -17,7 +17,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6517342231039840152, guid: 4f5cb1a6f6f267840b7f4869ad85bfc7, type: 3}
       propertyPath: firingSpeed
-      value: 0.7
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 6517342231039840152, guid: 4f5cb1a6f6f267840b7f4869ad85bfc7, type: 3}
       propertyPath: projectileDamage
@@ -25,7 +25,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6517342231039840152, guid: 4f5cb1a6f6f267840b7f4869ad85bfc7, type: 3}
       propertyPath: projectileSpeedMultiplier
-      value: 2.25
+      value: 1.1
       objectReference: {fileID: 0}
     - target: {fileID: 6517342231039840153, guid: 4f5cb1a6f6f267840b7f4869ad85bfc7, type: 3}
       propertyPath: health

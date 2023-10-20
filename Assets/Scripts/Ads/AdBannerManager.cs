@@ -11,7 +11,9 @@ public class AdBannerManager : MonoBehaviour
     [SerializeField] string _iOSAdUnitId = "Banner_iOS";
     string _adUnitId = null; // This will remain null for unsupported platforms.
 
-    void Start()
+    [HideInInspector] public bool loaded = false;
+
+    void Awake()
     {
         // Get the Ad Unit ID for the current platform:
 #if UNITY_IOS
@@ -19,12 +21,27 @@ public class AdBannerManager : MonoBehaviour
 #elif UNITY_ANDROID
         _adUnitId = _androidAdUnitId;
 #endif
+    }
 
+    private IEnumerator Start()
+    {
         // Set the banner position:
         Advertisement.Banner.SetPosition(_bannerPosition);
 
+        while (Advertisement.isInitialized == false)
+        {
+            yield return new WaitForSeconds(0.1f);
+        }
+        yield return null;
+
         // Load banner.
         LoadBanner();
+
+        while (loaded == false)
+        {
+            yield return new WaitForSeconds(0.1f);
+        }
+        yield return null;
 
         // Show banner.
         ShowBannerAd();
@@ -33,6 +50,8 @@ public class AdBannerManager : MonoBehaviour
     // Implement a method to call when the Load Banner button is clicked:
     public void LoadBanner()
     {
+        loaded = false;
+
         // Set up options to notify the SDK of load events:
         BannerLoadOptions options = new BannerLoadOptions
         {
@@ -48,6 +67,7 @@ public class AdBannerManager : MonoBehaviour
     void OnBannerLoaded()
     {
         Debug.Log("Banner loaded");
+        loaded = true;
     }
 
     // Implement code to execute when the load errorCallback event triggers:
@@ -80,7 +100,9 @@ public class AdBannerManager : MonoBehaviour
     }
 
     void OnBannerClicked() { }
+
     void OnBannerShown() { }
+
     void OnBannerHidden() { }
 
     void OnDestroy() { }

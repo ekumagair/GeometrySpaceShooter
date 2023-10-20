@@ -7,6 +7,7 @@ using TMPro;
 
 public class StartScene : MonoBehaviour
 {
+    public GameObject startButton;
     public GameObject[] canvases;
     public GameObject startObjects;
     public GameObject[] upgradePages;
@@ -18,8 +19,8 @@ public class StartScene : MonoBehaviour
 
     public static bool goToUpgrades = false;
     public static int currentCanvas = 0;
-    PersistentCanvas persistentCanvas;
-    Camera mainCamera;
+
+    private PersistentCanvas _persistentCanvas;
 
     void Awake()
     {
@@ -45,10 +46,12 @@ public class StartScene : MonoBehaviour
 
     void Start()
     {
-        persistentCanvas = GameObject.Find("PersistentCanvas").GetComponent<PersistentCanvas>();
-        mainCamera = Camera.main;
+        _persistentCanvas = GameObject.Find("PersistentCanvas").GetComponent<PersistentCanvas>();
         GameStats.currentLevelPoints = 0;
         GameStats.multipliedCurrentScore = false;
+        ScoreChain.scoreMultiplier = 1.0f;
+        ScoreChain.tier = 0;
+        ScoreChain.currentKills = 0;
 
         if (GameStats.points < 0)
         {
@@ -58,7 +61,7 @@ public class StartScene : MonoBehaviour
         if (goToUpgrades)
         {
             GoToCanvas(1);
-            persistentCanvas.CreateButtonSound(0);
+            _persistentCanvas.CreateButtonSound(0);
             goToUpgrades = false;
         }
         else
@@ -70,13 +73,28 @@ public class StartScene : MonoBehaviour
         {
             versionText.text = "v" + Application.version.ToString();
         }
+
+        if (GameStats.initializedGame == false)
+        {
+            _persistentCanvas.CreateFadeOutOverlay();
+
+            if (Application.genuineCheckAvailable == true)
+            {
+                if (Application.genuine == false && startButton != null)
+                {
+                    Destroy(startButton);
+                }
+            }
+
+            GameStats.initializedGame = true;
+        }
     }
 
     void Update()
     {
         for (int i = 0; i < upgradePages.Length; i++)
         {
-            if(i == currentUpgradePage)
+            if (i == currentUpgradePage)
             {
                 upgradePages[i].gameObject.SetActive(true);
             }
@@ -127,13 +145,13 @@ public class StartScene : MonoBehaviour
 
     public void PlayGame()
     {
-        GameStats.currentLevelType = 0;
+        GameStats.currentLevelType = GameStats.LevelType.MAIN;
         SceneManager.LoadScene("GameScene");
     }
 
     public void PlayPresetLevel(int level)
     {
-        GameStats.currentLevelType = 1;
+        GameStats.currentLevelType = GameStats.LevelType.PRESET;
         PresetLevels.currentPresetLevel = level;
         SceneManager.LoadScene("GameScene");
     }

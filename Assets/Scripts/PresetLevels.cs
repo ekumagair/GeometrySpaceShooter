@@ -10,7 +10,7 @@ public class PresetLevels : MonoBehaviour
 
     void Start()
     {
-        if (GameStats.currentLevelType == 1)
+        if (GameStats.currentLevelType == GameStats.LevelType.PRESET)
         {
             if (presetLevels[currentPresetLevel] != null)
             {

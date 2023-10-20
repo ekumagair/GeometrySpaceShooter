@@ -50,6 +50,8 @@ public class AdInterstitialManager : MonoBehaviour, IUnityAdsLoadListener, IUnit
     }
 
     public void OnUnityAdsShowStart(string adUnitId) { }
+
     public void OnUnityAdsShowClick(string adUnitId) { }
+
     public void OnUnityAdsShowComplete(string adUnitId, UnityAdsShowCompletionState showCompletionState) { }
 }

@@ -23,10 +23,7 @@ public static class SaveSystem
         formatter.Serialize(stream, data);
         stream.Close();
 
-        if (Debug.isDebugBuild == true)
-        {
-            Debug.Log("SAVED data at " + path);
-        }
+        if (Debug.isDebugBuild == true) { Debug.Log("SAVED data at " + path); }
     }
 
     public static PlayerData LoadData()
@@ -41,19 +38,13 @@ public static class SaveSystem
             PlayerData data = formatter.Deserialize(stream) as PlayerData;
             stream.Close();
 
-            if (Debug.isDebugBuild == true)
-            {
-                Debug.Log("LOADED data at " + path);
-            }
+            if (Debug.isDebugBuild == true) { Debug.Log("LOADED data at " + path); }
 
             return data;
         }
         else
         {
-            if (Debug.isDebugBuild == true)
-            {
-                Debug.Log("Data NOT FOUND in " + path);
-            }
+            if (Debug.isDebugBuild == true) { Debug.Log("Data NOT FOUND in " + path); }
 
             return null;
         }
@@ -67,10 +58,7 @@ public static class SaveSystem
         {
             File.Delete(path);
 
-            if (Debug.isDebugBuild == true)
-            {
-                Debug.Log("DELETED data at " + path);
-            }
+            if (Debug.isDebugBuild == true) { Debug.Log("DELETED data at " + path); }
         }
     }
 

@@ -102,9 +102,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.4}
   serializedVersion: 2
-  m_Radius: 0.6
+  m_Radius: 0.5
 --- !u!50 &2298314177360436752
 Rigidbody2D:
   serializedVersion: 4
@@ -143,6 +143,8 @@ MonoBehaviour:
   finishLine: {fileID: 1622093088128447043, guid: 072988cd29a673b4c80abf401f5ed814, type: 3}
   ignoreInput: 0
   highlightSprite: {fileID: 6775918714146290708}
+  adInterstitial: {fileID: 0}
+  healthScript: {fileID: 0}
 --- !u!114 &2298314177360436759
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -157,12 +159,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 2
   pointsOnDeath: 0
-  moveEnemiesOnDeath: 4
+  afterHitInvincibleTime: 2
+  moveEnemiesOnDeath: 3
   damageEffect: {fileID: 3557494339481289917, guid: 0c263cabe16cdaf489235379ce6fe6cb, type: 3}
   damageSound: {fileID: 4803644159576522076, guid: c416e9bf159efd546bd5f6449d054866, type: 3}
   deathParticles: {fileID: 0}
   createDamageChangeText: 1
   createDeathChangeText: 0
+  invincible: 0
   deathType: 1
 --- !u!1 &6449046254262457530
 GameObject:

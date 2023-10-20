@@ -17,6 +17,8 @@ public class Upgrade : MonoBehaviour
     public Button buyButton;
     public Button adButton;
 
+    private AdButton _adButtonScript;
+
     public enum UpgradeType
     {
         FiringSpeed,
@@ -28,15 +30,19 @@ public class Upgrade : MonoBehaviour
     }
     public UpgradeType upgradeType;
 
-    PersistentCanvas persistentCanvas;
+    private PersistentCanvas _persistentCanvas;
 
     void Start()
     {
-        persistentCanvas = GameObject.Find("PersistentCanvas").GetComponent<PersistentCanvas>();
+        _persistentCanvas = GameObject.Find("PersistentCanvas").GetComponent<PersistentCanvas>();
+    }
 
+    private void OnEnable()
+    {
         // Make ad buttons disabled by default.
         if (adButton != null)
         {
+            _adButtonScript = adButton.GetComponent<AdButton>();
             adButton.interactable = false;
         }
     }
@@ -50,9 +56,16 @@ public class Upgrade : MonoBehaviour
             // If you don't have enough points, disable buy button and enable ad button.
             buyButton.interactable = false;
 
-            if (adButton != null && GameStats.enableAdButttons == true && Advertisement.isInitialized == true)
+            if (adButton != null && AdRewardedManager.instance != null)
             {
-                adButton.interactable = true;
+                if (AdRewardedManager.instance.loaded == true && _adButtonScript != null)
+                {
+                    _adButtonScript.EnableAdButton();
+                }
+                else
+                {
+                    adButton.interactable = false;
+                }
             }
         }
         else
@@ -103,7 +116,17 @@ public class Upgrade : MonoBehaviour
         }
     }
 
-    public void BuyUpgrade(bool spendPoints)
+    public void BuyUpgradeWithPoints()
+    {
+        BuyUpgrade(true, true);
+    }
+
+    public void BuyUpgradeFromAd()
+    {
+        BuyUpgrade(false, true);
+    }
+
+    private void BuyUpgrade(bool spendPoints, bool increasePrice)
     {
         switch (upgradeType)
         {
@@ -135,19 +158,19 @@ public class Upgrade : MonoBehaviour
                 break;
         }
 
-        if (spendPoints)
+        if (spendPoints == true)
         {
             GameStats.points -= price;
 
-            if (persistentCanvas != null && price > 0)
+            if (_persistentCanvas != null && price > 0)
             {
                 // Show spent points on the top left corner of the screen.
-                persistentCanvas.CreateNumberChangeEffect(HUD.hudTopLeftCorner, "-" + price.ToString(), new Color(1f, 0.5f, 0.5f), -0.5f, 1);
+                _persistentCanvas.CreateNumberChangeEffect(HUD.hudTopLeftCorner, "-" + price.ToString(), new Color(1f, 0.5f, 0.5f), -0.5f, 1);
             }
         }
 
         // Increase price.
-        if (price < 999999)
+        if (price < 999999 && increasePrice == true)
         {
             price = Mathf.RoundToInt(price * priceMultiplier);
         }
@@ -168,9 +191,6 @@ public class Upgrade : MonoBehaviour
         GameStats.upgradePrice[(int)upgradeType] = price;
         GameStats.SaveStats();
 
-        if (Debug.isDebugBuild)
-        {
-            Debug.Log("Purchased upgrade: ID " + (int)upgradeType + ", Amount " + GameStats.upgradePurchaseAmount[(int)upgradeType] + ", Price " + GameStats.upgradePrice[(int)upgradeType]);
-        }
+        if (Debug.isDebugBuild) { Debug.Log("Purchased upgrade: ID " + (int)upgradeType + ", Amount " + GameStats.upgradePurchaseAmount[(int)upgradeType] + ", Price " + GameStats.upgradePrice[(int)upgradeType]); }
     }
 }

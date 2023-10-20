@@ -15,7 +15,17 @@ public class Checkbox : MonoBehaviour
     }
     public Value value;
 
+    private void Awake()
+    {
+        CheckEnableConditions();
+    }
+
     void Update()
+    {
+        CheckEnableConditions();
+    }
+
+    private void CheckEnableConditions()
     {
         switch (value)
         {
@@ -32,7 +42,7 @@ public class Checkbox : MonoBehaviour
         }
     }
 
-    bool IntToBool(int integer)
+    private bool IntToBool(int integer)
     {
         return integer == 1;
     }

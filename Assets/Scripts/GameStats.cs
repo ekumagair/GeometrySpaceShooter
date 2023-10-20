@@ -11,13 +11,19 @@ public static class GameStats
     public static int[] upgradePrice = new int[6];
     public static uint[] upgradePurchaseAmount = new uint[6];
 
-    // Enable ad buttons.
+    // Initialized game
+    public static bool initializedGame = false;
+
+    // Enable ad buttons
     public static bool enableAdButttons = true;
 
     // Level type:
-    public static int currentLevelType = 0;
-    // 0 = Main campaign.
-    // 1 = Preset level.
+    public enum LevelType
+    {
+        MAIN,
+        PRESET
+    }
+    public static LevelType currentLevelType = LevelType.MAIN;
 
     public static void AddPoints(int p)
     {
@@ -28,7 +34,10 @@ public static class GameStats
         if (points > 2000000000)
         {
             points = 2000000000;
-            currentLevelPoints = points;
+        }
+        if (currentLevelPoints > 2000000000)
+        {
+            currentLevelPoints = 2000000000;
         }
     }
 
@@ -37,7 +46,7 @@ public static class GameStats
         PlayerPrefs.Save();
         SaveSystem.SaveData();
 
-        //Debug.Log("Saved stats");
+        if (Debug.isDebugBuild) { Debug.Log("Saved stats"); }
     }
 
     public static void LoadStats()
@@ -74,6 +83,6 @@ public static class GameStats
             }
         }
 
-        //Debug.Log("Loaded stats");
+        if (Debug.isDebugBuild) { Debug.Log("Loaded stats"); }
     }
 }

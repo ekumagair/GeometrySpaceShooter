@@ -9,11 +9,19 @@ public class PersistentCanvas : MonoBehaviour
     public TMP_Text pointsNumber;
     public GameObject[] soundButton;
     public GameObject numberChangeEffect;
+    public GameObject fadeOutOverlay;
     public TMP_Text levelText;
+
+    public static PersistentCanvas reference;
+
+    private void Awake()
+    {
+        reference = this;
+    }
 
     void Start()
     {
-        if (GameStats.currentLevelType == 1)
+        if (GameStats.currentLevelType == GameStats.LevelType.PRESET)
         {
             levelText.enabled = false;
         }
@@ -23,6 +31,7 @@ public class PersistentCanvas : MonoBehaviour
     {
         pointsNumber.text = GameStats.points.ToString();
 
+#if UNITY_EDITOR || UNITY_STANDALONE
         // Debug.
         if (Debug.isDebugBuild)
         {
@@ -40,10 +49,11 @@ public class PersistentCanvas : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.V))
             {
-                NextLevel();
-                GoToStartScene();
+                GameplayManager.instance.NextLevel();
+                GameplayManager.instance.GoToStartScene();
             }
         }
+#endif
     }
 
     public void CreateButtonSound(int b)
@@ -64,35 +74,8 @@ public class PersistentCanvas : MonoBehaviour
         nc.GetComponent<RectTransform>().anchoredPosition = pos;
     }
 
-    public void MultiplyCurrentScoreBy2()
+    public void CreateFadeOutOverlay()
     {
-        GameStats.AddPoints(GameStats.currentLevelPoints);
-        GameStats.multipliedCurrentScore = true;
-        GameStats.SaveStats();
-    }
-
-    public void NextLevel()
-    {
-        if (GameStats.currentLevelType == 0)
-        {
-            GameStats.level++;
-            LevelGenerator.campaignDifficulty++;
-        }
-
-        GameStats.currentLevelType = 0;
-        LevelGenerator.isBossStage = false;
-        GameStats.SaveStats();
-    }
-
-    public void GoToStartScene()
-    {
-        StartScene.goToUpgrades = false;
-        SceneManager.LoadScene("StartScene");
-    }
-
-    public void GoToStartSceneUpgrades()
-    {
-        StartScene.goToUpgrades = true;
-        SceneManager.LoadScene("StartScene");
+        Instantiate(fadeOutOverlay, transform.position, transform.rotation, transform);
     }
 }
