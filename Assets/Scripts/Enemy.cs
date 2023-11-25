@@ -18,9 +18,9 @@ public class Enemy : MonoBehaviour
     public GameObject warningBlipSound;
     public GameObject attackSound;
 
-    SpriteRenderer spriteRenderer;
-    Health healthScript;
-    GameObject player;
+    private SpriteRenderer _sr;
+    private Health _healthScript;
+    private GameObject _player;
 
     public enum AttackType
     {
@@ -44,9 +44,9 @@ public class Enemy : MonoBehaviour
 
     void Start()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        healthScript = GetComponent<Health>();
-        player = GameObject.FindGameObjectWithTag("Player");
+        _sr = GetComponent<SpriteRenderer>();
+        _healthScript = GetComponent<Health>();
+        _player = GameObject.FindGameObjectWithTag("Player");
         StartCoroutine(Attack());
         StartCoroutine(OutlineFlash());
 
@@ -76,32 +76,32 @@ public class Enemy : MonoBehaviour
                     break;
 
                 case AttackType.ShootForward:
-                    Combat.CreateShot(projectile, transform, 90, gameObject, spriteRenderer.color, projectileSpeedMultiplier, projectileDamage);
+                    Combat.CreateShot(projectile, transform, 90, gameObject, _sr.color, projectileSpeedMultiplier, projectileDamage);
                     break;
 
                 case AttackType.ShootAtPlayer:
-                    Combat.CreateShot(projectile, transform, Combat.AimDirection(player.transform, transform) / 2, gameObject, spriteRenderer.color, -projectileSpeedMultiplier, projectileDamage);
+                    Combat.CreateShot(projectile, transform, Combat.AimDirection(_player.transform, transform), gameObject, _sr.color, -projectileSpeedMultiplier, projectileDamage);
                     break;
 
                 case AttackType.SixShots:
-                    Combat.CreateShot(projectile, transform, 0, gameObject, spriteRenderer.color, projectileSpeedMultiplier, projectileDamage);
-                    Combat.CreateShot(projectile, transform, -22.5f, gameObject, spriteRenderer.color, projectileSpeedMultiplier, projectileDamage);
-                    Combat.CreateShot(projectile, transform, 22.5f, gameObject, spriteRenderer.color, projectileSpeedMultiplier, projectileDamage);
-                    Combat.CreateShot(projectile, transform, -67.5f, gameObject, spriteRenderer.color, projectileSpeedMultiplier, projectileDamage);
-                    Combat.CreateShot(projectile, transform, 67.5f, gameObject, spriteRenderer.color, projectileSpeedMultiplier, projectileDamage);
-                    Combat.CreateShot(projectile, transform, 90, gameObject, spriteRenderer.color, projectileSpeedMultiplier, projectileDamage);
+                    Combat.CreateShot(projectile, transform, 0, gameObject, _sr.color, projectileSpeedMultiplier, projectileDamage);
+                    Combat.CreateShot(projectile, transform, -22.5f, gameObject, _sr.color, projectileSpeedMultiplier, projectileDamage);
+                    Combat.CreateShot(projectile, transform, 22.5f, gameObject, _sr.color, projectileSpeedMultiplier, projectileDamage);
+                    Combat.CreateShot(projectile, transform, -67.5f, gameObject, _sr.color, projectileSpeedMultiplier, projectileDamage);
+                    Combat.CreateShot(projectile, transform, 67.5f, gameObject, _sr.color, projectileSpeedMultiplier, projectileDamage);
+                    Combat.CreateShot(projectile, transform, 90, gameObject, _sr.color, projectileSpeedMultiplier, projectileDamage);
                     break;
 
                 case AttackType.ShootAtRandomAngle:
-                    Combat.CreateShot(projectile, transform, Random.Range(-90f, 90f), gameObject, spriteRenderer.color, projectileSpeedMultiplier, projectileDamage);
+                    Combat.CreateShot(projectile, transform, Random.Range(-90f, 90f), gameObject, _sr.color, projectileSpeedMultiplier, projectileDamage);
                     break;
 
                 case AttackType.FiveShotsAtPlayer:
-                    Combat.CreateShot(projectile, transform, Combat.AimDirection(player.transform, transform) / 2 + 4f, gameObject, spriteRenderer.color, -projectileSpeedMultiplier, projectileDamage);
-                    Combat.CreateShot(projectile, transform, Combat.AimDirection(player.transform, transform) / 2 + 2f, gameObject, spriteRenderer.color, -projectileSpeedMultiplier, projectileDamage);
-                    Combat.CreateShot(projectile, transform, Combat.AimDirection(player.transform, transform) / 2, gameObject, spriteRenderer.color, -projectileSpeedMultiplier, projectileDamage);
-                    Combat.CreateShot(projectile, transform, Combat.AimDirection(player.transform, transform) / 2 - 2f, gameObject, spriteRenderer.color, -projectileSpeedMultiplier, projectileDamage);
-                    Combat.CreateShot(projectile, transform, Combat.AimDirection(player.transform, transform) / 2 - 4f, gameObject, spriteRenderer.color, -projectileSpeedMultiplier, projectileDamage);
+                    Combat.CreateShot(projectile, transform, Combat.AimDirection(_player.transform, transform) + 4f, gameObject, _sr.color, -projectileSpeedMultiplier, projectileDamage);
+                    Combat.CreateShot(projectile, transform, Combat.AimDirection(_player.transform, transform) + 2f, gameObject, _sr.color, -projectileSpeedMultiplier, projectileDamage);
+                    Combat.CreateShot(projectile, transform, Combat.AimDirection(_player.transform, transform), gameObject, _sr.color, -projectileSpeedMultiplier, projectileDamage);
+                    Combat.CreateShot(projectile, transform, Combat.AimDirection(_player.transform, transform) - 2f, gameObject, _sr.color, -projectileSpeedMultiplier, projectileDamage);
+                    Combat.CreateShot(projectile, transform, Combat.AimDirection(_player.transform, transform) - 4f, gameObject, _sr.color, -projectileSpeedMultiplier, projectileDamage);
                     break;
 
                 default:
@@ -154,10 +154,10 @@ public class Enemy : MonoBehaviour
         {
             projectileDamage *= 5;
         }
-        player.GetComponent<Health>().TakeDamage(projectileDamage);
+        _player.GetComponent<Health>().TakeDamage(projectileDamage);
 
-        healthScript.moveEnemiesOnDeath = 0;
-        healthScript.pointsOnDeath = 0;
-        healthScript.Die(false);
+        _healthScript.moveEnemiesOnDeath = 0;
+        _healthScript.pointsOnDeath = 0;
+        _healthScript.Die(false);
     }
 }

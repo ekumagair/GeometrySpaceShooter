@@ -62,7 +62,7 @@ public class AdButton : MonoBehaviour
 
         if (AdRewardedManager.instance != null)
         {
-            _button.interactable = GameStats.enableAdButttons == true && Advertisement.isInitialized == true && AdsInitializer.failed == false && AdRewardedManager.instance.HasAnyError() == false;
+            _button.interactable = GameStats.enableAdButttons == true && Advertisement.isInitialized == true && AdsInitializer.failed == false && AdsInitializer.isTesting == false && AdRewardedManager.instance.HasAnyError() == false;
         }
         else
         {
@@ -76,6 +76,7 @@ public class AdButton : MonoBehaviour
         {
             _upgradeScript = gameObject.transform.parent.gameObject.GetComponent<Upgrade>();
         }
+
         if (rewardType == AdRewardedManager.RewardType.UPGRADE && _upgradeScript != null)
         {
             AdRewardedManager.instance.upgradeScript = _upgradeScript;

@@ -43,6 +43,10 @@ public class PersistentCanvas : MonoBehaviour
             {
                 GameStats.points -= 200;
             }
+            if (Input.GetKeyDown(KeyCode.D))
+            {
+                GameStats.points -= 12345678;
+            }
             if (Input.GetKeyDown(KeyCode.P))
             {
                 GameStats.points *= GameStats.points;

@@ -20,8 +20,6 @@ public class StartScene : MonoBehaviour
     public static bool goToUpgrades = false;
     public static int currentCanvas = 0;
 
-    private PersistentCanvas _persistentCanvas;
-
     void Awake()
     {
         Time.timeScale = 1.0f;
@@ -39,14 +37,16 @@ public class StartScene : MonoBehaviour
                 if (gameStatsPrice > 0)
                 {
                     upgrade.price = gameStatsPrice;
+                    upgrade.amountPurchased = GameStats.upgradePurchaseAmount[(int)upgrade.upgradeType];
                 }
+
+                upgrade.DisplayInfo();
             }
         }
     }
 
     void Start()
     {
-        _persistentCanvas = GameObject.Find("PersistentCanvas").GetComponent<PersistentCanvas>();
         GameStats.currentLevelPoints = 0;
         GameStats.multipliedCurrentScore = false;
         ScoreChain.scoreMultiplier = 1.0f;
@@ -61,7 +61,7 @@ public class StartScene : MonoBehaviour
         if (goToUpgrades)
         {
             GoToCanvas(1);
-            _persistentCanvas.CreateButtonSound(0);
+            PersistentCanvas.reference.CreateButtonSound(0);
             goToUpgrades = false;
         }
         else
@@ -76,7 +76,7 @@ public class StartScene : MonoBehaviour
 
         if (GameStats.initializedGame == false)
         {
-            _persistentCanvas.CreateFadeOutOverlay();
+            PersistentCanvas.reference.CreateFadeOutOverlay();
 
             if (Application.genuineCheckAvailable == true)
             {
@@ -153,7 +153,7 @@ public class StartScene : MonoBehaviour
     {
         GameStats.currentLevelType = GameStats.LevelType.PRESET;
         PresetLevels.currentPresetLevel = level;
-        SceneManager.LoadScene("GameScene");
+        LoadingScreen.CallLoadScreen(LoadingScreen.Scenes.Game);
     }
 
     public void GoToCanvas(int c)

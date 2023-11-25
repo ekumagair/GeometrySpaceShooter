@@ -51,12 +51,18 @@ public class GameplayManager : MonoBehaviour
     public void GoToStartScene()
     {
         StartScene.goToUpgrades = false;
-        SceneManager.LoadScene("StartScene");
+        LoadingScreen.CallLoadScreen(LoadingScreen.Scenes.Start);
     }
 
     public void GoToStartSceneUpgrades()
     {
         StartScene.goToUpgrades = true;
-        SceneManager.LoadScene("StartScene");
+        LoadingScreen.CallLoadScreen(LoadingScreen.Scenes.Start);
+    }
+
+    public void GoToGameScene()
+    {
+        StartScene.goToUpgrades = false;
+        LoadingScreen.CallLoadScreen(LoadingScreen.Scenes.Game);
     }
 }

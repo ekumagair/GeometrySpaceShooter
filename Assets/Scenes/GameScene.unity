@@ -502,7 +502,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 6356793908147539397}
         m_TargetAssemblyTypeName: GameplayManager, Assembly-CSharp
-        m_MethodName: GoToStartScene
+        m_MethodName: GoToGameScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1353,7 +1353,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d046a399df37a144b9adeddad2a28fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canInteract: 0
   destroyIfMultipliedScore: 1
   constantlyCheckConditions: 1
   rewardType: 2
@@ -1373,6 +1372,10 @@ MonoBehaviour:
   _iOSAdUnitId: Rewarded_iOS
   currentReward: 0
   loaded: 0
+  errorNoFill: 0
+  errorInternal: 0
+  errorInitializeFailed: 0
+  errorUnknown: 0
   upgradeScript: {fileID: 0}
 --- !u!1 &459219063
 GameObject:
@@ -2680,7 +2683,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d046a399df37a144b9adeddad2a28fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canInteract: 0
   destroyIfMultipliedScore: 0
   constantlyCheckConditions: 1
   rewardType: 3
@@ -2794,6 +2796,10 @@ MonoBehaviour:
   _iOSAdUnitId: Rewarded_iOS
   currentReward: 0
   loaded: 0
+  errorNoFill: 0
+  errorInternal: 0
+  errorInitializeFailed: 0
+  errorUnknown: 0
   upgradeScript: {fileID: 0}
 --- !u!1 &896467481
 GameObject:

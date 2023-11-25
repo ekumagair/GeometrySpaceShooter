@@ -10,21 +10,21 @@ public class PresetLevelButton : MonoBehaviour
     public TMP_Text textLocked;
     public TMP_Text textUnlocked;
 
-    Button button;
+    private Button _button;
 
     void Start()
     {
-        button = GetComponent<Button>();
+        _button = GetComponent<Button>();
 
         if (GameStats.level > mustCompleteLevel)
         {
-            button.interactable = true;
+            _button.interactable = true;
             textLocked.enabled = false;
             textUnlocked.enabled = true;
         }
         else
         {
-            button.interactable = false;
+            _button.interactable = false;
             textLocked.enabled = true;
             textUnlocked.enabled = false;
         }

@@ -42,6 +42,14 @@ MonoBehaviour:
     m_Localized: Touch follow speed
     m_Metadata:
       m_Items: []
+  - m_Id: 84998578885033984
+    m_Localized: Projectile perforation
+    m_Metadata:
+      m_Items: []
+  - m_Id: 84998723064233984
+    m_Localized: Auxiliary laser damage
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

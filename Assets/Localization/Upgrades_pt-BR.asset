@@ -19,7 +19,7 @@ MonoBehaviour:
     m_Items: []
   m_TableData:
   - m_Id: 6603603968
-    m_Localized: Vel. de disparo
+    m_Localized: Velocidade de disparo
     m_Metadata:
       m_Items: []
   - m_Id: 398464843776
@@ -27,7 +27,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 534339321856
-    m_Localized: "Vel. do proj\xE9til"
+    m_Localized: "Velocidade do proj\xE9til"
     m_Metadata:
       m_Items: []
   - m_Id: 837587501056
@@ -39,7 +39,15 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 1196544425984
-    m_Localized: Vel. de movimento
+    m_Localized: Velocidade de movimento
+    m_Metadata:
+      m_Items: []
+  - m_Id: 84998578885033984
+    m_Localized: "Perfura\xE7\xE3o do proj\xE9til"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 84998723064233984
+    m_Localized: Dano do laser auxiliar
     m_Metadata:
       m_Items: []
   references:

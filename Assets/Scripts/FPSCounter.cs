@@ -5,18 +5,18 @@ using TMPro;
 
 public class FPSCounter : MonoBehaviour
 {
-    TMP_Text counter;
+    private TMP_Text _counter;
 
     void Start()
     {
-        counter = GetComponent<TMP_Text>();
+        _counter = GetComponent<TMP_Text>();
     }
 
     void Update()
     {
-        if (counter != null)
+        if (_counter != null)
         {
-            counter.text = "FPS: " + (int)(1f / Time.unscaledDeltaTime);
+            _counter.text = "FPS: " + (int)(1f / Time.unscaledDeltaTime);
         }
     }
 }

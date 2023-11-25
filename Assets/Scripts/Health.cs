@@ -23,14 +23,12 @@ public class Health : MonoBehaviour
     public DeathType deathType;
 
     private SpriteRenderer _sr;
-    private PersistentCanvas _persistentCanvas;
     private bool _dead = false;
     private Player _playerComponent = null;
 
     void Start()
     {
         _sr = GetComponent<SpriteRenderer>();
-        _persistentCanvas = GameObject.Find("PersistentCanvas").GetComponent<PersistentCanvas>();
         _dead = false;
         _playerComponent = GetComponent<Player>();
         invincible = false;
@@ -59,10 +57,10 @@ public class Health : MonoBehaviour
         {
             Instantiate(damageSound, transform.position, transform.rotation);
         }
-        if (_persistentCanvas != null && createDamageChangeText == true)
+        if (PersistentCanvas.reference != null && createDamageChangeText == true)
         {
             // Show lost health on the bottom right corner of the screen.
-            _persistentCanvas.CreateNumberChangeEffect(HUD.hudBottomRightCorner, "-" + amount.ToString(), new Color(1f, 0.5f, 0.5f), 1, 1);
+            PersistentCanvas.reference.CreateNumberChangeEffect(HUD.hudBottomRightCorner, "-" + amount.ToString(), new Color(1f, 0.5f, 0.5f), 1, 1);
         }
 
         // Check tag.
@@ -129,10 +127,10 @@ public class Health : MonoBehaviour
             ParticleSystem.MainModule deathEffectMainModule = deathEffect.GetComponent<ParticleSystem>().main;
             deathEffectMainModule.startColor = _sr.color;
         }
-        if (_persistentCanvas != null && pointsToGive != 0 && createDeathChangeText == true)
+        if (PersistentCanvas.reference != null && pointsToGive != 0 && createDeathChangeText == true)
         {
             // Show gained points on the top left corner of the screen.
-            _persistentCanvas.CreateNumberChangeEffect(HUD.hudTopLeftCorner, "+" + pointsToGive.ToString(), Color.white, -0.5f, 1);
+            PersistentCanvas.reference.CreateNumberChangeEffect(HUD.hudTopLeftCorner, "+" + pointsToGive.ToString(), Color.white, -0.5f, 1);
         }
 
         switch (deathType)
@@ -144,6 +142,7 @@ public class Health : MonoBehaviour
             case DeathType.Deactivate:
                 if (_playerComponent != null)
                 {
+                    Player.instance.StopAllCoroutines();
                     Player.isDead = true;
                 }
                 gameObject.SetActive(false);

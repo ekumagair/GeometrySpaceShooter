@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Combat : MonoBehaviour
 {
-    public static GameObject CreateShot(GameObject prefab, Transform transformReference, float angle, GameObject shooter, Color color, float speedMultiplier, int overrideDamage)
+    public static Projectile CreateShot(GameObject prefab, Transform transformReference, float angle, GameObject shooter, Color color, float speedMultiplier, int overrideDamage)
     {
         var p = Instantiate(prefab, transformReference.position, transformReference.rotation);
         Projectile script = p.GetComponent<Projectile>();
@@ -19,19 +19,26 @@ public class Combat : MonoBehaviour
             {
                 script.ignoreTag = shooter.tag;
             }
-            if(overrideDamage > 0)
+            if (overrideDamage > 0)
             {
                 script.damage = overrideDamage;
             }
         }
-        if(spriteRenderer != null)
+        if (spriteRenderer != null)
         {
             spriteRenderer.color = color;
         }
 
         p.transform.rotation = Quaternion.Euler(p.transform.rotation.x, p.transform.rotation.y, angle);
 
-        return p;
+        return script;
+    }
+
+    public static Projectile CreateShot(GameObject prefab, Transform transformReference, float angle, GameObject shooter, Color color, float speedMultiplier, int overrideDamage, int overridePerforation)
+    {
+        Projectile script = CreateShot(prefab, transformReference, angle, shooter, color, speedMultiplier, overrideDamage);
+        script.perforation = overridePerforation;
+        return script;
     }
 
     public static float AimDirection(Transform target, Transform origin)
@@ -40,7 +47,7 @@ public class Combat : MonoBehaviour
 
         Vector3 direction = (target.position - origin.position).normalized;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        return angle + offset;
+        return (angle + offset) / 2;
     }
 
     public static void DestroyAllProjectiles()

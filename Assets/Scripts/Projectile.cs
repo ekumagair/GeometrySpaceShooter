@@ -6,28 +6,34 @@ public class Projectile : MonoBehaviour
 {
     public float speed;
     public int damage = 1;
+    public int perforation = 1;
     public GameObject impactEffect;
     public GameObject impactSound;
 
-    SpriteRenderer spriteRenderer;
-    ParticleSystem trail;
-    ParticleSystem.MainModule trailMainModule;
+    private SpriteRenderer _spriteRenderer;
+    private ParticleSystem _trail;
+    private ParticleSystem.MainModule _trailMainModule;
 
-    [HideInInspector]
-    public GameObject shooter;
-    [HideInInspector]
-    public string ignoreTag = "EditorOnly";
+    [HideInInspector] public GameObject shooter;
+    [HideInInspector] public string ignoreTag = "EditorOnly";
 
     void Start()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        trail = GetComponentInChildren<ParticleSystem>();
-        trailMainModule = trail.main;
-        trailMainModule.startColor = spriteRenderer.color;
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _trail = GetComponentInChildren<ParticleSystem>();
+        _trailMainModule = _trail.main;
+        _trailMainModule.startColor = _spriteRenderer.color;
 
-        if(Options.projectileTrails == 0)
+        // Disable projectile trails.
+        if (Options.projectileTrails == 0)
         {
-            Destroy(trail.gameObject);
+            Destroy(_trail.gameObject);
+        }
+
+        // Fail-safe.
+        if (perforation <= 0)
+        {
+            perforation = 1;
         }
     }
 
@@ -38,7 +44,7 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject != shooter && !collision.gameObject.CompareTag(ignoreTag))
+        if (collision.gameObject != shooter && !collision.gameObject.CompareTag(ignoreTag) && perforation > 0)
         {
             Health hitHealth = collision.gameObject.GetComponent<Health>();
 
@@ -52,14 +58,19 @@ public class Projectile : MonoBehaviour
                     {
                         var effect = Instantiate(impactEffect, transform.position, transform.rotation);
                         ParticleSystem.MainModule effectMainModule = effect.GetComponent<ParticleSystem>().main;
-                        effectMainModule.startColor = spriteRenderer.color;
+                        effectMainModule.startColor = _spriteRenderer.color;
                     }
                     if (impactSound != null)
                     {
                         Instantiate(impactSound, transform.position, transform.rotation);
                     }
 
-                    Destroy(gameObject);
+                    perforation--;
+
+                    if (perforation <= 0)
+                    {
+                        Destroy(gameObject);
+                    }
                 }
             }
         }

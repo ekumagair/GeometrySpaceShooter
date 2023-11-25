@@ -8,6 +8,8 @@ public class ScoreChain : MonoBehaviour
 {
     public TMP_Text multiplierText;
     public Image imageFill;
+    public Image imageFillBg;
+    public Image starIcon;
     public GameObject tierUpSound;
 
     public static ScoreChain instance;
@@ -87,5 +89,13 @@ public class ScoreChain : MonoBehaviour
         scoreMultiplier = 1.0f;
         tier = 0;
         currentKills = 0;
+    }
+
+    public void Display(bool show)
+    {
+        multiplierText.enabled = show;
+        starIcon.enabled = show;
+        imageFill.enabled = show;
+        imageFillBg.enabled = show;
     }
 }

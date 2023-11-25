@@ -11,6 +11,7 @@ public class AdsInitializer : MonoBehaviour, IUnityAdsInitializationListener
     private string _gameId;
 
     public static bool failed = false;
+    public static bool isTesting = false;
 
     void Awake()
     {
@@ -29,11 +30,13 @@ public class AdsInitializer : MonoBehaviour, IUnityAdsInitializationListener
     {
         Debug.Log("Unity Ads initialization complete.");
         failed = false;
+        isTesting = _testMode;
     }
 
     public void OnInitializationFailed(UnityAdsInitializationError error, string message)
     {
         Debug.Log($"Unity Ads Initialization Failed: {error.ToString()} - {message}");
         failed = true;
+        isTesting = _testMode;
     }
 }

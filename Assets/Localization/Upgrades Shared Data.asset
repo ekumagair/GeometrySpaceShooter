@@ -39,6 +39,14 @@ MonoBehaviour:
     m_Key: upgrade_move_speed
     m_Metadata:
       m_Items: []
+  - m_Id: 84998578885033984
+    m_Key: upgrade_perforation
+    m_Metadata:
+      m_Items: []
+  - m_Id: 84998723064233984
+    m_Key: upgrade_laser
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

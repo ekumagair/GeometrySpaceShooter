@@ -8,8 +8,8 @@ public static class GameStats
     public static int points = 0;
     public static int currentLevelPoints = 0;
     public static bool multipliedCurrentScore = false;
-    public static int[] upgradePrice = new int[6];
-    public static uint[] upgradePurchaseAmount = new uint[6];
+    public static int[] upgradePrice = new int[8];
+    public static uint[] upgradePurchaseAmount = new uint[8];
 
     // Initialized game
     public static bool initializedGame = false;
@@ -70,16 +70,36 @@ public static class GameStats
             Options.projectileTrails = data.optionTrails;
             Options.projectileImpacts = data.optionImpacts;
 
-            upgradePrice = new int[6];
+            upgradePrice = new int[Upgrade.upgradeAmount];
             for (int i = 0; i < data.upgradePrice.Length; i++)
             {
-                GameStats.upgradePrice[i] = data.upgradePrice[i];
+                if (i > upgradePrice.Length)
+                {
+                    continue;
+                }
+                upgradePrice[i] = data.upgradePrice[i];
             }
 
-            upgradePurchaseAmount = new uint[6];
+            upgradePurchaseAmount = new uint[Upgrade.upgradeAmount];
             for (int i = 0; i < data.upgradePurchaseAmount.Length; i++)
             {
-                GameStats.upgradePurchaseAmount[i] = data.upgradePurchaseAmount[i];
+                if (i > upgradePurchaseAmount.Length)
+                {
+                    continue;
+                }
+                upgradePurchaseAmount[i] = data.upgradePurchaseAmount[i];
+            }
+
+            // Version conditions
+            if (data.savedVersion != "0.9" && data.savedVersion != "1.0" && data.savedVersion != "1.1")
+            {
+                Player.projectileAutoDamage = data.projectileAutoDamage;
+                Player.projectilePerforation = data.projectilePerforation;
+            }
+            else
+            {
+                Player.projectileAutoDamage = 0;
+                Player.projectilePerforation = 1;
             }
         }
 

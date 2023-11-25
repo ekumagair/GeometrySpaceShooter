@@ -140,6 +140,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 10
   projectile: {fileID: 4132169524799448920, guid: 60b54fb045102994c977aec271d96d56, type: 3}
+  attackSound: {fileID: 0}
+  projectileAuto: {fileID: 4132169524799448920, guid: 0fd1b5ca8088f0d4c88f1620ee0e1e1b, type: 3}
+  attackAutoSound: {fileID: 4803644159576522076, guid: 35969011222eb8740af74c29b14afe61, type: 3}
   finishLine: {fileID: 1622093088128447043, guid: 072988cd29a673b4c80abf401f5ed814, type: 3}
   ignoreInput: 0
   highlightSprite: {fileID: 6775918714146290708}

@@ -7,6 +7,9 @@ public class Player : MonoBehaviour
 {
     public float moveSpeed;
     public GameObject projectile;
+    public GameObject attackSound;
+    public GameObject projectileAuto;
+    public GameObject attackAutoSound;
     public GameObject finishLine;
     public bool ignoreInput = false;
     public SpriteRenderer highlightSprite;
@@ -18,20 +21,20 @@ public class Player : MonoBehaviour
     public static float projectileSpeedMultiplier = 1.0f;
     public static int shootLevel = 1;
     public static int projectileDamage = 1;
+    public static int projectilePerforation = 1;
+    public static int projectileAutoDamage = 0;
     public static bool isDead = false;
     public static bool victory = false;
 
     public static bool hasInput = false;
     public static Player instance = null;
 
-    [HideInInspector]
-    public Health healthScript;
+    [HideInInspector] public Health healthScript;
 
-    private bool detectedVictory = false;
-    private float inputDuration = 0;
-    private Vector2 targetPosition;
-    private SpriteRenderer spriteRenderer;
-    private PersistentCanvas persistentCanvas;
+    private bool _detectedVictory = false;
+    private float _inputDuration = 0;
+    private Vector2 _targetPosition;
+    private SpriteRenderer _spriteRenderer;
 
     private void Awake()
     {
@@ -43,14 +46,13 @@ public class Player : MonoBehaviour
     {
         isDead = false;
         victory = false;
-        detectedVictory = false;
-        inputDuration = 0;
+        _detectedVictory = false;
+        _inputDuration = 0;
         GameStats.currentLevelPoints = 0;
-        persistentCanvas = GameObject.Find("PersistentCanvas").GetComponent<PersistentCanvas>();
         InitializePlayer(0);
 
         // Load level end ad, but don't show it yet.
-        if (adInterstitial != null)
+        if (adInterstitial != null && ignoreInput == false)
         {
             adInterstitial.LoadAd();
         }
@@ -73,35 +75,35 @@ public class Player : MonoBehaviour
         // Detect mouse or touch input.
         if (Input.GetMouseButton(0))
         {
-            targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            _targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         }
         if (Input.touchCount > 0)
         {
-            targetPosition = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
+            _targetPosition = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
         }
 
         // Prevent player from going outside of the screen.
-        targetPosition = new Vector2(Mathf.Clamp(targetPosition.x, -2.5f, 2.5f), Mathf.Clamp(targetPosition.y, -5.0f, 5.0f));
+        _targetPosition = new Vector2(Mathf.Clamp(_targetPosition.x, -2.5f, 2.5f), Mathf.Clamp(_targetPosition.y, -5.0f, 5.0f));
 
         if (Input.GetMouseButton(0) || Input.touchCount > 0)
         {
             hasInput = true;
 
-            if (inputDuration < float.MaxValue - 1.0f)
+            if (_inputDuration < float.MaxValue - 1.0f)
             {
-                inputDuration += Time.deltaTime;
+                _inputDuration += Time.deltaTime;
             }
         }
         else
         {
             hasInput = false;
-            inputDuration = 0;
+            _inputDuration = 0;
         }
 
         // Move towards input.
         if (HasMovementConditions())
         {
-            transform.position = Vector2.MoveTowards(transform.position, targetPosition, Time.deltaTime * moveSpeed * moveSpeedMultiplier);
+            transform.position = Vector2.MoveTowards(transform.position, _targetPosition, Time.deltaTime * moveSpeed * moveSpeedMultiplier);
         }
 
         // Show or hide highlight sprite.
@@ -120,30 +122,35 @@ public class Player : MonoBehaviour
         }
     }
 
-    IEnumerator Shoot()
+    private IEnumerator Shoot()
     {
         yield return new WaitForSeconds(0.6f / firingSpeedDivider);
 
         // Create shot if touching screen.
         if (hasInput && ignoreInput == false)
         {
-            Combat.CreateShot(projectile, transform, 0, gameObject, spriteRenderer.color, projectileSpeedMultiplier, projectileDamage);
+            Combat.CreateShot(projectile, transform, 0, gameObject, _spriteRenderer.color, projectileSpeedMultiplier, projectileDamage, projectilePerforation);
 
             if (shootLevel > 1)
             {
                 for (int i = 1; i < Mathf.RoundToInt((shootLevel - 1) / 2) + 1; i++)
                 {
-                    Combat.CreateShot(projectile, transform, 4 * i, gameObject, spriteRenderer.color, projectileSpeedMultiplier, projectileDamage);
+                    Combat.CreateShot(projectile, transform, 4 * i, gameObject, _spriteRenderer.color, projectileSpeedMultiplier, projectileDamage, projectilePerforation);
                 }
                 for (int i = 1; i < Mathf.RoundToInt((shootLevel - 1) / 2) + 1; i++)
                 {
-                    Combat.CreateShot(projectile, transform, -4 * i, gameObject, spriteRenderer.color, projectileSpeedMultiplier, projectileDamage);
+                    Combat.CreateShot(projectile, transform, -4 * i, gameObject, _spriteRenderer.color, projectileSpeedMultiplier, projectileDamage, projectilePerforation);
                 }
+            }
+
+            if (attackSound != null)
+            {
+                Instantiate(attackSound, transform.position, transform.rotation);
             }
         }
 
         // Killed all enemies.
-        if (GameObject.FindGameObjectsWithTag("Enemy").Length <= 0 && victory == false && detectedVictory == false && ignoreInput == false)
+        if (GameObject.FindGameObjectsWithTag("Enemy").Length <= 0 && victory == false && _detectedVictory == false && ignoreInput == false)
         {
             Instantiate(finishLine, new Vector3(-3, 7, 0), Quaternion.Euler(0, 0, 0));
 
@@ -154,16 +161,33 @@ public class Player : MonoBehaviour
                 bg.speed *= 5;
             }
 
-            detectedVictory = true;
+            _detectedVictory = true;
         }
 
         StartCoroutine(Shoot());
     }
 
+    private IEnumerator ShootAuto()
+    {
+        yield return new WaitForSeconds(1.8f);
+
+        if (projectileAutoDamage > 0 && GameObject.FindGameObjectsWithTag("Enemy").Length > 0 && victory == false && ignoreInput == false && ClosestEnemy(true) != null)
+        {
+            Combat.CreateShot(projectileAuto, transform, Combat.AimDirection(ClosestEnemy(false).transform, transform), gameObject, _spriteRenderer.color, -1f, projectileAutoDamage);
+            
+            if (attackAutoSound != null)
+            {
+                Instantiate(attackAutoSound, transform.position, transform.rotation);
+            }
+        }
+
+        StartCoroutine(ShootAuto());
+    }
+
     public void InitializePlayer(float invincibilityTime)
     {
-        targetPosition = transform.position;
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        _targetPosition = transform.position;
+        _spriteRenderer = GetComponent<SpriteRenderer>();
         healthScript = GetComponent<Health>();
         healthScript.health = startHealth;
         isDead = false;
@@ -171,6 +195,7 @@ public class Player : MonoBehaviour
 
         StopAllCoroutines();
         StartCoroutine(Shoot());
+        StartCoroutine(ShootAuto());
         GameStats.SaveStats();
 
         if (invincibilityTime > 0)
@@ -189,7 +214,7 @@ public class Player : MonoBehaviour
             Combat.DestroyAllProjectiles();
 
             // Show level end ad.
-            if (adInterstitial != null)
+            if (adInterstitial != null && ignoreInput == false)
             {
                 adInterstitial.ShowAd();
             }
@@ -203,14 +228,14 @@ public class Player : MonoBehaviour
             if (itemScript.givePoints > 0)
             {
                 GameStats.AddPoints(itemScript.givePoints);
-                persistentCanvas.CreateNumberChangeEffect(HUD.hudTopLeftCorner, "+" + itemScript.givePoints.ToString(), Color.green, -0.55f, 0.25f);
+                PersistentCanvas.reference.CreateNumberChangeEffect(HUD.hudTopLeftCorner, "+" + itemScript.givePoints.ToString(), Color.green, -0.55f, 0.25f);
             }
 
             // Give health.
             if (itemScript.giveHealth > 0)
             {
                 healthScript.health += itemScript.giveHealth;
-                persistentCanvas.CreateNumberChangeEffect(HUD.hudBottomRightCorner, "+" + itemScript.giveHealth.ToString(), Color.green, 0.55f, 0.25f);
+                PersistentCanvas.reference.CreateNumberChangeEffect(HUD.hudBottomRightCorner, "+" + itemScript.giveHealth.ToString(), Color.green, 0.55f, 0.25f);
             }
 
             foreach (GameObject obj in itemScript.createOnCollect)
@@ -228,11 +253,52 @@ public class Player : MonoBehaviour
 
     private bool IsTouchingButton()
     {
-        return targetPosition.x > -2.5f && targetPosition.x < -1.5f && targetPosition.y > -3.8f && targetPosition.y < -2.8f;
+        if (HUD.instance != null)
+        {
+            return _targetPosition.x > HUD.instance.pauseButtonWorldPosition.x - 2.1f && _targetPosition.x < HUD.instance.pauseButtonWorldPosition.x + 2.1f && _targetPosition.y > HUD.instance.pauseButtonWorldPosition.y - 2.1f && _targetPosition.y < HUD.instance.pauseButtonWorldPosition.y + 2.1f;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     private bool HasMovementConditions()
     {
-        return hasInput == true && ignoreInput == false && Time.timeScale != 0.0f && victory == false && isDead == false && (!IsTouchingButton() || inputDuration > 0.5f);
+        return hasInput == true && ignoreInput == false && Time.timeScale != 0.0f && victory == false && isDead == false && (!IsTouchingButton() || _inputDuration > 0.5f);
+    }
+
+    public Enemy ClosestEnemy(bool onScreenOnly)
+    {
+        GameObject[] enemyList = GameObject.FindGameObjectsWithTag("Enemy");
+        GameObject toReturn = null;
+        float shortestDistance = float.MaxValue;
+
+        for (int i = 0; i < enemyList.Length; i++)
+        {
+            float distance = Vector2.Distance(enemyList[i].transform.position, gameObject.transform.position);
+
+            if (distance < shortestDistance && (enemyList[i].transform.position.y < 5 || onScreenOnly == false))
+            {
+                shortestDistance = distance;
+                toReturn = enemyList[i];
+            }
+        }
+
+        if (toReturn != null)
+        {
+            if (toReturn.GetComponent<Enemy>() != null)
+            {
+                return toReturn.GetComponent<Enemy>();
+            }
+            else
+            {
+                return null;
+            }
+        }
+        else
+        {
+            return null;
+        }
     }
 }

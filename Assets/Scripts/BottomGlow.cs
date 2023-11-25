@@ -4,26 +4,26 @@ using UnityEngine;
 
 public class BottomGlow : MonoBehaviour
 {
-    bool touchingEnemy = false;
-    float alpha = 0;
-    SpriteRenderer spriteRenderer;
+    private bool _touchingEnemy = false;
+    private float _alpha = 0;
+    private SpriteRenderer _spriteRenderer;
 
     void Start()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     void Update()
     {
-        spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, alpha);
+        _spriteRenderer.color = new Color(_spriteRenderer.color.r, _spriteRenderer.color.g, _spriteRenderer.color.b, _alpha);
 
-        if(touchingEnemy && alpha < 1)
+        if(_touchingEnemy && _alpha < 1)
         {
-            alpha += Time.deltaTime;
+            _alpha += Time.deltaTime;
         }
-        if (!touchingEnemy && alpha > 0)
+        if (!_touchingEnemy && _alpha > 0)
         {
-            alpha -= Time.deltaTime;
+            _alpha -= Time.deltaTime;
         }
     }
 
@@ -31,7 +31,7 @@ public class BottomGlow : MonoBehaviour
     {
         if(collision.CompareTag("Enemy"))
         {
-            touchingEnemy = true;
+            _touchingEnemy = true;
         }
     }
 
@@ -39,7 +39,7 @@ public class BottomGlow : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
-            touchingEnemy = false;
+            _touchingEnemy = false;
         }
     }
 }

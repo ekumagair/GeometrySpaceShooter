@@ -29,6 +29,7 @@ public class HUD : MonoBehaviour
     public static HUD instance;
 
     [HideInInspector] public bool createdWindow = false;
+    [HideInInspector] public Vector3 pauseButtonWorldPosition;
 
     private Health _statTargetHealth;
     private Image _pauseButtonImage;
@@ -46,7 +47,9 @@ public class HUD : MonoBehaviour
         createdWindow = false;
         previousTimeScale = 1.0f;
         _pauseButtonImage = pauseButton.gameObject.GetComponent<Image>();
+        pauseButtonWorldPosition = Camera.main.ScreenToWorldPoint(pauseButton.transform.position);
         pauseText.gameObject.SetActive(false);
+        ScoreChain.instance.Display(true);
 
         levelText.enabled = GameStats.currentLevelType == GameStats.LevelType.MAIN;
         extraLevelText.enabled = GameStats.currentLevelType == GameStats.LevelType.PRESET;
@@ -80,6 +83,7 @@ public class HUD : MonoBehaviour
                 windowVictory.SetActive(true);
                 windowVictory.GetComponent<Animator>().Play("WindowAppearFromAbove");
                 GameStats.SaveStats();
+                ScoreChain.instance.Display(false);
                 createdWindow = true;
             }
             if (Player.isDead == true)
@@ -87,6 +91,7 @@ public class HUD : MonoBehaviour
                 windowLose.SetActive(true);
                 windowLose.GetComponent<Animator>().Play("WindowAppearFromAbove");
                 GameStats.SaveStats();
+                ScoreChain.instance.Display(false);
                 createdWindow = true;
             }
 

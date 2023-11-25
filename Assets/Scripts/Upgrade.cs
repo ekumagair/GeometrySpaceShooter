@@ -7,17 +7,17 @@ using UnityEngine.Advertisements;
 
 public class Upgrade : MonoBehaviour
 {
+    [Header("Components")]
     public TMP_Text currentStat;
     public TMP_Text nextStat;
     public TMP_Text priceDisplay;
-
-    public float statIncrement;
-    public int price;
-    public float priceMultiplier = 1.1f;
     public Button buyButton;
     public Button adButton;
 
-    private AdButton _adButtonScript;
+    [Header("Properties")]
+    public float statIncrement;
+    public int price;
+    public float priceMultiplier = 1.1f;
 
     public enum UpgradeType
     {
@@ -26,15 +26,21 @@ public class Upgrade : MonoBehaviour
         ProjectileSpeed,
         ProjectileDamage,
         ShootLevel,
-        TouchFollowSpeed
+        TouchFollowSpeed,
+        Perforation,
+        Laser
     }
     public UpgradeType upgradeType;
 
-    private PersistentCanvas _persistentCanvas;
+    [HideInInspector] public uint amountPurchased = 0;
+
+    public const int upgradeAmount = 8;
+
+    private AdButton _adButtonScript;
 
     void Start()
     {
-        _persistentCanvas = GameObject.Find("PersistentCanvas").GetComponent<PersistentCanvas>();
+        DisplayInfo();
     }
 
     private void OnEnable()
@@ -49,7 +55,7 @@ public class Upgrade : MonoBehaviour
 
     void Update()
     {
-        priceDisplay.text = price.ToString();
+        DisplayInfo();
 
         if (GameStats.points < price)
         {
@@ -78,6 +84,11 @@ public class Upgrade : MonoBehaviour
                 adButton.interactable = false;
             }
         }
+    }
+
+    public void DisplayInfo()
+    {
+        priceDisplay.text = price.ToString();
 
         switch (upgradeType)
         {
@@ -109,6 +120,16 @@ public class Upgrade : MonoBehaviour
             case UpgradeType.TouchFollowSpeed:
                 currentStat.text = "+" + Mathf.RoundToInt((Player.moveSpeedMultiplier - 1.0f) * 100).ToString() + "%";
                 nextStat.text = "+" + Mathf.RoundToInt((Player.moveSpeedMultiplier - (1.0f - statIncrement)) * 100).ToString() + "%";
+                break;
+
+            case UpgradeType.Perforation:
+                currentStat.text = Player.projectilePerforation.ToString();
+                nextStat.text = (Player.projectilePerforation + statIncrement).ToString();
+                break;
+
+            case UpgradeType.Laser:
+                currentStat.text = Player.projectileAutoDamage.ToString();
+                nextStat.text = (Player.projectileAutoDamage + statIncrement + AmountPurchasedAsInt()).ToString();
                 break;
 
             default:
@@ -154,6 +175,14 @@ public class Upgrade : MonoBehaviour
                 Player.moveSpeedMultiplier += statIncrement;
                 break;
 
+            case UpgradeType.Perforation:
+                Player.projectilePerforation += Mathf.RoundToInt(statIncrement);
+                break;
+
+            case UpgradeType.Laser:
+                Player.projectileAutoDamage += Mathf.RoundToInt(statIncrement) + AmountPurchasedAsInt();
+                break;
+
             default:
                 break;
         }
@@ -162,10 +191,10 @@ public class Upgrade : MonoBehaviour
         {
             GameStats.points -= price;
 
-            if (_persistentCanvas != null && price > 0)
+            if (PersistentCanvas.reference != null && price > 0)
             {
                 // Show spent points on the top left corner of the screen.
-                _persistentCanvas.CreateNumberChangeEffect(HUD.hudTopLeftCorner, "-" + price.ToString(), new Color(1f, 0.5f, 0.5f), -0.5f, 1);
+                PersistentCanvas.reference.CreateNumberChangeEffect(HUD.hudTopLeftCorner, "-" + price.ToString(), new Color(1f, 0.5f, 0.5f), -0.5f, 1);
             }
         }
 
@@ -182,6 +211,10 @@ public class Upgrade : MonoBehaviour
         }
 
         // Amount of purchases.
+        if (amountPurchased < uint.MaxValue)
+        {
+            amountPurchased += 1;
+        }
         if (GameStats.upgradePurchaseAmount[(int)upgradeType] < uint.MaxValue)
         {
             GameStats.upgradePurchaseAmount[(int)upgradeType] += 1;
@@ -192,5 +225,10 @@ public class Upgrade : MonoBehaviour
         GameStats.SaveStats();
 
         if (Debug.isDebugBuild) { Debug.Log("Purchased upgrade: ID " + (int)upgradeType + ", Amount " + GameStats.upgradePurchaseAmount[(int)upgradeType] + ", Price " + GameStats.upgradePrice[(int)upgradeType]); }
+    }
+
+    public int AmountPurchasedAsInt()
+    {
+        return (int)Mathf.Clamp(amountPurchased, 0, int.MaxValue);
     }
 }

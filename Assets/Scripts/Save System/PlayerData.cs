@@ -15,8 +15,10 @@ public class PlayerData
     public float projectileSpeed;
     public int shootLevel;
     public int projectileDamage;
-    public int[] upgradePrice = new int[6];
-    public uint[] upgradePurchaseAmount = new uint[6];
+    public int projectilePerforation;
+    public int projectileAutoDamage;
+    public int[] upgradePrice;
+    public uint[] upgradePurchaseAmount;
 
     public float optionSfx;
     public float optionMusic;
@@ -38,14 +40,16 @@ public class PlayerData
         projectileSpeed = Player.projectileSpeedMultiplier;
         shootLevel = Player.shootLevel;
         projectileDamage = Player.projectileDamage;
+        projectilePerforation = Player.projectilePerforation;
+        projectileAutoDamage = Player.projectileAutoDamage;
 
-        upgradePrice = new int[6];
+        upgradePrice = new int[Upgrade.upgradeAmount];
         for (int i = 0; i < upgradePrice.Length; i++)
         {
             upgradePrice[i] = GameStats.upgradePrice[i];
         }
 
-        upgradePurchaseAmount = new uint[6];
+        upgradePurchaseAmount = new uint[Upgrade.upgradeAmount];
         for (int i = 0; i < upgradePurchaseAmount.Length; i++)
         {
             upgradePurchaseAmount[i] = GameStats.upgradePurchaseAmount[i];

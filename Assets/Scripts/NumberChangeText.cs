@@ -9,30 +9,30 @@ public class NumberChangeText : MonoBehaviour
     public float alpha = 1;
     public float fadeOutSpeed = 1;
 
-    float speedMultiplier = 1.25f;
-    TMP_Text tmp;
+    private float _speedMultiplier = 1.25f;
+    private TMP_Text _tmp;
 
     void Start()
     {
-        tmp = GetComponent<TMP_Text>();
+        _tmp = GetComponent<TMP_Text>();
     }
 
     void Update()
     {
         if (Time.timeScale != 0.0f)
         {
-            transform.position += transform.up * moveYSpeed * speedMultiplier * Time.deltaTime;
+            transform.position += transform.up * moveYSpeed * _speedMultiplier * Time.deltaTime;
 
-            if (speedMultiplier > 0)
+            if (_speedMultiplier > 0)
             {
-                speedMultiplier -= Time.deltaTime * 2;
+                _speedMultiplier -= Time.deltaTime * 2;
             }
-            if (speedMultiplier < 0)
+            if (_speedMultiplier < 0)
             {
-                speedMultiplier = 0;
+                _speedMultiplier = 0;
             }
 
-            tmp.color = new Color(tmp.color.r, tmp.color.g, tmp.color.b, alpha);
+            _tmp.color = new Color(_tmp.color.r, _tmp.color.g, _tmp.color.b, alpha);
             alpha -= 4f * fadeOutSpeed * Time.deltaTime;
         }
 
