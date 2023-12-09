@@ -34,29 +34,36 @@ public class Upgrade : MonoBehaviour
 
     [HideInInspector] public uint amountPurchased = 0;
 
-    public const int upgradeAmount = 8;
-
     private AdButton _adButtonScript;
 
     void Start()
     {
         DisplayInfo();
+        ButtonCheck();
     }
 
     private void OnEnable()
     {
-        // Make ad buttons disabled by default.
+        // Make buttons disabled by default.
         if (adButton != null)
         {
             _adButtonScript = adButton.GetComponent<AdButton>();
             adButton.interactable = false;
+        }
+        if (buyButton != null)
+        {
+            buyButton.interactable = false;
         }
     }
 
     void Update()
     {
         DisplayInfo();
+        ButtonCheck();
+    }
 
+    public void ButtonCheck()
+    {
         if (GameStats.points < price)
         {
             // If you don't have enough points, disable buy button and enable ad button.
@@ -149,6 +156,12 @@ public class Upgrade : MonoBehaviour
 
     private void BuyUpgrade(bool spendPoints, bool increasePrice)
     {
+        if (GameStats.points < price && spendPoints == true)
+        {
+            if (Debug.isDebugBuild) { Debug.Log("Not enough points for upgrade " + upgradeType); }
+            return;
+        }
+
         switch (upgradeType)
         {
             case UpgradeType.FiringSpeed:
@@ -199,15 +212,19 @@ public class Upgrade : MonoBehaviour
         }
 
         // Increase price.
-        if (price < 999999 && increasePrice == true)
+        if (price < GameConstants.UPGRADE_MAX_PRICE && increasePrice == true)
         {
             price = Mathf.RoundToInt(price * priceMultiplier);
         }
 
-        // Price limit (6 digits).
-        if (price > 999999)
+        // Price limit.
+        if (price > GameConstants.UPGRADE_MAX_PRICE)
         {
-            price = 999999;
+            price = GameConstants.UPGRADE_MAX_PRICE;
+        }
+        if (price < 0)
+        {
+            price = 0;
         }
 
         // Amount of purchases.

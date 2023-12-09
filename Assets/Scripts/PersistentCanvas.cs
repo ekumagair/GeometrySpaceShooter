@@ -38,6 +38,10 @@ public class PersistentCanvas : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {
                 GameStats.points += 200;
+                if (GameStats.points > GameConstants.MAX_POINTS)
+                {
+                    GameStats.points = GameConstants.MAX_POINTS;
+                }
             }
             if (Input.GetKeyDown(KeyCode.DownArrow))
             {
@@ -47,9 +51,20 @@ public class PersistentCanvas : MonoBehaviour
             {
                 GameStats.points -= 12345678;
             }
+            if (Input.GetKeyDown(KeyCode.Z))
+            {
+                GameStats.points = 0;
+            }
             if (Input.GetKeyDown(KeyCode.P))
             {
-                GameStats.points *= GameStats.points;
+                if (GameStats.points * GameStats.points < GameConstants.MAX_POINTS && GameStats.points * GameStats.points > 0)
+                {
+                    GameStats.points *= GameStats.points;
+                }
+                else 
+                {
+                    GameStats.points = GameConstants.MAX_POINTS;
+                }
             }
             if (Input.GetKeyDown(KeyCode.V))
             {

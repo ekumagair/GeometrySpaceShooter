@@ -65,7 +65,7 @@ public class AdRewardedManager : MonoBehaviour, IUnityAdsLoadListener, IUnityAds
     {
         loaded = true;
         instance = this;
-        if (Debug.isDebugBuild) { Debug.Log("Loaded Rewarded Ads"); }
+        if (Debug.isDebugBuild) { Debug.Log("Finished loading: " + _adUnitId); }
     }
 
     public void ShowAd(RewardType reward)
@@ -80,6 +80,7 @@ public class AdRewardedManager : MonoBehaviour, IUnityAdsLoadListener, IUnityAds
         if (adUnitId.Equals(_adUnitId) && showCompletionState.Equals(UnityAdsShowCompletionState.COMPLETED))
         {
             if (Debug.isDebugBuild) { Debug.Log("Unity Ads Rewarded Ad Completed"); }
+            if (Debug.isDebugBuild) { Debug.Log("Current Ad reward: " + currentReward); }
 
             // Grant a reward.
             switch (currentReward)
@@ -106,7 +107,7 @@ public class AdRewardedManager : MonoBehaviour, IUnityAdsLoadListener, IUnityAds
                     break;
 
                 default:
-                    if (Debug.isDebugBuild) { Debug.Log("Reward ad didn't give any rewards!"); }
+                    if (Debug.isDebugBuild) { Debug.LogWarning("Reward ad didn't give any rewards!"); }
                     break;
             }
         }

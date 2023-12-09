@@ -43,7 +43,7 @@ public class AdButton : MonoBehaviour
 
     void Update()
     {
-        if (destroyIfMultipliedScore == true && GameStats.multipliedCurrentScore == true)
+        if (destroyIfMultipliedScore == true && GameStats.multipliedCurrentScore == true && gameObject.activeInHierarchy)
         {
             Destroy(gameObject);
         }
@@ -62,11 +62,28 @@ public class AdButton : MonoBehaviour
 
         if (AdRewardedManager.instance != null)
         {
-            _button.interactable = GameStats.enableAdButttons == true && Advertisement.isInitialized == true && AdsInitializer.failed == false && AdsInitializer.isTesting == false && AdRewardedManager.instance.HasAnyError() == false;
+            _button.interactable = GeneralAdCheck() && MultiplicationAdCheck();
         }
         else
         {
             _button.interactable = false;
+        }
+    }
+
+    private bool GeneralAdCheck()
+    {
+        return GameStats.enableAdButttons == true && Advertisement.isInitialized == true && AdsInitializer.failed == false && AdRewardedManager.instance.HasAnyError() == false;
+    }
+
+    private bool MultiplicationAdCheck()
+    {
+        if (rewardType != AdRewardedManager.RewardType.MULTIPLY_SCORE)
+        {
+            return true;
+        }
+        else
+        {
+            return GameStats.currentLevelPoints > 0 && GameStats.points < GameConstants.MAX_POINTS && GameStats.currentLevelPoints < GameConstants.MAX_POINTS;
         }
     }
 

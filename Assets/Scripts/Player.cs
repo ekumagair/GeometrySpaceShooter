@@ -13,7 +13,6 @@ public class Player : MonoBehaviour
     public GameObject finishLine;
     public bool ignoreInput = false;
     public SpriteRenderer highlightSprite;
-    public AdInterstitialManager adInterstitial;
 
     public static int startHealth = 2;
     public static float firingSpeedDivider = 1.0f;
@@ -50,12 +49,6 @@ public class Player : MonoBehaviour
         _inputDuration = 0;
         GameStats.currentLevelPoints = 0;
         InitializePlayer(0);
-
-        // Load level end ad, but don't show it yet.
-        if (adInterstitial != null && ignoreInput == false)
-        {
-            adInterstitial.LoadAd();
-        }
 
         // Fail-safe. Don't let the player do 0 or negative damage.
         if (projectileDamage < 1)
@@ -214,9 +207,9 @@ public class Player : MonoBehaviour
             Combat.DestroyAllProjectiles();
 
             // Show level end ad.
-            if (adInterstitial != null && ignoreInput == false)
+            if (AdInterstitialManager.instance != null)
             {
-                adInterstitial.ShowAd();
+                AdInterstitialManager.instance.ShowAd();
             }
         }
         else if (collision.gameObject.CompareTag("Item"))

@@ -8,8 +8,8 @@ public static class GameStats
     public static int points = 0;
     public static int currentLevelPoints = 0;
     public static bool multipliedCurrentScore = false;
-    public static int[] upgradePrice = new int[8];
-    public static uint[] upgradePurchaseAmount = new uint[8];
+    public static int[] upgradePrice = new int[GameConstants.UPGRADE_AMOUNT];
+    public static uint[] upgradePurchaseAmount = new uint[GameConstants.UPGRADE_AMOUNT];
 
     // Initialized game
     public static bool initializedGame = false;
@@ -31,13 +31,13 @@ public static class GameStats
         currentLevelPoints += p;
 
         // Score limit (2 billion)
-        if (points > 2000000000)
+        if (points > GameConstants.MAX_POINTS)
         {
-            points = 2000000000;
+            points = GameConstants.MAX_POINTS;
         }
-        if (currentLevelPoints > 2000000000)
+        if (currentLevelPoints > GameConstants.MAX_POINTS)
         {
-            currentLevelPoints = 2000000000;
+            currentLevelPoints = GameConstants.MAX_POINTS;
         }
     }
 
@@ -70,7 +70,7 @@ public static class GameStats
             Options.projectileTrails = data.optionTrails;
             Options.projectileImpacts = data.optionImpacts;
 
-            upgradePrice = new int[Upgrade.upgradeAmount];
+            upgradePrice = new int[GameConstants.UPGRADE_AMOUNT];
             for (int i = 0; i < data.upgradePrice.Length; i++)
             {
                 if (i > upgradePrice.Length)
@@ -80,7 +80,7 @@ public static class GameStats
                 upgradePrice[i] = data.upgradePrice[i];
             }
 
-            upgradePurchaseAmount = new uint[Upgrade.upgradeAmount];
+            upgradePurchaseAmount = new uint[GameConstants.UPGRADE_AMOUNT];
             for (int i = 0; i < data.upgradePurchaseAmount.Length; i++)
             {
                 if (i > upgradePurchaseAmount.Length)
@@ -93,6 +93,7 @@ public static class GameStats
             // Version conditions
             if (data.savedVersion != "0.9" && data.savedVersion != "1.0" && data.savedVersion != "1.1")
             {
+                // Versions before 1.2
                 Player.projectileAutoDamage = data.projectileAutoDamage;
                 Player.projectilePerforation = data.projectilePerforation;
             }

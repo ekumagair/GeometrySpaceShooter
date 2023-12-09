@@ -9,6 +9,8 @@ public class AdInterstitialManager : MonoBehaviour, IUnityAdsLoadListener, IUnit
     [SerializeField] string _iOSAdUnitId = "Interstitial_iOS";
     string _adUnitId = null;
 
+    public static AdInterstitialManager instance = null;
+
     void Awake()
     {
         // Get the Ad Unit ID for the current platform:
@@ -17,11 +19,23 @@ public class AdInterstitialManager : MonoBehaviour, IUnityAdsLoadListener, IUnit
             : _androidAdUnitId;
     }
 
+    private IEnumerator Start()
+    {
+        while (Advertisement.isInitialized == false)
+        {
+            yield return new WaitForSeconds(0.1f);
+        }
+        yield return null;
+
+        // Load reward ad.
+        LoadAd();
+    }
+
     // Load content to the Ad Unit:
     public void LoadAd()
     {
         // IMPORTANT! Only load content AFTER initialization (initialization is handled in a different script).
-        Debug.Log("Loading Ad: " + _adUnitId);
+        if (Debug.isDebugBuild) { Debug.Log("Loading Ad: " + _adUnitId); }
         Advertisement.Load(_adUnitId, this);
     }
 
@@ -29,7 +43,7 @@ public class AdInterstitialManager : MonoBehaviour, IUnityAdsLoadListener, IUnit
     public void ShowAd()
     {
         // Note that if the ad content wasn't previously loaded, this method will fail
-        Debug.Log("Showing Ad: " + _adUnitId);
+        if (Debug.isDebugBuild) { Debug.Log("Showing Ad: " + _adUnitId); }
         Advertisement.Show(_adUnitId, this);
     }
 
@@ -37,6 +51,8 @@ public class AdInterstitialManager : MonoBehaviour, IUnityAdsLoadListener, IUnit
     public void OnUnityAdsAdLoaded(string adUnitId)
     {
         // Optionally execute code if the Ad Unit successfully loads content.
+        instance = this;
+        if (Debug.isDebugBuild) { Debug.Log("Finished loading: " + _adUnitId); }
     }
 
     public void OnUnityAdsFailedToLoad(string adUnitId, UnityAdsLoadError error, string message)

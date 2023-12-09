@@ -43,13 +43,13 @@ public class PlayerData
         projectilePerforation = Player.projectilePerforation;
         projectileAutoDamage = Player.projectileAutoDamage;
 
-        upgradePrice = new int[Upgrade.upgradeAmount];
+        upgradePrice = new int[GameConstants.UPGRADE_AMOUNT];
         for (int i = 0; i < upgradePrice.Length; i++)
         {
             upgradePrice[i] = GameStats.upgradePrice[i];
         }
 
-        upgradePurchaseAmount = new uint[Upgrade.upgradeAmount];
+        upgradePurchaseAmount = new uint[GameConstants.UPGRADE_AMOUNT];
         for (int i = 0; i < upgradePurchaseAmount.Length; i++)
         {
             upgradePurchaseAmount[i] = GameStats.upgradePurchaseAmount[i];
