@@ -38,6 +38,22 @@ MonoBehaviour:
     m_Localized: Language
     m_Metadata:
       m_Items: []
+  - m_Id: 95603869552934912
+    m_Localized: Gameplay Background
+    m_Metadata:
+      m_Items: []
+  - m_Id: 95607421004349440
+    m_Localized: Scrolling
+    m_Metadata:
+      m_Items: []
+  - m_Id: 95607543834542080
+    m_Localized: Not scrolling
+    m_Metadata:
+      m_Items: []
+  - m_Id: 95607623803142144
+    m_Localized: Black
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

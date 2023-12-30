@@ -6,6 +6,7 @@ using TMPro;
 
 public class OptionsScreen : MonoBehaviour
 {
+    public RectTransform scrollContent;
     public Slider sliderSFX;
     public TMP_Text textSFX;
     public Slider sliderMusic;
@@ -30,6 +31,11 @@ public class OptionsScreen : MonoBehaviour
     void Update()
     {
         SetText();
+    }
+
+    private void OnEnable()
+    {
+        scrollContent.anchoredPosition = new Vector2(0, 0);
     }
 
     private void SetText()

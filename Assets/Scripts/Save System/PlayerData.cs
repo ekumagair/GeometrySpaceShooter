@@ -24,6 +24,7 @@ public class PlayerData
     public float optionMusic;
     public int optionTrails;
     public int optionImpacts;
+    public int optionBackground;
 
     public string savedVersion;
 
@@ -59,5 +60,6 @@ public class PlayerData
         optionMusic = Options.musicVolume;
         optionTrails = Options.projectileTrails;
         optionImpacts = Options.projectileImpacts;
+        optionBackground = Options.backgroundType;
     }
 }

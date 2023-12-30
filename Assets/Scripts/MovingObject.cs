@@ -13,8 +13,17 @@ public class MovingObject : MonoBehaviour
     {
         if (Player.isDead == false && Player.victory == false)
         {
-            transform.Translate(-transform.up * speed * Time.deltaTime);
+            // Movement.
+            if (isLoopingBackground == false || (isLoopingBackground == true && Options.backgroundType == 0))
+            {
+                transform.Translate(-transform.up * speed * Time.deltaTime);
+            }
 
+            // Other properties.
+            if (isLoopingBackground == true && Options.backgroundType == 2)
+            {
+                gameObject.SetActive(false);
+            }
             if (isLoopingBackground == true && transform.position.y <= -1)
             {
                 transform.position = new Vector3(0, 0, transform.position.z);

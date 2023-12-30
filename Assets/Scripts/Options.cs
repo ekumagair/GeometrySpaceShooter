@@ -8,4 +8,5 @@ public static class Options
     public static float soundVolume = 1.0f;
     public static int projectileTrails = 1;
     public static int projectileImpacts = 1;
+    public static int backgroundType = 0;
 }

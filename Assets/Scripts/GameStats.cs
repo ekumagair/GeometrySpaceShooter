@@ -93,9 +93,19 @@ public static class GameStats
             // Version conditions
             if (data.savedVersion != "0.9" && data.savedVersion != "1.0" && data.savedVersion != "1.1")
             {
-                // Versions before 1.2
+                // Versions after 1.2
                 Player.projectileAutoDamage = data.projectileAutoDamage;
                 Player.projectilePerforation = data.projectilePerforation;
+
+                if (data.savedVersion != "1.2" && data.savedVersion != "1.2.1")
+                {
+                    // Versions after 1.3
+                    Options.backgroundType = data.optionBackground;
+                }
+                else
+                {
+                    Options.backgroundType = 0;
+                }
             }
             else
             {

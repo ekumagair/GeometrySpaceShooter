@@ -38,6 +38,22 @@ MonoBehaviour:
     m_Localized: Idioma
     m_Metadata:
       m_Items: []
+  - m_Id: 95603869552934912
+    m_Localized: Fundo do Jogo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 95607421004349440
+    m_Localized: Rolando
+    m_Metadata:
+      m_Items: []
+  - m_Id: 95607543834542080
+    m_Localized: "Est\xE1tico"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 95607623803142144
+    m_Localized: Escuro
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

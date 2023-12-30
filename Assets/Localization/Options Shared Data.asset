@@ -35,6 +35,22 @@ MonoBehaviour:
     m_Key: option_language
     m_Metadata:
       m_Items: []
+  - m_Id: 95603869552934912
+    m_Key: option_bg
+    m_Metadata:
+      m_Items: []
+  - m_Id: 95607421004349440
+    m_Key: option_bg_scrolling
+    m_Metadata:
+      m_Items: []
+  - m_Id: 95607543834542080
+    m_Key: option_bg_not_scrolling
+    m_Metadata:
+      m_Items: []
+  - m_Id: 95607623803142144
+    m_Key: option_bg_black
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
