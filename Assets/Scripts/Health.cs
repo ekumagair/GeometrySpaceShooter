@@ -160,6 +160,12 @@ public class Health : MonoBehaviour
             yield break;
         }
 
+        if (HUD.instance != null)
+        {
+            HUD.instance.shieldTimerMax = time;
+            HUD.instance.shieldTimer = HUD.instance.shieldTimerMax;
+        }
+
         invincible = true;
         StartCoroutine(InvincibilityBlink());
 

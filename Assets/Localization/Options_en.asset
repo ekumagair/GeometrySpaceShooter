@@ -54,6 +54,14 @@ MonoBehaviour:
     m_Localized: Black
     m_Metadata:
       m_Items: []
+  - m_Id: 100261732003020800
+    m_Localized: Remove ads
+    m_Metadata:
+      m_Items: []
+  - m_Id: 100319506527354880
+    m_Localized: Removed ads!
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: PopUp_pt-BR
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: pt-BR
+  m_SharedData: {fileID: 11400000, guid: 3e67664c2643a304cb72fe6aaa536dbf, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 6893010944
+    m_Localized: "Remover an\xFAncios"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4445343252480
+    m_Localized: "Comprar isto vai remover todos os an\xFAncios n\xE3o-opcionais
+      permanentemente. Voc\xEA ainda vai poder assistir an\xFAncios opcionais. \n\nAssistir
+      an\xFAncios opcionais para conseguir melhorias n\xE3o vai mais aumentar o pre\xE7o
+      da melhoria."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5219737600000
+    m_Localized: Ok
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34806102163456
+    m_Localized: Cancelar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2399322509082624
+    m_Localized: "Bot\xF5es de an\xFAncio desativados"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2399449114148864
+    m_Localized: "Bot\xF5es de an\xFAncio est\xE3o desativados."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2400315833516032
+    m_Localized: Loja falsa
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2400401305042944
+    m_Localized: "O jogo est\xE1 usando a Loja falsa. (Fake store)"
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

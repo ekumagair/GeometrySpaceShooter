@@ -28,6 +28,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2298314177360436749}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -2, z: 0}
   m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
@@ -35,7 +36,6 @@ Transform:
   m_Children:
   - {fileID: 4207005090100920471}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2298314177360436748
 SpriteRenderer:
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 4
+  m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: 0985664bc59686e41a3a580534ae4bed, type: 3}
   m_Color: {r: 0, g: 1, b: 0.6039216, a: 1}
   m_FlipX: 0
@@ -99,6 +99,25 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -122,6 +141,12 @@ Rigidbody2D:
   m_AngularDrag: 0.05
   m_GravityScale: 1
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -140,13 +165,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 10
   projectile: {fileID: 4132169524799448920, guid: 60b54fb045102994c977aec271d96d56, type: 3}
-  attackSound: {fileID: 0}
+  attackSound: {fileID: 4803644159576522076, guid: a6f1f9eb6881e5d448dc2ea1cedd24b8, type: 3}
   projectileAuto: {fileID: 4132169524799448920, guid: 0fd1b5ca8088f0d4c88f1620ee0e1e1b, type: 3}
   attackAutoSound: {fileID: 4803644159576522076, guid: 35969011222eb8740af74c29b14afe61, type: 3}
   finishLine: {fileID: 1622093088128447043, guid: 072988cd29a673b4c80abf401f5ed814, type: 3}
   ignoreInput: 0
   highlightSprite: {fileID: 6775918714146290708}
-  adInterstitial: {fileID: 0}
   healthScript: {fileID: 0}
 --- !u!114 &2298314177360436759
 MonoBehaviour:
@@ -195,13 +219,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6449046254262457530}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.2, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2298314177360436755}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6775918714146290708
 SpriteRenderer:
@@ -243,7 +267,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 4
   m_Sprite: {fileID: 21300000, guid: 0985664bc59686e41a3a580534ae4bed, type: 3}
   m_Color: {r: 0.6745283, g: 1, b: 0.87108773, a: 0.39215687}
   m_FlipX: 0

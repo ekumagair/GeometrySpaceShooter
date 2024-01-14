@@ -19,32 +19,64 @@ MonoBehaviour:
     m_Key: upgrade_shoot_speed
     m_Metadata:
       m_Items: []
+  - m_Id: 100597451972083712
+    m_Key: upgrade_shoot_speed_desc
+    m_Metadata:
+      m_Items: []
   - m_Id: 398464843776
     m_Key: upgrade_hp
+    m_Metadata:
+      m_Items: []
+  - m_Id: 100597231045509120
+    m_Key: upgrade_hp_desc
     m_Metadata:
       m_Items: []
   - m_Id: 534339321856
     m_Key: upgrade_projectile_speed
     m_Metadata:
       m_Items: []
+  - m_Id: 100597019790999552
+    m_Key: upgrade_projectile_speed_desc
+    m_Metadata:
+      m_Items: []
   - m_Id: 837587501056
     m_Key: upgrade_damage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 100596603007205376
+    m_Key: upgrade_damage_desc
     m_Metadata:
       m_Items: []
   - m_Id: 975068397568
     m_Key: upgrade_shoot_level
     m_Metadata:
       m_Items: []
+  - m_Id: 100596333397344256
+    m_Key: upgrade_shoot_level_desc
+    m_Metadata:
+      m_Items: []
   - m_Id: 1196544425984
     m_Key: upgrade_move_speed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 100595638040461312
+    m_Key: upgrade_move_speed_desc
     m_Metadata:
       m_Items: []
   - m_Id: 84998578885033984
     m_Key: upgrade_perforation
     m_Metadata:
       m_Items: []
+  - m_Id: 100595109931450368
+    m_Key: upgrade_perforation_desc
+    m_Metadata:
+      m_Items: []
   - m_Id: 84998723064233984
     m_Key: upgrade_laser
+    m_Metadata:
+      m_Items: []
+  - m_Id: 100594447244001280
+    m_Key: upgrade_laser_desc
     m_Metadata:
       m_Items: []
   m_Metadata:

@@ -26,6 +26,9 @@ public class PlayerData
     public int optionImpacts;
     public int optionBackground;
 
+    public bool iapRemoveAds;
+    public bool iapRemovedAdsOnce;
+
     public string savedVersion;
 
     public PlayerData()
@@ -61,5 +64,8 @@ public class PlayerData
         optionTrails = Options.projectileTrails;
         optionImpacts = Options.projectileImpacts;
         optionBackground = Options.backgroundType;
+
+        iapRemoveAds = PurchaseManager.removedAds;
+        iapRemovedAdsOnce = PurchaseManager.removedAdsOnce;
     }
 }

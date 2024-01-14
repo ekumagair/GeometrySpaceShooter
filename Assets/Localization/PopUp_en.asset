@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: PopUp_en
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: 3e67664c2643a304cb72fe6aaa536dbf, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 6893010944
+    m_Localized: Remove ads
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4445343252480
+    m_Localized: 'Purchasing this will remove all non-optional advertisements permanently.
+      You will still be able to watch optional ads.
+
+
+      Watching optional ads
+      to get upgrades will no longer increase the upgrade''s price.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5219737600000
+    m_Localized: Ok
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34806102163456
+    m_Localized: Cancel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2399322509082624
+    m_Localized: Disabled ad buttons
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2399449114148864
+    m_Localized: Ad buttons are disabled.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2400315833516032
+    m_Localized: Fake store
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2400401305042944
+    m_Localized: The game is using the Fake store.
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

@@ -13,6 +13,8 @@ public class AdBannerManager : MonoBehaviour
 
     [HideInInspector] public bool loaded = false;
 
+    public static AdBannerManager instance = null;
+
     void Awake()
     {
         // Get the Ad Unit ID for the current platform:
@@ -67,6 +69,7 @@ public class AdBannerManager : MonoBehaviour
     void OnBannerLoaded()
     {
         loaded = true;
+        instance = this;
         if (Debug.isDebugBuild) { Debug.Log("Finished loading: " + _adUnitId); }
     }
 
@@ -78,8 +81,14 @@ public class AdBannerManager : MonoBehaviour
     }
 
     // Implement a method to call when the Show Banner button is clicked:
-    void ShowBannerAd()
+    private void ShowBannerAd()
     {
+        if (PurchaseManager.instance.HasRemovedAds() == true)
+        {
+            if (Debug.isDebugBuild) { Debug.LogWarning("Tried to show banner ad, but ads were removed."); }
+            return;
+        }
+
         // Set up options to notify the SDK of show events:
         BannerOptions options = new BannerOptions
         {
@@ -93,7 +102,7 @@ public class AdBannerManager : MonoBehaviour
     }
 
     // Implement a method to call when the Hide Banner button is clicked:
-    void HideBannerAd()
+    public void HideBannerAd()
     {
         // Hide the banner:
         Advertisement.Banner.Hide();

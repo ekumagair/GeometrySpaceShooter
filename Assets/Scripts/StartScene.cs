@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Components;
 
 public class StartScene : MonoBehaviour
 {
@@ -16,8 +18,17 @@ public class StartScene : MonoBehaviour
     public Button upgradeNextButton;
     public TMP_Text upgradePageText;
     public TMP_Text versionText;
+    public LocalizeStringEvent levelTextLocalize;
+    public OptionsScreen optionsScreenScript;
 
-    public static bool goToUpgrades = false;
+    public enum StartOverride
+    {
+        Default,
+        GoToUpgrades,
+        GoToRemoveAds
+    }
+    public static StartOverride startOverride = StartOverride.Default;
+
     public static int currentCanvas = 0;
 
     void Awake()
@@ -52,28 +63,52 @@ public class StartScene : MonoBehaviour
         ScoreChain.scoreMultiplier = 1.0f;
         ScoreChain.tier = 0;
         ScoreChain.currentKills = 0;
+        PopUp.instance.ResetActions();
 
         if (GameStats.points < 0)
         {
             GameStats.points = 0;
         }
 
-        if (goToUpgrades)
+        // Start screen mode.
+        switch (startOverride)
         {
-            GoToCanvas(1);
-            PersistentCanvas.reference.CreateButtonSound(0);
-            goToUpgrades = false;
-        }
-        else
-        {
-            GoToCanvas(0);
+            case StartOverride.Default:
+                GoToCanvas(0);
+                break;
+
+            case StartOverride.GoToUpgrades:
+                GoToCanvas(1);
+                PersistentCanvas.reference.CreateButtonSound(0);
+                break;
+
+            case StartOverride.GoToRemoveAds:
+                GoToCanvas(3);
+                PersistentCanvas.reference.CreateButtonSound(0);
+                optionsScreenScript.scrollContent.anchoredPosition = new Vector2(0, 200);
+                break;
+
+            default:
+                GoToCanvas(0);
+                break;
         }
 
+        if (startOverride != StartOverride.Default)
+        {
+            startOverride = StartOverride.Default;
+        }
+
+        // Texts.
         if (versionText != null)
         {
             versionText.text = "v" + Application.version.ToString();
         }
+        if (levelTextLocalize != null)
+        {
+            levelTextLocalize.RefreshString();
+        }
 
+        // Initialize.
         if (GameStats.initializedGame == false)
         {
             PersistentCanvas.reference.CreateFadeOutOverlay();
@@ -86,6 +121,10 @@ public class StartScene : MonoBehaviour
                 }
             }
 
+            // Debug messages.
+            StartCoroutine(DebugMessages());
+
+            // Set as initialized.
             GameStats.initializedGame = true;
         }
     }
@@ -140,6 +179,18 @@ public class StartScene : MonoBehaviour
                 PlayerPrefs.DeleteAll();
                 PlayerPrefs.Save();
             }
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                LevelGenerator.campaignDifficulty--;
+                GameStats.level--;
+                levelTextLocalize.RefreshString();
+            }
+            if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                LevelGenerator.campaignDifficulty++;
+                GameStats.level++;
+                levelTextLocalize.RefreshString();
+            }
         }
     }
 
@@ -193,5 +244,41 @@ public class StartScene : MonoBehaviour
     public void ChangeUpgradePage(int increment)
     {
         currentUpgradePage += increment;
+    }
+
+    public void PopUpAdButtons()
+    {
+        PopUp.instance.SetButtonsTexts(new LocalizedString("PopUp", "button_ok"), null, null, null);
+        PopUp.instance.OpenPopUp(new LocalizedString("PopUp", "disabled_rewards_title"), new LocalizedString("PopUp", "disabled_rewards_desc"), 1);
+    }
+
+    public void PopUpFakeStore()
+    {
+        PopUp.instance.SetButtonsTexts(new LocalizedString("PopUp", "button_ok"), null, null, null);
+        PopUp.instance.OpenPopUp(new LocalizedString("PopUp", "fake_store_title"), new LocalizedString("PopUp", "fake_store_desc"), 1);
+    }
+
+    private IEnumerator DebugMessages()
+    {
+        yield return null;
+
+        if (GameStats.enableAdButttons == false)
+        {
+            if (PurchaseManager.instance.UsingFakeStore() == true)
+            {
+                PopUp.instance.SetActions(PopUpFakeStore, null, null, null);
+            }
+            else
+            {
+                PopUp.instance.ResetActions();
+            }
+
+            PopUpAdButtons();
+        }
+        else if (PurchaseManager.instance.UsingFakeStore() == true)
+        {
+            PopUp.instance.ResetActions();
+            PopUpFakeStore();
+        }
     }
 }

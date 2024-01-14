@@ -25,6 +25,8 @@ public class GameplayManager : MonoBehaviour
         Player.instance.healthScript.Revive();
         HUD.instance.windowVictory.SetActive(false);
         HUD.instance.windowLose.SetActive(false);
+        HUD.instance.removeAdsButton.gameObject.SetActive(false);
+        HUD.instance.windowExtra.gameObject.SetActive(false);
         HUD.instance.createdWindow = false;
     }
 
@@ -50,19 +52,30 @@ public class GameplayManager : MonoBehaviour
 
     public void GoToStartScene()
     {
-        StartScene.goToUpgrades = false;
+        StartScene.startOverride = StartScene.StartOverride.Default;
         LoadingScreen.CallLoadScreen(LoadingScreen.Scenes.Start);
     }
 
     public void GoToStartSceneUpgrades()
     {
-        StartScene.goToUpgrades = true;
+        StartScene.startOverride = StartScene.StartOverride.GoToUpgrades;
         LoadingScreen.CallLoadScreen(LoadingScreen.Scenes.Start);
     }
 
     public void GoToGameScene()
     {
-        StartScene.goToUpgrades = false;
+        StartScene.startOverride = StartScene.StartOverride.Default;
         LoadingScreen.CallLoadScreen(LoadingScreen.Scenes.Game);
+    }
+
+    public void GoToRemoveAds()
+    {
+        if (Player.victory)
+        {
+            NextLevel();
+        }
+
+        StartScene.startOverride = StartScene.StartOverride.GoToRemoveAds;
+        LoadingScreen.CallLoadScreen(LoadingScreen.Scenes.Start);
     }
 }

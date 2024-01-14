@@ -50,6 +50,60 @@ MonoBehaviour:
     m_Localized: Auxiliary laser damage
     m_Metadata:
       m_Items: []
+  - m_Id: 100594447244001280
+    m_Localized: 'This is a laser that automatically fires from you at the closest
+      enemy.
+
+
+      By default, it moves very quickly and can perforate through
+      any enemy it hits.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 100595109931450368
+    m_Localized: 'This upgrade changes how many enemies a single projectile can hit
+      before disappearing.
+
+
+      This upgrade does not affect the auxiliary laser.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 100595638040461312
+    m_Localized: 'This upgrade changes how fast the Player Shape follows your touch.
+
+
+      Does
+      not affect how quickly you complete a level.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 100596333397344256
+    m_Localized: How many projectiles are fired at once from the Player Shape.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 100596603007205376
+    m_Localized: 'How much damage a single projectile causes when hitting an enemy.
+
+
+      This
+      upgrade does not affect the auxiliary laser.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 100597019790999552
+    m_Localized: 'Affects how fast your projectiles move.
+
+
+      This upgrade does
+      not affect the auxiliary laser.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 100597231045509120
+    m_Localized: Affects how many health points you have. This makes you more resistent
+      against enemy attacks.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 100597451972083712
+    m_Localized: Affects how quickly the Player Shape shoots projectiles.
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

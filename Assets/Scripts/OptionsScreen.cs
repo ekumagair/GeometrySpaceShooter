@@ -1,16 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization;
 using UnityEngine.UI;
 using TMPro;
 
 public class OptionsScreen : MonoBehaviour
 {
     public RectTransform scrollContent;
+
+    [Header("SFX")]
     public Slider sliderSFX;
     public TMP_Text textSFX;
+
+    [Header("Music")]
     public Slider sliderMusic;
     public TMP_Text textMusic;
+
+    [Header("Remove Ads")]
+    public PopUp removeAdsPopUp;
 
     void Start()
     {
@@ -80,5 +88,11 @@ public class OptionsScreen : MonoBehaviour
             Options.projectileImpacts = 0;
         }
         GameStats.SaveStats();
+    }
+
+    public void RemoveAdsPopUp()
+    {
+        removeAdsPopUp.SetButtonsTexts(new LocalizedString("PopUp", "button_cancel"), null, null, null);
+        removeAdsPopUp.OpenPopUp(new LocalizedString("PopUp", "remove_ads_title"), new LocalizedString("PopUp", "remove_ads_desc"), 1);
     }
 }

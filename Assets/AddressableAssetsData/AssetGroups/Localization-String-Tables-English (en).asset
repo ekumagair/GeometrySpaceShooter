@@ -23,30 +23,41 @@ MonoBehaviour:
     m_SerializedLabels:
     - Locale-en
     - Preload
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 87d3c065c3fc3e24ab08d6895c6e3612
     m_Address: Upgrades_en
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-en
     - Preload
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 317c1dec7de81a942a797bf7ed1ac7b5
     m_Address: Options_en
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-en
     - Preload
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 146e3fadcf0c06644819e309ff606783
     m_Address: Credits_en
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-en
     - Preload
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6e39bc13776617b4b814ffcd6fc3d458
     m_Address: Extra Levels_en
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-en
     - Preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ef33996699a048c4b947fe4f5d7a78bc
+    m_Address: PopUp_en
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: 0fc240071f6e57b4d848d0af61d7d8de, type: 2}
   m_SchemaSet:

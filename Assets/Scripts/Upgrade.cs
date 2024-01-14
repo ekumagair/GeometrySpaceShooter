@@ -3,16 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-using UnityEngine.Advertisements;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Components;
 
 public class Upgrade : MonoBehaviour
 {
     [Header("Components")]
+    public TMP_Text title;
     public TMP_Text currentStat;
     public TMP_Text nextStat;
     public TMP_Text priceDisplay;
     public Button buyButton;
     public Button adButton;
+
+    [Header("Localization")]
+    public LocalizedString descriptionLocalization;
 
     [Header("Properties")]
     public float statIncrement;
@@ -35,6 +40,7 @@ public class Upgrade : MonoBehaviour
     [HideInInspector] public uint amountPurchased = 0;
 
     private AdButton _adButtonScript;
+    private LocalizeStringEvent _titleLocalization = null;
 
     void Start()
     {
@@ -53,6 +59,12 @@ public class Upgrade : MonoBehaviour
         if (buyButton != null)
         {
             buyButton.interactable = false;
+        }
+
+        // Get title localization.
+        if (_titleLocalization == null)
+        {
+            _titleLocalization = title.gameObject.GetComponent<LocalizeStringEvent>();
         }
     }
 
@@ -151,7 +163,7 @@ public class Upgrade : MonoBehaviour
 
     public void BuyUpgradeFromAd()
     {
-        BuyUpgrade(false, true);
+        BuyUpgrade(false, !PurchaseManager.instance.HasRemovedAds());
     }
 
     private void BuyUpgrade(bool spendPoints, bool increasePrice)
@@ -247,5 +259,16 @@ public class Upgrade : MonoBehaviour
     public int AmountPurchasedAsInt()
     {
         return (int)Mathf.Clamp(amountPurchased, 0, int.MaxValue);
+    }
+
+    public void AboutPopUp()
+    {
+        if (PersistentCanvas.reference != null)
+        {
+            PersistentCanvas.reference.CreateButtonSound(5);
+        }
+
+        PopUp.instance.SetButtonsTexts(new LocalizedString("PopUp", "button_ok"), null, null, null);
+        PopUp.instance.OpenPopUp(_titleLocalization.StringReference, descriptionLocalization, 1);
     }
 }

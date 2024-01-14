@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: PopUp Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: PopUp
+  m_TableCollectionNameGuidString: 3e67664c2643a304cb72fe6aaa536dbf
+  m_Entries:
+  - m_Id: 5219737600000
+    m_Key: button_ok
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34806102163456
+    m_Key: button_cancel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6893010944
+    m_Key: remove_ads_title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4445343252480
+    m_Key: remove_ads_desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2399322509082624
+    m_Key: disabled_rewards_title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2399449114148864
+    m_Key: disabled_rewards_desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2400315833516032
+    m_Key: fake_store_title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2400401305042944
+    m_Key: fake_store_desc
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 1837895960453185538
+  references:
+    version: 2
+    RefIds:
+    - rid: 1837895960453185538
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1703989160064

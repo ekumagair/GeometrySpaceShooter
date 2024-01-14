@@ -50,6 +50,45 @@ MonoBehaviour:
     m_Localized: Dano do laser auxiliar
     m_Metadata:
       m_Items: []
+  - m_Id: 100594447244001280
+    m_Localized: "Este \xE9 um laser que automaticamente dispara de voc\xEA no inimigo
+      mais pr\xF3ximo.\n\nPor padr\xE3o, ele se move rapidamente e pode perfurar
+      qualquer inimigo que ele atingir."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 100595109931450368
+    m_Localized: "Esta melhoria altera quantos inimigos um \xFAnico proj\xE9til pode
+      atingir antes de desaparecer.\n\nEsta melhoria n\xE3o afeta o laser auxiliar."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 100595638040461312
+    m_Localized: "Esta melhoria muda o qu\xE3o r\xE1pido a Forma do Jogador segue
+      o seu toque.\n\nN\xE3o afeta o qu\xE3o r\xE1pido voc\xEA completa uma fase."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 100596333397344256
+    m_Localized: "Quantos proj\xE9teis s\xE3o disparados de uma vez da Forma do Jogador."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 100596603007205376
+    m_Localized: "Quanto dano um \xFAnico proj\xE9til causa ao atingir um inimigo.\n\nEsta
+      melhoria n\xE3o afeta o laser auxiliar."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 100597019790999552
+    m_Localized: "Afeta o qu\xE3o r\xE1pido os seus proj\xE9teis se movem.\n\nEsta
+      melhoria n\xE3o afeta o laser auxiliar."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 100597231045509120
+    m_Localized: "Afeta quantos pontos de vida voc\xEA tem. Isso te faz mais resistente
+      contra ataques inimigos."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 100597451972083712
+    m_Localized: "Afeta o qu\xE3o r\xE1pido a Forma do Jogador dispara proj\xE9teis."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

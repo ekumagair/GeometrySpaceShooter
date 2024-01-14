@@ -105,14 +105,20 @@ public class Player : MonoBehaviour
             highlightSprite.enabled = HasMovementConditions();
         }
 
-        // Debug.
+#if UNITY_EDITOR || UNITY_STANDALONE
+        // Debug inputs.
         if (Debug.isDebugBuild)
         {
             if (Input.GetKeyDown(KeyCode.M) && ignoreInput == false)
             {
                 SceneManager.LoadScene("StartScene");
             }
+            if (Input.GetKeyDown(KeyCode.T) && ignoreInput == false)
+            {
+                Time.timeScale = Time.timeScale == 1.0f ? 0.2f : 1.0f;
+            }
         }
+#endif
     }
 
     private IEnumerator Shoot()
@@ -207,7 +213,7 @@ public class Player : MonoBehaviour
             Combat.DestroyAllProjectiles();
 
             // Show level end ad.
-            if (AdInterstitialManager.instance != null)
+            if (AdInterstitialManager.instance != null && PurchaseManager.instance.HasRemovedAds() == false)
             {
                 AdInterstitialManager.instance.ShowAd();
             }

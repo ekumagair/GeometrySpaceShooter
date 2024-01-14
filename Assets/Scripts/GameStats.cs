@@ -46,7 +46,7 @@ public static class GameStats
         PlayerPrefs.Save();
         SaveSystem.SaveData();
 
-        if (Debug.isDebugBuild) { Debug.Log("Saved stats"); }
+        //if (Debug.isDebugBuild) { Debug.Log("Saved stats"); }
     }
 
     public static void LoadStats()
@@ -93,14 +93,19 @@ public static class GameStats
             // Version conditions
             if (data.savedVersion != "0.9" && data.savedVersion != "1.0" && data.savedVersion != "1.1")
             {
-                // Versions after 1.2
+                // Versions 1.2 onwards.
                 Player.projectileAutoDamage = data.projectileAutoDamage;
                 Player.projectilePerforation = data.projectilePerforation;
 
                 if (data.savedVersion != "1.2" && data.savedVersion != "1.2.1")
                 {
-                    // Versions after 1.3
+                    // Versions 1.3 onwards.
                     Options.backgroundType = data.optionBackground;
+
+                    if (data.iapRemovedAdsOnce == true)
+                    {
+                        PurchaseManager.removedAdsOnce = true;
+                    }
                 }
                 else
                 {
@@ -114,6 +119,6 @@ public static class GameStats
             }
         }
 
-        if (Debug.isDebugBuild) { Debug.Log("Loaded stats"); }
+        //if (Debug.isDebugBuild) { Debug.Log("Loaded stats"); }
     }
 }

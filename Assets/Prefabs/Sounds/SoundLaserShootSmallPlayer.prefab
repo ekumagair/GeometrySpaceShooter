@@ -5,15 +5,16 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 4201403711296153946, guid: 0add3ac090ddcd64eab76839caf1e137, type: 3}
       propertyPath: m_Volume
-      value: 0.15
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 4429608502814144146, guid: 0add3ac090ddcd64eab76839caf1e137, type: 3}
       propertyPath: m_Name
-      value: SoundLaserShootPlayer
+      value: SoundLaserShootSmallPlayer
       objectReference: {fileID: 0}
     - target: {fileID: 4429608502814144147, guid: 0add3ac090ddcd64eab76839caf1e137, type: 3}
       propertyPath: m_RootOrder
@@ -61,28 +62,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6077504792567948200, guid: 0add3ac090ddcd64eab76839caf1e137, type: 3}
       propertyPath: pitchMultMax
-      value: 0.9
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6077504792567948200, guid: 0add3ac090ddcd64eab76839caf1e137, type: 3}
       propertyPath: pitchMultMin
-      value: 0.7
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 6077504792567948200, guid: 0add3ac090ddcd64eab76839caf1e137, type: 3}
       propertyPath: clips.Array.size
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6077504792567948200, guid: 0add3ac090ddcd64eab76839caf1e137, type: 3}
       propertyPath: clips.Array.data[0]
       value: 
-      objectReference: {fileID: 8300000, guid: 8c9deae0d3b670d418eaa1c7679a4c23, type: 3}
+      objectReference: {fileID: 8300000, guid: e8c9987457fc121479d2903c9e7d938c, type: 3}
     - target: {fileID: 6077504792567948200, guid: 0add3ac090ddcd64eab76839caf1e137, type: 3}
       propertyPath: clips.Array.data[1]
       value: 
-      objectReference: {fileID: 8300000, guid: cb672838790220843b3b46edeb4a67c0, type: 3}
+      objectReference: {fileID: 8300000, guid: ad4a07f1841fa484386cf1d4e4fab572, type: 3}
     - target: {fileID: 6077504792567948200, guid: 0add3ac090ddcd64eab76839caf1e137, type: 3}
       propertyPath: clips.Array.data[2]
       value: 
-      objectReference: {fileID: 8300000, guid: cb672838790220843b3b46edeb4a67c0, type: 3}
+      objectReference: {fileID: 8300000, guid: cebc4503708cd9045a0e69609eb6d2eb, type: 3}
     - target: {fileID: 6077504792567948200, guid: 0add3ac090ddcd64eab76839caf1e137, type: 3}
       propertyPath: clips.Array.data[3]
       value: 
@@ -104,4 +105,7 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8300000, guid: cb672838790220843b3b46edeb4a67c0, type: 3}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0add3ac090ddcd64eab76839caf1e137, type: 3}

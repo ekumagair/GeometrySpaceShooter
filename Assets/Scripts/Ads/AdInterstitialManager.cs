@@ -42,6 +42,12 @@ public class AdInterstitialManager : MonoBehaviour, IUnityAdsLoadListener, IUnit
     // Show the loaded content in the Ad Unit:
     public void ShowAd()
     {
+        if (PurchaseManager.instance.HasRemovedAds() == true)
+        {
+            if (Debug.isDebugBuild) { Debug.LogWarning("Tried to show interstitial ad, but ads were removed."); }
+            return;
+        }
+
         // Note that if the ad content wasn't previously loaded, this method will fail
         if (Debug.isDebugBuild) { Debug.Log("Showing Ad: " + _adUnitId); }
         Advertisement.Show(_adUnitId, this);

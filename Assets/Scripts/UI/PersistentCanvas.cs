@@ -32,7 +32,7 @@ public class PersistentCanvas : MonoBehaviour
         pointsNumber.text = GameStats.points.ToString();
 
 #if UNITY_EDITOR || UNITY_STANDALONE
-        // Debug.
+        // Debug inputs.
         if (Debug.isDebugBuild)
         {
             if (Input.GetKeyDown(KeyCode.UpArrow))
