@@ -21,6 +21,11 @@ public class IAPButtonComplement : MonoBehaviour
 
     private IEnumerator OnEnableCoroutine()
     {
+        if (textPrice != null)
+        {
+            textPrice.text = "";
+        }
+
         yield return null;
 
         while (PurchaseManager.instance == null)
@@ -43,7 +48,7 @@ public class IAPButtonComplement : MonoBehaviour
         }
         if (textPrice != null)
         {
-            textPrice.text = PurchaseManager.instance.GetProductFromType(type).metadata.isoCurrencyCode + " " + PurchaseManager.instance.GetProductFromType(type).metadata.localizedPriceString;
+            textPrice.text = PurchaseManager.instance.GetProductFromType(type).metadata.localizedPriceString;
         }
     }
 

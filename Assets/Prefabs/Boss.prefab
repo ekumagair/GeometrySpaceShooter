@@ -29,6 +29,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 494704904219344338}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 20, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -36,7 +37,6 @@ Transform:
   m_Children:
   - {fileID: 2950896111011645}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &494704904219344349
 SpriteRenderer:
@@ -100,6 +100,25 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -133,13 +152,19 @@ Rigidbody2D:
   m_AngularDrag: 0.05
   m_GravityScale: 1
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
 --- !u!95 &494704904219344337
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -156,7 +181,8 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &494704904219344348
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -170,17 +196,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveYSpeed: 0.85
+  stopY: 3
+  entrySoundY: 7
+  canBeMovedY: 0
   firingSpeed: 1
   projectile: {fileID: 4132169524799448920, guid: 60b54fb045102994c977aec271d96d56, type: 3}
   projectileSpeedMultiplier: 1
   projectileDamage: 1
   shootY: 5
-  stopY: 3
-  canBeMovedY: 0
   outline: {fileID: 0}
   unavoidableExplosion: {fileID: 2475859108487741549, guid: 4d5fc9849c15eaa44aa67af7065e4584, type: 3}
   warningBlipSound: {fileID: 0}
   attackSound: {fileID: 4803644159576522076, guid: f18808bb5cf89b04897976c05b5fe7d2, type: 3}
+  entrySound: {fileID: 48801557907766402, guid: 78316c7122c82ba439a8dcccef54ed44, type: 3}
   attackType: 5
 --- !u!114 &494704904219344350
 MonoBehaviour:
@@ -196,6 +224,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 40
   pointsOnDeath: 500
+  afterHitInvincibleTime: 0
   moveEnemiesOnDeath: 0
   damageEffect: {fileID: 0}
   damageSound: {fileID: 4803644159576522076, guid: 6838dc3bc32032e41ae20ed954469643, type: 3}
@@ -229,13 +258,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 811117972281564551}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 120, y: 120, z: 120}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 494704904219344339}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4009787267034400920
 MeshFilter:

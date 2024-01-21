@@ -6,12 +6,17 @@ using TMPro;
 
 public class PersistentCanvas : MonoBehaviour
 {
+    [Header("Text Components")]
     public TMP_Text pointsNumber;
-    public GameObject[] soundButton;
-    public GameObject numberChangeEffect;
-    public GameObject fadeOutOverlay;
     public TMP_Text levelText;
 
+    [Header("Visual Effects")]
+    public GameObject numberChangeEffect;
+    public GameObject fadeOutOverlay;
+
+    [Header("Sounds")]
+    public GameObject[] soundButton;
+    
     public static PersistentCanvas reference;
 
     private void Awake()

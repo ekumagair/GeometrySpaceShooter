@@ -73,7 +73,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: bed7f9ed179ff1b44b13bc90beef8ad9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -4965,7 +4965,7 @@ Transform:
   m_GameObject: {fileID: 4132169524799448920}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5078,6 +5078,7 @@ MonoBehaviour:
   speed: 5
   damage: 1
   perforation: 1
+  alwaysEnableEffects: 0
   impactEffect: {fileID: 7461107298006254976, guid: 418135f2d29564f438af86d8ec7e9930, type: 3}
   impactSound: {fileID: 4803644159576522076, guid: df0ad02f2ead43e44bab783d0708b150, type: 3}
   trail: {fileID: 4394603141076573922}
@@ -5085,6 +5086,7 @@ MonoBehaviour:
   - {fileID: 4735822620949907149}
   - {fileID: 1989339621337417975}
   extraTrail: {fileID: 7910471367773192466}
+  extraImpactEffect: {fileID: 5249826474362503367, guid: 7882b061303d94a488f42af2442cce0a, type: 3}
   shooter: {fileID: 0}
   ignoreTag: EditorOnly
 --- !u!114 &4023279439373529184
@@ -5172,7 +5174,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 860763953a3bf07429322776a46df5bf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -5277,7 +5279,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 72392b5dfd51f8c4788855b9a47d9ed5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

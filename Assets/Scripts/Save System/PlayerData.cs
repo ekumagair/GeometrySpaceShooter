@@ -19,7 +19,7 @@ public class PlayerData
     public int projectileAutoDamage;
     public int[] upgradePrice;
     public uint[] upgradePurchaseAmount;
-
+    
     public float optionSfx;
     public float optionMusic;
     public int optionTrails;
@@ -28,6 +28,12 @@ public class PlayerData
 
     public bool iapRemoveAds;
     public bool iapRemovedAdsOnce;
+
+    public int enemiesKilledTotal;
+    public int claimedRewardsTotal;
+    public float scoreMultiplierMinimum;
+    public int[] claimedRewards;
+    public int[] completedExtraLevels;
 
     public string savedVersion;
 
@@ -67,5 +73,21 @@ public class PlayerData
 
         iapRemoveAds = PurchaseManager.removedAds;
         iapRemovedAdsOnce = PurchaseManager.removedAdsOnce;
+
+        enemiesKilledTotal = GameStats.enemiesKilledTotal;
+
+        claimedRewardsTotal = GameStats.claimedRewardsTotal;
+        claimedRewards = new int[GameConstants.REWARDS_AMOUNT];
+        scoreMultiplierMinimum = ScoreChain.scoreMultiplierMinimum;
+        for (int i = 0; i < claimedRewards.Length; i++)
+        {
+            claimedRewards[i] = GameStats.claimedRewards[i];
+        }
+
+        completedExtraLevels = new int[GameConstants.EXTRA_LEVELS_AMOUNT];
+        for (int i = 0; i < completedExtraLevels.Length; i++)
+        {
+            completedExtraLevels[i] = GameStats.completedExtraLevels[i];
+        }
     }
 }

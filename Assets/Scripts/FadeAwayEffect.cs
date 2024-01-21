@@ -18,9 +18,9 @@ public class FadeAwayEffect : MonoBehaviour
         if (Time.timeScale != 0.0f)
         {
             _sr.color = new Color(_sr.color.r, _sr.color.g, _sr.color.b, _alpha);
-            _alpha -= 3f * Time.deltaTime;
+            _alpha -= 4f * Time.deltaTime;
 
-            transform.localScale += new Vector3(Time.deltaTime * 1.2f, Time.deltaTime * 1.2f, Time.deltaTime * 1.2f);
+            transform.localScale += new Vector3(Time.deltaTime * 1.3f, Time.deltaTime * 1.3f, Time.deltaTime * 1.3f);
 
             if (_alpha <= 0f)
             {

@@ -6,20 +6,43 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Components;
+using UnityEngine.Analytics;
 
 public class StartScene : MonoBehaviour
 {
-    public GameObject startButton;
+    [Header("General")]
     public GameObject[] canvases;
+
+    [Space]
+
+    [Header("Start Section")]
+    public GameObject startButton;
     public GameObject startObjects;
+    public TMP_Text versionText;
+    public LocalizeStringEvent levelTextLocalize;
+
+    [Space]
+
+    [Header("Upgrades Section")]
     public GameObject[] upgradePages;
     public int currentUpgradePage = 0;
     public Button upgradePreviousButton;
     public Button upgradeNextButton;
     public TMP_Text upgradePageText;
-    public TMP_Text versionText;
-    public LocalizeStringEvent levelTextLocalize;
+
+    [Space]
+
+    [Header("Options Section")]
     public OptionsScreen optionsScreenScript;
+
+    [Space]
+
+    [Header("Rewards Section")]
+    public TMP_Text killedEnemiesText;
+    public Image killedEnemiesBarBg;
+    public Image killedEnemiesBarFill;
+
+    [HideInInspector] public int currentCanvas = 0;
 
     public enum StartOverride
     {
@@ -29,19 +52,30 @@ public class StartScene : MonoBehaviour
     }
     public static StartOverride startOverride = StartOverride.Default;
 
-    public static int currentCanvas = 0;
+    public static StartScene reference;
+
+    private Upgrade[] _upgrades = new Upgrade[GameConstants.UPGRADE_AMOUNT];
 
     void Awake()
     {
         Time.timeScale = 1.0f;
+        reference = this;
+        Analytics.initializeOnStartup = false;
+        Analytics.enabled = false;
+        PerformanceReporting.enabled = false;
+        Analytics.limitUserTracking = true;
+        Analytics.deviceStatsEnabled = false;
+
+        StartCoroutine(AwakeCoroutine());
 
         // If has saved data, load the data and the prices for each upgrade.
         if (SaveSystem.SaveExists())
         {
+            GameStats.loadStatsFinished = false;
             GameStats.LoadStats();
 
-            Upgrade[] upgrades = FindObjectsOfType<Upgrade>();
-            foreach (var upgrade in upgrades)
+            _upgrades = FindObjectsOfType<Upgrade>();
+            foreach (var upgrade in _upgrades)
             {
                 int gameStatsPrice = GameStats.upgradePrice[(int)upgrade.upgradeType];
 
@@ -53,6 +87,23 @@ public class StartScene : MonoBehaviour
 
                 upgrade.DisplayInfo();
             }
+        }
+
+        // Rewards section.
+        if (GameStats.enemiesKilledTotal < 0)
+        {
+            GameStats.enemiesKilledTotal = 0;
+        }
+
+        killedEnemiesText.text = GameStats.enemiesKilledTotal.ToString();
+
+        if (GameStats.enemiesKilledTotal < killedEnemiesBarBg.rectTransform.sizeDelta.y)
+        {
+            killedEnemiesBarFill.fillAmount = GameStats.enemiesKilledTotal / killedEnemiesBarBg.rectTransform.sizeDelta.y;
+        }
+        else
+        {
+            killedEnemiesBarFill.fillAmount = 1f;
         }
     }
 
@@ -83,9 +134,8 @@ public class StartScene : MonoBehaviour
                 break;
 
             case StartOverride.GoToRemoveAds:
-                GoToCanvas(3);
+                GoToRemoveAds();
                 PersistentCanvas.reference.CreateButtonSound(0);
-                optionsScreenScript.scrollContent.anchoredPosition = new Vector2(0, 200);
                 break;
 
             default:
@@ -115,9 +165,18 @@ public class StartScene : MonoBehaviour
 
             if (Application.genuineCheckAvailable == true)
             {
-                if (Application.genuine == false && startButton != null)
+                if (Application.genuine == false)
                 {
-                    Destroy(startButton);
+                    GameStats.failedGenuine = true;
+
+                    if (startButton != null)
+                    {
+                        Destroy(startButton);
+                    }
+                }
+                else
+                {
+                    GameStats.failedGenuine = false;
                 }
             }
 
@@ -171,6 +230,8 @@ public class StartScene : MonoBehaviour
             }
         }
 
+#if UNITY_EDITOR || UNITY_STANDALONE
+        // Debug inputs.
         if (Debug.isDebugBuild)
         {
             if (Input.GetKeyDown(KeyCode.Delete))
@@ -178,6 +239,10 @@ public class StartScene : MonoBehaviour
                 SaveSystem.DeleteSave();
                 PlayerPrefs.DeleteAll();
                 PlayerPrefs.Save();
+            }
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                GameStats.claimedRewards = new int[GameConstants.REWARDS_AMOUNT];
             }
             if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
@@ -192,6 +257,7 @@ public class StartScene : MonoBehaviour
                 levelTextLocalize.RefreshString();
             }
         }
+#endif
     }
 
     public void PlayGame()
@@ -210,6 +276,12 @@ public class StartScene : MonoBehaviour
     public void GoToCanvas(int c)
     {
         ChooseOneCanvas(c);
+    }
+
+    public void GoToRemoveAds()
+    {
+        GoToCanvas(3);
+        optionsScreenScript.scrollContent.anchoredPosition = new Vector2(0, 200);
     }
 
     void ChooseOneCanvas(int c)
@@ -246,6 +318,11 @@ public class StartScene : MonoBehaviour
         currentUpgradePage += increment;
     }
 
+    public Upgrade[] GetAllUpgrades()
+    {
+        return _upgrades;
+    }
+
     public void PopUpAdButtons()
     {
         PopUp.instance.SetButtonsTexts(new LocalizedString("PopUp", "button_ok"), null, null, null);
@@ -279,6 +356,23 @@ public class StartScene : MonoBehaviour
         {
             PopUp.instance.ResetActions();
             PopUpFakeStore();
+        }
+    }
+
+    private IEnumerator AwakeCoroutine()
+    {
+        yield return null;
+
+        if (GameStats.loadStatsFinished == true)
+        {
+            GoToCanvas(0);
+        }
+
+        yield return new WaitForSeconds(0.05f);
+
+        if (GameStats.loadStatsFinished == false)
+        {
+            GoToCanvas(0);
         }
     }
 }

@@ -13,6 +13,11 @@ public class LoadingScreen : MonoBehaviour
     }
     public static Scenes sceneToLoad = Scenes.Start;
 
+    void Awake()
+    {
+        Time.timeScale = 1.0f;
+    }
+
     void Start()
     {
         StartCoroutine(StartLoad());

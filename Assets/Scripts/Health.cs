@@ -44,6 +44,7 @@ public class Health : MonoBehaviour
         if (damageEffect != null)
         {
             var ifx = Instantiate(damageEffect, transform.position, transform.rotation);
+            ifx.transform.parent = transform;
             SpriteRenderer ifxSpriteRenderer = ifx.GetComponent<SpriteRenderer>();
 
             if (_sr != null && ifxSpriteRenderer != null)
@@ -107,6 +108,19 @@ public class Health : MonoBehaviour
         if (tag.Contains("Enemy"))
         {
             ScoreChain.currentKills++;
+
+            if (GameStats.enemiesKilledTotal < int.MaxValue)
+            {
+                GameStats.enemiesKilledTotal++;
+            }
+        }
+        else if (tag.Contains("Player"))
+        {
+            // Show player death ad.
+            if (AdInterstitialManager.instance != null && PurchaseManager.instance.HasRemovedAds() == false)
+            {
+                AdInterstitialManager.instance.ShowAd();
+            }
         }
 
         invincible = false;

@@ -33,17 +33,32 @@ public class GenericSetVolume : MonoBehaviour
         SetVolume();
     }
 
+    void Update()
+    {
+        if (constantlyUpdateVolume)
+        {
+            SetVolume();
+        }
+    }
+
     void SetVolume()
     {
         float mult = 1.0f;
 
-        if (volumeModifier == VolumeModifier.SetVolume)
+        if (Time.timeScale > 0.0f)
         {
-            mult = 1.0f;
+            if (volumeModifier == VolumeModifier.SetVolume)
+            {
+                mult = 1.0f;
+            }
+            else if (volumeModifier == VolumeModifier.MultiplyVolume)
+            {
+                mult = _baseVolume;
+            }
         }
-        else if (volumeModifier == VolumeModifier.MultiplyVolume)
+        else
         {
-            mult = _baseVolume;
+            mult = 0.0f;
         }
 
         switch (type)

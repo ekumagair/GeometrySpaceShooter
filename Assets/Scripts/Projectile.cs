@@ -8,6 +8,7 @@ public class Projectile : MonoBehaviour
     public float speed;
     public int damage = 1;
     public int perforation = 1;
+    public bool alwaysEnableEffects = false;
 
     [Header("Impact")]
     public GameObject impactEffect;
@@ -19,6 +20,7 @@ public class Projectile : MonoBehaviour
     [Header("Extras")]
     public SpriteRenderer[] extraOutline;
     public ParticleSystem extraTrail;
+    public GameObject extraImpactEffect;
 
     private SpriteRenderer _spriteRenderer;
     private ParticleSystem.MainModule _trailMainModule;
@@ -46,13 +48,19 @@ public class Projectile : MonoBehaviour
             perforation = 1;
         }
 
-        // Extras.
+        // Extra visual effects.
+
+        // Outline 0: Damage >= 2.
+        // Extra trail: Damage >= 6.
+        // Extra impact: Damage >= 10.
+        // Outline 1: Damage >= 14.
+
         ShowExtraOutline(0, 2);
-        ShowExtraOutline(1, 12);
+        ShowExtraOutline(1, 14);
 
         if (extraTrail != null)
         {
-            extraTrail.gameObject.SetActive(damage >= 6);
+            extraTrail.gameObject.SetActive(damage >= 6 || alwaysEnableEffects);
             _extraTrailModule = extraTrail.main;
             _extraTrailModule.startColor = new Color(_spriteRenderer.color.r, _spriteRenderer.color.g, _spriteRenderer.color.b, _spriteRenderer.color.a * 0.8f);
         }
@@ -80,6 +88,15 @@ public class Projectile : MonoBehaviour
                         var effect = Instantiate(impactEffect, transform.position, transform.rotation);
                         ParticleSystem.MainModule effectMainModule = effect.GetComponent<ParticleSystem>().main;
                         effectMainModule.startColor = _spriteRenderer.color;
+                    }
+                    if (extraImpactEffect != null && Options.projectileImpacts == 1 && (damage >= 10 || alwaysEnableEffects))
+                    {
+                        var impact = Instantiate(extraImpactEffect, transform.position, transform.rotation);
+                        SpriteRenderer[] sr = impact.GetComponentsInChildren<SpriteRenderer>();
+                        foreach (SpriteRenderer item in sr)
+                        {
+                            item.color = _spriteRenderer.color;
+                        }
                     }
                     if (impactSound != null)
                     {
@@ -123,7 +140,7 @@ public class Projectile : MonoBehaviour
 
         if (extraOutline[i] != null)
         {
-            extraOutline[i].gameObject.SetActive(damage >= damageMin);
+            extraOutline[i].gameObject.SetActive(damage >= damageMin || alwaysEnableEffects);
             extraOutline[i].color = _spriteRenderer.color;
         }
     }

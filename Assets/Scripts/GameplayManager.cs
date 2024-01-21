@@ -52,18 +52,21 @@ public class GameplayManager : MonoBehaviour
 
     public void GoToStartScene()
     {
+        Time.timeScale = 1.0f;
         StartScene.startOverride = StartScene.StartOverride.Default;
         LoadingScreen.CallLoadScreen(LoadingScreen.Scenes.Start);
     }
 
     public void GoToStartSceneUpgrades()
     {
+        Time.timeScale = 1.0f;
         StartScene.startOverride = StartScene.StartOverride.GoToUpgrades;
         LoadingScreen.CallLoadScreen(LoadingScreen.Scenes.Start);
     }
 
     public void GoToGameScene()
     {
+        Time.timeScale = 1.0f;
         StartScene.startOverride = StartScene.StartOverride.Default;
         LoadingScreen.CallLoadScreen(LoadingScreen.Scenes.Game);
     }

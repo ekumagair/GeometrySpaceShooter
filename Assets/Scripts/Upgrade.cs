@@ -26,6 +26,7 @@ public class Upgrade : MonoBehaviour
 
     public enum UpgradeType
     {
+        None = -1,
         FiringSpeed,
         ExtraHealth,
         ProjectileSpeed,
@@ -166,6 +167,11 @@ public class Upgrade : MonoBehaviour
         BuyUpgrade(false, !PurchaseManager.instance.HasRemovedAds());
     }
 
+    public void BuyUpgradeAsBonus()
+    {
+        BuyUpgrade(false, false);
+    }
+
     private void BuyUpgrade(bool spendPoints, bool increasePrice)
     {
         if (GameStats.points < price && spendPoints == true)
@@ -174,44 +180,10 @@ public class Upgrade : MonoBehaviour
             return;
         }
 
-        switch (upgradeType)
-        {
-            case UpgradeType.FiringSpeed:
-                Player.firingSpeedDivider += statIncrement;
-                break;
+        // Change stats.
+        ChangePlayerStat(upgradeType, statIncrement);
 
-            case UpgradeType.ExtraHealth:
-                Player.startHealth += Mathf.RoundToInt(statIncrement);
-                break;
-
-            case UpgradeType.ProjectileSpeed:
-                Player.projectileSpeedMultiplier += statIncrement;
-                break;
-
-            case UpgradeType.ProjectileDamage:
-                Player.projectileDamage += Mathf.RoundToInt(statIncrement);
-                break;
-
-            case UpgradeType.ShootLevel:
-                Player.shootLevel += Mathf.RoundToInt(statIncrement);
-                break;
-
-            case UpgradeType.TouchFollowSpeed:
-                Player.moveSpeedMultiplier += statIncrement;
-                break;
-
-            case UpgradeType.Perforation:
-                Player.projectilePerforation += Mathf.RoundToInt(statIncrement);
-                break;
-
-            case UpgradeType.Laser:
-                Player.projectileAutoDamage += Mathf.RoundToInt(statIncrement) + AmountPurchasedAsInt();
-                break;
-
-            default:
-                break;
-        }
-
+        // Spend points.
         if (spendPoints == true)
         {
             GameStats.points -= price;
@@ -256,9 +228,97 @@ public class Upgrade : MonoBehaviour
         if (Debug.isDebugBuild) { Debug.Log("Purchased upgrade: ID " + (int)upgradeType + ", Amount " + GameStats.upgradePurchaseAmount[(int)upgradeType] + ", Price " + GameStats.upgradePrice[(int)upgradeType]); }
     }
 
+    public static void ChangePlayerStat(UpgradeType type, float increment)
+    {
+        switch (type)
+        {
+            case UpgradeType.FiringSpeed:
+                Player.firingSpeedDivider += increment;
+                break;
+
+            case UpgradeType.ExtraHealth:
+                Player.startHealth += Mathf.RoundToInt(increment);
+                break;
+
+            case UpgradeType.ProjectileSpeed:
+                Player.projectileSpeedMultiplier += increment;
+                break;
+
+            case UpgradeType.ProjectileDamage:
+                Player.projectileDamage += Mathf.RoundToInt(increment);
+                break;
+
+            case UpgradeType.ShootLevel:
+                Player.shootLevel += Mathf.RoundToInt(increment);
+                break;
+
+            case UpgradeType.TouchFollowSpeed:
+                Player.moveSpeedMultiplier += increment;
+                break;
+
+            case UpgradeType.Perforation:
+                Player.projectilePerforation += Mathf.RoundToInt(increment);
+                break;
+
+            case UpgradeType.Laser:
+                Player.projectileAutoDamage += Mathf.RoundToInt(increment) + (int)Mathf.Clamp(GameStats.upgradePurchaseAmount[(int)UpgradeType.Laser], 0, int.MaxValue);
+                break;
+
+            default:
+                break;
+        }
+    }
+
     public int AmountPurchasedAsInt()
     {
         return (int)Mathf.Clamp(amountPurchased, 0, int.MaxValue);
+    }
+
+    public static LocalizedString GetUpgradeName(UpgradeType type)
+    {
+        switch (type)
+        {
+            case UpgradeType.FiringSpeed:
+                return new LocalizedString("Upgrades", "upgrade_shoot_speed");
+
+            case UpgradeType.ExtraHealth:
+                return new LocalizedString("Upgrades", "upgrade_hp");
+
+            case UpgradeType.ProjectileSpeed:
+                return new LocalizedString("Upgrades", "upgrade_projectile_speed");
+
+            case UpgradeType.ProjectileDamage:
+                return new LocalizedString("Upgrades", "upgrade_damage");
+
+            case UpgradeType.ShootLevel:
+                return new LocalizedString("Upgrades", "upgrade_shoot_level");
+
+            case UpgradeType.TouchFollowSpeed:
+                return new LocalizedString("Upgrades", "upgrade_move_speed");
+
+            case UpgradeType.Perforation:
+                return new LocalizedString("Upgrades", "upgrade_perforation");
+
+            case UpgradeType.Laser:
+                return new LocalizedString("Upgrades", "upgrade_laser");
+
+            default:
+                return null;
+        }
+    }
+
+    public static float GetUpgradeDisplayMultiplier(UpgradeType type)
+    {
+        if (type == UpgradeType.FiringSpeed || type == UpgradeType.ProjectileSpeed || type == UpgradeType.TouchFollowSpeed)
+        {
+            // Percentage.
+            return 100;
+        }
+        else
+        {
+            // Linear.
+            return 1;
+        }
     }
 
     public void AboutPopUp()

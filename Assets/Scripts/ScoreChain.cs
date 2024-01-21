@@ -14,6 +14,7 @@ public class ScoreChain : MonoBehaviour
 
     public static ScoreChain instance;
     public static float scoreMultiplier;
+    public static float scoreMultiplierMinimum = 1.0f;
     public static int tier;
     public static int currentKills;
     public static int killsForNextTier;
@@ -21,6 +22,7 @@ public class ScoreChain : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        ResetVariables();
     }
 
     private void Start()
@@ -30,12 +32,12 @@ public class ScoreChain : MonoBehaviour
 
     private void Update()
     {
-        scoreMultiplier = 1.0f + (0.25f * tier);
+        scoreMultiplier = scoreMultiplierMinimum + (0.25f * tier);
         killsForNextTier = 5 + (2 * tier);
 
-        if (scoreMultiplier < 1.0f)
+        if (scoreMultiplier < scoreMultiplierMinimum)
         {
-            scoreMultiplier = 1.0f;
+            scoreMultiplier = scoreMultiplierMinimum;
         }
         if (tier < 0)
         {
@@ -86,9 +88,18 @@ public class ScoreChain : MonoBehaviour
 
     public void ResetVariables()
     {
-        scoreMultiplier = 1.0f;
+        scoreMultiplier = scoreMultiplierMinimum;
         tier = 0;
         currentKills = 0;
+
+        if (scoreMultiplier < 1.0f)
+        {
+            scoreMultiplier = 1.0f;
+        }
+        if (scoreMultiplierMinimum < 1.0f)
+        {
+            scoreMultiplierMinimum = 1.0f;
+        }
     }
 
     public void Display(bool show)

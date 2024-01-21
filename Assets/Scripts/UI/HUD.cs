@@ -34,10 +34,12 @@ public class HUD : MonoBehaviour
     public Sprite pauseButtonDefault;
     public Sprite pauseButtonPressed;
     public TMP_Text pauseText;
+    public Button exitButton;
 
-    public static float previousTimeScale = 1.0f;
     public static Vector3 hudTopLeftCorner = new Vector3(-85, 250, 0);
     public static Vector3 hudBottomRightCorner = new Vector3(100, -190, 0);
+
+    public static float previousTimeScale = 1.0f;
     public static HUD instance;
 
     [HideInInspector] public bool createdWindow = false;
@@ -64,6 +66,7 @@ public class HUD : MonoBehaviour
         _pauseButtonImage = pauseButton.gameObject.GetComponent<Image>();
         pauseButtonWorldPosition = Camera.main.ScreenToWorldPoint(pauseButton.transform.position);
         pauseText.gameObject.SetActive(false);
+        exitButton.gameObject.SetActive(false);
         ScoreChain.instance.Display(true);
 
         levelText.enabled = GameStats.currentLevelType == GameStats.LevelType.MAIN;
@@ -119,6 +122,7 @@ public class HUD : MonoBehaviour
         else
         {
             pauseButton.gameObject.SetActive(false);
+            exitButton.gameObject.SetActive(false);
             basicInstructions.enabled = false;
         }
 
@@ -172,6 +176,7 @@ public class HUD : MonoBehaviour
         if (Time.timeScale != 0.0f)
         {
             pauseText.gameObject.SetActive(true);
+            exitButton.gameObject.SetActive(true);
             _pauseButtonImage.sprite = pauseButtonPressed;
             previousTimeScale = Time.timeScale;
             Time.timeScale = 0.0f;
@@ -179,9 +184,12 @@ public class HUD : MonoBehaviour
         else
         {
             pauseText.gameObject.SetActive(false);
+            exitButton.gameObject.SetActive(false);
             _pauseButtonImage.sprite = pauseButtonDefault;
             Time.timeScale = previousTimeScale;
         }
+
+        GameStats.SaveStats();
     }
 
     private void CreatedWindow()
@@ -197,7 +205,7 @@ public class HUD : MonoBehaviour
         removeAdsButton.gameObject.SetActive(!PurchaseManager.removedAds);
         windowExtra.gameObject.SetActive(false);
 
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(0.9f);
 
         windowExtra.gameObject.SetActive(true);
     }

@@ -72,7 +72,7 @@ public class AdButton : MonoBehaviour
 
     private bool GeneralAdCheck()
     {
-        return GameStats.enableAdButttons == true && Advertisement.isInitialized == true && AdsInitializer.failed == false && AdRewardedManager.instance.HasAnyError() == false;
+        return GameStats.enableAdButttons == true && Advertisement.isInitialized == true && AdsInitializer.failed == false && AdRewardedManager.instance.HasAnyError() == false && GameStats.failedGenuine == false;
     }
 
     private bool MultiplicationAdCheck()

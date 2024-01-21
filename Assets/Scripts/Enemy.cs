@@ -5,22 +5,30 @@ using static UnityEngine.GraphicsBuffer;
 
 public class Enemy : MonoBehaviour
 {
+    [Header("Movement")]
     public float moveYSpeed;
+    public float stopY = -100f;
+    public float entrySoundY = -100f;
+    public bool canBeMovedY = true;
+
+    [Header("Attack Properties")]
     public float firingSpeed = 1f;
     public GameObject projectile;
     public float projectileSpeedMultiplier = 1.0f;
     public int projectileDamage = 1;
     public float shootY = 6f;
-    public float stopY = -100f;
-    public bool canBeMovedY = true;
+    
+    [Header("Components")]
     public SpriteRenderer outline;
     public GameObject unavoidableExplosion;
     public GameObject warningBlipSound;
     public GameObject attackSound;
+    public GameObject entrySound;
 
     private SpriteRenderer _sr;
     private Health _healthScript;
     private GameObject _player;
+    private bool _playedEntrySound = false;
 
     public enum AttackType
     {
@@ -47,6 +55,7 @@ public class Enemy : MonoBehaviour
         _sr = GetComponent<SpriteRenderer>();
         _healthScript = GetComponent<Health>();
         _player = GameObject.FindGameObjectWithTag("Player");
+
         StartCoroutine(Attack());
         StartCoroutine(OutlineFlash());
 
@@ -58,9 +67,17 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
+        // Movement.
         if (Player.isDead == false && transform.position.y > stopY && Time.timeScale > 0.0f)
         {
             transform.Translate(-transform.up * moveYSpeed * Time.deltaTime);
+        }
+
+        // Entry sound.
+        if (transform.position.y < entrySoundY && _playedEntrySound == false && entrySound != null && Time.timeScale > 0.0f)
+        {
+            Instantiate(entrySound, transform.position, transform.rotation);
+            _playedEntrySound = true;
         }
     }
 
@@ -68,7 +85,7 @@ public class Enemy : MonoBehaviour
     {
         yield return new WaitForSeconds(firingSpeed);
 
-        if (transform.position.y < shootY && Player.isDead == false)
+        if (transform.position.y < shootY && Player.isDead == false && Player.victory == false)
         {
             switch (attackType)
             {

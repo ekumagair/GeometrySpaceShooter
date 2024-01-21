@@ -117,6 +117,16 @@ public class Player : MonoBehaviour
             {
                 Time.timeScale = Time.timeScale == 1.0f ? 0.2f : 1.0f;
             }
+            if (Input.GetKeyDown(KeyCode.K) && ignoreInput == false)
+            {
+                GameStats.enemiesKilledTotal += 100;
+                GameStats.SaveStats();
+            }
+            if (Input.GetKeyDown(KeyCode.L) && ignoreInput == false)
+            {
+                GameStats.enemiesKilledTotal = 0;
+                GameStats.SaveStats();
+            }
         }
 #endif
     }
@@ -209,8 +219,14 @@ public class Player : MonoBehaviour
         {
             victory = true;
             ignoreInput = true;
-            GameStats.SaveStats();
             Combat.DestroyAllProjectiles();
+
+            if (GameStats.currentLevelType == GameStats.LevelType.PRESET)
+            {
+                GameStats.completedExtraLevels[PresetLevels.currentPresetLevel] = 1;
+            }
+
+            GameStats.SaveStats();
 
             // Show level end ad.
             if (AdInterstitialManager.instance != null && PurchaseManager.instance.HasRemovedAds() == false)
