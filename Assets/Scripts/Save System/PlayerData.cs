@@ -31,7 +31,7 @@ public class PlayerData
 
     public int enemiesKilledTotal;
     public int claimedRewardsTotal;
-    public float scoreMultiplierMinimum;
+    public float scoreMultiplierAtStart;
     public int[] claimedRewards;
     public int[] completedExtraLevels;
 
@@ -78,7 +78,7 @@ public class PlayerData
 
         claimedRewardsTotal = GameStats.claimedRewardsTotal;
         claimedRewards = new int[GameConstants.REWARDS_AMOUNT];
-        scoreMultiplierMinimum = ScoreChain.scoreMultiplierMinimum;
+        scoreMultiplierAtStart = ScoreChain.scoreMultiplierAtStart;
         for (int i = 0; i < claimedRewards.Length; i++)
         {
             claimedRewards[i] = GameStats.claimedRewards[i];

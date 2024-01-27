@@ -92,8 +92,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1261,7 +1261,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8962063054769379710, guid: 5bcffdfbe5f5cca4cbedd743ca4b189f, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -45
+      value: -42
       objectReference: {fileID: 0}
     - target: {fileID: 8962063054769379710, guid: 5bcffdfbe5f5cca4cbedd743ca4b189f, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1519,7 +1519,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8962063054769379710, guid: 5bcffdfbe5f5cca4cbedd743ca4b189f, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -45
+      value: -42
       objectReference: {fileID: 0}
     - target: {fileID: 8962063054769379710, guid: 5bcffdfbe5f5cca4cbedd743ca4b189f, type: 3}
       propertyPath: m_AnchoredPosition.y

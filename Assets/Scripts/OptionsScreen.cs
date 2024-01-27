@@ -92,7 +92,20 @@ public class OptionsScreen : MonoBehaviour
 
     public void RemoveAdsPopUp()
     {
-        removeAdsPopUp.SetButtonsTexts(new LocalizedString("PopUp", "button_cancel"), null, null, null);
-        removeAdsPopUp.OpenPopUp(new LocalizedString("PopUp", "remove_ads_title"), new LocalizedString("PopUp", "remove_ads_desc"), 1);
+        if (PurchaseManager.fetchedProducts == true && PurchaseManager.productCollection != null)
+        {
+            removeAdsPopUp.SetButtonsTexts(new LocalizedString("PopUp", "button_cancel"), null, null, null);
+            removeAdsPopUp.OpenPopUp(new LocalizedString("PopUp", "remove_ads_title"), new LocalizedString("PopUp", "remove_ads_desc"), 1);
+        }
+        else
+        {
+            PopUpOnlineError();
+        }
+    }
+
+    public void PopUpOnlineError()
+    {
+        PopUp.instance.SetButtonsTexts(new LocalizedString("PopUp", "button_ok"), null, null, null);
+        PopUp.instance.OpenPopUp(new LocalizedString("PopUp", "online_error_title"), new LocalizedString("PopUp", "online_error_desc"), 1);
     }
 }

@@ -85,7 +85,7 @@ public class RewardGoal : MonoBehaviour
         starRewardRoot.gameObject.SetActive(starReward > 0 && !IsAlreadyClaimed());
         starRewardText.text = "+" + starReward.ToString();
 
-        multiplierRewardRoot.gameObject.SetActive(multiplierReward > 1.0f && multiplierReward <= ScoreChain.scoreMultiplierMinimum);
+        multiplierRewardRoot.gameObject.SetActive(multiplierReward > GameConstants.SCORE_MULTIPLIER_FLOOR && multiplierReward >= ScoreChain.scoreMultiplierAtStart);
         multiplierRewardText.text = "x" + multiplierReward.ToString();
 
         changeStatRoot.gameObject.SetActive(upgradeType != Upgrade.UpgradeType.None);
@@ -123,9 +123,13 @@ public class RewardGoal : MonoBehaviour
         }
 
         // Increase score multiplier minimum.
-        if (multiplierReward > 1.0f && multiplierReward > ScoreChain.scoreMultiplierMinimum)
+        if (multiplierReward > GameConstants.SCORE_MULTIPLIER_FLOOR && multiplierReward > ScoreChain.scoreMultiplierAtStart)
         {
-            ScoreChain.scoreMultiplierMinimum = multiplierReward;
+            ScoreChain.scoreMultiplierAtStart = multiplierReward;
+        }
+        if (ScoreChain.scoreMultiplierAtStart < GameConstants.SCORE_MULTIPLIER_FLOOR)
+        {
+            ScoreChain.scoreMultiplierAtStart = GameConstants.SCORE_MULTIPLIER_FLOOR;
         }
 
         // Change stats.
@@ -136,14 +140,14 @@ public class RewardGoal : MonoBehaviour
 
         GameStats.claimedRewardsTotal++;
         GameStats.SaveStats();
-        PersistentCanvas.reference.CreateButtonSound(4);
-
+        
         // Show ad.
         if (AdInterstitialManager.instance != null && PurchaseManager.instance.HasRemovedAds() == false && GameStats.claimedRewardsTotal > 1)
         {
             AdInterstitialManager.instance.ShowAd();
         }
 
+        PersistentCanvas.reference.CreateButtonSound(4);
         claimParticles.gameObject.SetActive(true);
         claimParticles.Play();
     }

@@ -87,6 +87,10 @@ MonoBehaviour:
     m_Key: unlocked
     m_Metadata:
       m_Items: []
+  - m_Id: 110364073645506560
+    m_Key: buy
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

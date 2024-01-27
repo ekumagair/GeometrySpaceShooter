@@ -53,6 +53,28 @@ MonoBehaviour:
     m_Localized: "O jogo est\xE1 usando a Loja falsa. (Fake store)"
     m_Metadata:
       m_Items: []
+  - m_Id: 9080581851381760
+    m_Localized: Apagar dados salvos
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9080656115728384
+    m_Localized: "Voc\xEA quer APAGAR seus dados salvos? Isto n\xE3o pode ser desfeito.\n\n(Isto
+      ter\xE1 efeito ap\xF3s reiniciar o jogo)"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9081134392213504
+    m_Localized: Aceitar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9786332966223872
+    m_Localized: Erro
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9786371629318144
+    m_Localized: "N\xE3o foi poss\xEDvel se conectar a este servi\xE7o.\n\nSe conecte
+      \xE0 internet e reinicie o jogo para tentar de novo."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

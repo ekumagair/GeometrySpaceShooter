@@ -23,6 +23,10 @@ MonoBehaviour:
     m_Key: button_cancel
     m_Metadata:
       m_Items: []
+  - m_Id: 9081134392213504
+    m_Key: button_accept
+    m_Metadata:
+      m_Items: []
   - m_Id: 6893010944
     m_Key: remove_ads_title
     m_Metadata:
@@ -45,6 +49,22 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 2400401305042944
     m_Key: fake_store_desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9080581851381760
+    m_Key: delete_save_title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9080656115728384
+    m_Key: delete_save_desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9786332966223872
+    m_Key: online_error_title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9786371629318144
+    m_Key: online_error_desc
     m_Metadata:
       m_Items: []
   m_Metadata:

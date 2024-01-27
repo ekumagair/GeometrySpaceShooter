@@ -25,6 +25,7 @@ public class Health : MonoBehaviour
     private SpriteRenderer _sr;
     private bool _dead = false;
     private Player _playerComponent = null;
+    private GameObject _lastDamageEffect = null;
 
     void Start()
     {
@@ -44,6 +45,7 @@ public class Health : MonoBehaviour
         if (damageEffect != null)
         {
             var ifx = Instantiate(damageEffect, transform.position, transform.rotation);
+            _lastDamageEffect = ifx;
             ifx.transform.parent = transform;
             SpriteRenderer ifxSpriteRenderer = ifx.GetComponent<SpriteRenderer>();
 
@@ -117,7 +119,7 @@ public class Health : MonoBehaviour
         else if (tag.Contains("Player"))
         {
             // Show player death ad.
-            if (AdInterstitialManager.instance != null && PurchaseManager.instance.HasRemovedAds() == false)
+            if (AdInterstitialManager.instance != null && PurchaseManager.instance.HasRemovedAds() == false && GameStats.level > 2)
             {
                 AdInterstitialManager.instance.ShowAd();
             }
@@ -145,6 +147,10 @@ public class Health : MonoBehaviour
         {
             // Show gained points on the top left corner of the screen.
             PersistentCanvas.reference.CreateNumberChangeEffect(HUD.hudTopLeftCorner, "+" + pointsToGive.ToString(), Color.white, -0.5f, 1);
+        }
+        if (_lastDamageEffect != null)
+        {
+            _lastDamageEffect.transform.parent = null;
         }
 
         switch (deathType)

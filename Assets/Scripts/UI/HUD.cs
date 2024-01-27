@@ -36,6 +36,7 @@ public class HUD : MonoBehaviour
     public TMP_Text pauseText;
     public Button exitButton;
 
+    // HUD positions.
     public static Vector3 hudTopLeftCorner = new Vector3(-85, 250, 0);
     public static Vector3 hudBottomRightCorner = new Vector3(100, -190, 0);
 

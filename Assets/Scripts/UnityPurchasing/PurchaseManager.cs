@@ -11,13 +11,17 @@ public class PurchaseManager : MonoBehaviour
     }
 
     public static ProductCollection productCollection;
-    public static Product productRemoveAds;
     public static PurchaseManager instance;
+    public static bool fetchedProducts = false;
 
-    // Non-consumables.
+    // Flags for non-consumables.
     public static bool removedAds = false;
-    public static bool removedAdsOnce = false; // This one won't become false again.
+    public static bool removedAdsOnce = false; // This one is saved locally and won't become false again.
 
+    // Individual products as variables.
+    public Product productRemoveAds;
+
+    // Product IDs as strings.
     public const string PRODUCT_REMOVEADS_ID = "com.geometryspaceshooter.removeads";
 
     private void Awake()
@@ -46,7 +50,16 @@ public class PurchaseManager : MonoBehaviour
 
     public bool HasRemovedAds()
     {
-        return removedAds;
+        if (fetchedProducts)
+        {
+            // If has connection to the IAP service, check for product receipt.
+            return removedAds;
+        }
+        else
+        {
+            // If the connection to the IAP service has failed, check for local save.
+            return removedAdsOnce;
+        }
     }
 
     public bool UsingFakeStore()
@@ -81,6 +94,7 @@ public class PurchaseManager : MonoBehaviour
         }
 
         productCollection = collection;
+        fetchedProducts = true;
     }
 
     public Product GetProductFromType(IAPType type)

@@ -92,6 +92,10 @@ MonoBehaviour:
     m_Localized: Geometry Space Shooter
     m_Metadata:
       m_Items: []
+  - m_Id: 110364073645506560
+    m_Localized: Comprar
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

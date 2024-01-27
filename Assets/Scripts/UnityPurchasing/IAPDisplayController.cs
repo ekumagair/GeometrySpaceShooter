@@ -7,7 +7,7 @@ using UnityEngine.Purchasing;
 public class IAPDisplayController : MonoBehaviour
 {
     [Header("Objects")]
-    public GameObject buttonObject;
+    public GameObject availableObject;
     public GameObject boughtObject;
 
     [Header("IAP Type")]
@@ -20,13 +20,12 @@ public class IAPDisplayController : MonoBehaviour
 
     private IEnumerator OnEnableCoroutine()
     {
+        availableObject.SetActive(false);
+        boughtObject.SetActive(false);
+
         yield return null;
 
         while (PurchaseManager.instance == null)
-        {
-            yield return null;
-        }
-        while (PurchaseManager.productCollection == null)
         {
             yield return null;
         }
@@ -36,15 +35,39 @@ public class IAPDisplayController : MonoBehaviour
 
     public void Display()
     {
-        if (PurchaseManager.instance.GetProductFromType(type).hasReceipt == true)
+        if (PurchaseManager.productCollection != null && PurchaseManager.fetchedProducts != false)
         {
-            buttonObject.SetActive(false);
-            boughtObject.SetActive(true);
+            if (PurchaseManager.instance.GetProductFromType(type).hasReceipt == true)
+            {
+                PurchaseUnavailable();
+            }
+            else
+            {
+                PurchaseAvailable();
+            }
         }
         else
         {
-            buttonObject.SetActive(true);
-            boughtObject.SetActive(false);
+            if (type == PurchaseManager.IAPType.RemoveAds && PurchaseManager.removedAdsOnce == true)
+            {
+                PurchaseUnavailable();
+            }
+            else
+            {
+                PurchaseAvailable();
+            }
         }
+    }
+
+    private void PurchaseAvailable()
+    {
+        availableObject.SetActive(true);
+        boughtObject.SetActive(false);
+    }
+
+    private void PurchaseUnavailable()
+    {
+        availableObject.SetActive(false);
+        boughtObject.SetActive(true);
     }
 }

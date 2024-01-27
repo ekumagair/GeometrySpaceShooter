@@ -117,7 +117,7 @@ public static class GameStats
 
                     claimedRewardsTotal = data.claimedRewardsTotal;
                     claimedRewards = new int[GameConstants.REWARDS_AMOUNT];
-                    ScoreChain.scoreMultiplierMinimum = data.scoreMultiplierMinimum;
+                    ScoreChain.scoreMultiplierAtStart = data.scoreMultiplierAtStart;
                     for (int i = 0; i < data.claimedRewards.Length; i++)
                     {
                         if (i > claimedRewards.Length || data.claimedRewards.Length < 1)
@@ -140,10 +140,10 @@ public static class GameStats
                 else
                 {
                     Options.backgroundType = 0;
-                    GameStats.enemiesKilledTotal = 0;
+                    ScoreChain.scoreMultiplierAtStart = GameConstants.SCORE_MULTIPLIER_FLOOR;
+                    enemiesKilledTotal = 0;
                     claimedRewardsTotal = 0;
                     claimedRewards = new int[GameConstants.REWARDS_AMOUNT];
-                    ScoreChain.scoreMultiplierMinimum = 1.0f;
                     completedExtraLevels = new int[GameConstants.EXTRA_LEVELS_AMOUNT];
                 }
             }

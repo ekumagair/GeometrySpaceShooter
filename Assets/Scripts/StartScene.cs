@@ -66,14 +66,18 @@ public class StartScene : MonoBehaviour
         Analytics.limitUserTracking = true;
         Analytics.deviceStatsEnabled = false;
 
-        StartCoroutine(AwakeCoroutine());
+        // Awake coroutine.
+        if (GameStats.initializedGame == false)
+        {
+            StartCoroutine(AwakeCoroutine());
+        }
+
+        GameStats.loadStatsFinished = false;
+        GameStats.LoadStats();
 
         // If has saved data, load the data and the prices for each upgrade.
         if (SaveSystem.SaveExists())
         {
-            GameStats.loadStatsFinished = false;
-            GameStats.LoadStats();
-
             _upgrades = FindObjectsOfType<Upgrade>();
             foreach (var upgrade in _upgrades)
             {
@@ -111,15 +115,26 @@ public class StartScene : MonoBehaviour
     {
         GameStats.currentLevelPoints = 0;
         GameStats.multipliedCurrentScore = false;
-        ScoreChain.scoreMultiplier = 1.0f;
         ScoreChain.tier = 0;
         ScoreChain.currentKills = 0;
-        PopUp.instance.ResetActions();
 
+        if (PopUp.instance != null)
+        {
+            PopUp.instance.ResetActions();
+        }
         if (GameStats.points < 0)
         {
             GameStats.points = 0;
         }
+        if (ScoreChain.scoreMultiplierAtStart < GameConstants.SCORE_MULTIPLIER_FLOOR)
+        {
+            ScoreChain.scoreMultiplierAtStart = GameConstants.SCORE_MULTIPLIER_FLOOR;
+        }
+
+        ScoreChain.scoreMultiplier = ScoreChain.scoreMultiplierAtStart;
+
+        // Texts.
+        UpdateTexts();
 
         // Start screen mode.
         switch (startOverride)
@@ -146,16 +161,6 @@ public class StartScene : MonoBehaviour
         if (startOverride != StartOverride.Default)
         {
             startOverride = StartOverride.Default;
-        }
-
-        // Texts.
-        if (versionText != null)
-        {
-            versionText.text = "v" + Application.version.ToString();
-        }
-        if (levelTextLocalize != null)
-        {
-            levelTextLocalize.RefreshString();
         }
 
         // Initialize.
@@ -190,43 +195,57 @@ public class StartScene : MonoBehaviour
 
     void Update()
     {
-        for (int i = 0; i < upgradePages.Length; i++)
+        // Show/hide upgrade pages.
+        if (upgradePages.Length > 0)
         {
-            if (i == currentUpgradePage)
+            for (int i = 0; i < upgradePages.Length; i++)
             {
-                upgradePages[i].gameObject.SetActive(true);
+                if (i == currentUpgradePage)
+                {
+                    upgradePages[i].gameObject.SetActive(true);
+                }
+                else
+                {
+                    upgradePages[i].gameObject.SetActive(false);
+                }
+            }
+        }
+
+        // Enable/disable upgrade page buttons.
+        if (upgradePreviousButton != null)
+        {
+            if (currentUpgradePage == 0)
+            {
+                upgradePreviousButton.interactable = false;
             }
             else
             {
-                upgradePages[i].gameObject.SetActive(false);
+                upgradePreviousButton.interactable = true;
             }
         }
 
-        if (currentUpgradePage == 0)
+        if (upgradeNextButton != null)
         {
-            upgradePreviousButton.interactable = false;
-        }
-        else
-        {
-            upgradePreviousButton.interactable = true;
-        }
-
-        if (currentUpgradePage == upgradePages.Length - 1)
-        {
-            upgradeNextButton.interactable = false;
-        }
-        else
-        {
-            upgradeNextButton.interactable = true;
-        }
-
-        upgradePageText.text = (currentUpgradePage + 1).ToString() + "/" + upgradePages.Length.ToString();
-
-        for (int i = 0; i < canvases.Length; i++)
-        {
-            if (canvases[i].activeSelf == true && currentCanvas != i)
+            if (currentUpgradePage == upgradePages.Length - 1)
             {
-                ChooseOneCanvas(currentCanvas);
+                upgradeNextButton.interactable = false;
+            }
+            else
+            {
+                upgradeNextButton.interactable = true;
+            }
+        }
+
+        // Set upgrade page text.
+        if (upgradePageText != null)
+        {
+            if (upgradePages.Length > 0)
+            {
+                upgradePageText.text = (currentUpgradePage + 1).ToString() + "/" + upgradePages.Length.ToString();
+            }
+            else
+            {
+                upgradePageText.text = "";
             }
         }
 
@@ -276,6 +295,7 @@ public class StartScene : MonoBehaviour
     public void GoToCanvas(int c)
     {
         ChooseOneCanvas(c);
+        UpdateTexts();
     }
 
     public void GoToRemoveAds()
@@ -313,6 +333,18 @@ public class StartScene : MonoBehaviour
         currentCanvas = c;
     }
 
+    public void UpdateTexts()
+    {
+        if (versionText != null)
+        {
+            versionText.text = "v" + Application.version.ToString();
+        }
+        if (levelTextLocalize != null)
+        {
+            levelTextLocalize.RefreshString();
+        }
+    }
+
     public void ChangeUpgradePage(int increment)
     {
         currentUpgradePage += increment;
@@ -333,6 +365,22 @@ public class StartScene : MonoBehaviour
     {
         PopUp.instance.SetButtonsTexts(new LocalizedString("PopUp", "button_ok"), null, null, null);
         PopUp.instance.OpenPopUp(new LocalizedString("PopUp", "fake_store_title"), new LocalizedString("PopUp", "fake_store_desc"), 1);
+    }
+
+    public void PopUpDeleteSave()
+    {
+        PopUp.instance.SetButtonsTexts(new LocalizedString("PopUp", "button_accept"), new LocalizedString("PopUp", "button_cancel"), null, null);
+        PopUp.instance.SetActions(DeleteSaveAccept, PopUp.instance.ClosePopUp, null, null);
+        PopUp.instance.OpenPopUp(new LocalizedString("PopUp", "delete_save_title"), new LocalizedString("PopUp", "delete_save_desc"), 2);
+    }
+
+    public void DeleteSaveAccept()
+    {
+        SaveSystem.DeleteSave();
+        PlayerPrefs.DeleteAll();
+        PlayerPrefs.Save();
+
+        PopUp.instance.ClosePopUp();
     }
 
     private IEnumerator DebugMessages()
@@ -361,11 +409,16 @@ public class StartScene : MonoBehaviour
 
     private IEnumerator AwakeCoroutine()
     {
-        yield return null;
+        yield return new WaitForSeconds(0.01f);
 
+        // Canvas fail-safe. Prevent all of them from showing at the same time.
         if (GameStats.loadStatsFinished == true)
         {
             GoToCanvas(0);
+            if (Debug.isDebugBuild)
+            {
+                Debug.Log("Stat loading successful. Going to canvas 0.");
+            }
         }
 
         yield return new WaitForSeconds(0.05f);
@@ -373,6 +426,9 @@ public class StartScene : MonoBehaviour
         if (GameStats.loadStatsFinished == false)
         {
             GoToCanvas(0);
+            Debug.LogError("Stat loading failed. Going to canvas 0. " + "(v" + Application.version.ToString() + ")");
         }
+
+        UpdateTexts();
     }
 }

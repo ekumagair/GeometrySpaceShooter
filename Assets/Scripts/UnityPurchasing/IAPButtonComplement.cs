@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.Purchasing;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Settings;
 
 public class IAPButtonComplement : MonoBehaviour
 {
@@ -23,7 +25,8 @@ public class IAPButtonComplement : MonoBehaviour
     {
         if (textPrice != null)
         {
-            textPrice.text = "";
+            LocalizedString placeholder = new LocalizedString("Main", "buy");
+            textPrice.text = LocalizationSettings.StringDatabase.GetLocalizedString(placeholder.TableReference, placeholder.TableEntryReference);
         }
 
         yield return null;
