@@ -21,10 +21,12 @@ public class Projectile : MonoBehaviour
     public SpriteRenderer[] extraOutline;
     public ParticleSystem extraTrail;
     public GameObject extraImpactEffect;
+    public ParticleSystem extraPerforationParticle;
 
     private SpriteRenderer _spriteRenderer;
     private ParticleSystem.MainModule _trailMainModule;
     private ParticleSystem.MainModule _extraTrailModule;
+    private ParticleSystem.MainModule _extraPerforationModule;
 
     [HideInInspector] public GameObject shooter;
     [HideInInspector] public string ignoreTag = "EditorOnly";
@@ -38,8 +40,14 @@ public class Projectile : MonoBehaviour
         // Disable projectile trails.
         if (Options.projectileTrails == 0)
         {
-            Destroy(trail.gameObject);
-            Destroy(extraTrail.gameObject);
+            if (trail != null)
+                Destroy(trail.gameObject);
+
+            if (extraTrail != null)
+                Destroy(extraTrail.gameObject);
+
+            if (extraPerforationParticle != null)
+                Destroy(extraPerforationParticle.gameObject);
         }
 
         // Fail-safe.
@@ -55,6 +63,8 @@ public class Projectile : MonoBehaviour
         // Extra impact: Damage >= 10.
         // Outline 1: Damage >= 14.
 
+        // Extra perforation particle: Perforation > 1.
+
         ShowExtraOutline(0, 2);
         ShowExtraOutline(1, 14);
 
@@ -63,6 +73,13 @@ public class Projectile : MonoBehaviour
             extraTrail.gameObject.SetActive(damage >= 6 || alwaysEnableEffects);
             _extraTrailModule = extraTrail.main;
             _extraTrailModule.startColor = new Color(_spriteRenderer.color.r, _spriteRenderer.color.g, _spriteRenderer.color.b, _spriteRenderer.color.a * 0.8f);
+        }
+
+        if (extraPerforationParticle != null)
+        {
+            extraPerforationParticle.gameObject.SetActive(perforation > 1 || alwaysEnableEffects);
+            _extraPerforationModule = extraPerforationParticle.main;
+            _extraPerforationModule.startColor = new Color(_spriteRenderer.color.r, _spriteRenderer.color.g, _spriteRenderer.color.b, _spriteRenderer.color.a * 0.9f);
         }
     }
 

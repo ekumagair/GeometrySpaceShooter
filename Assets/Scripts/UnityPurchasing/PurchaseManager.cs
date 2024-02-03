@@ -19,7 +19,7 @@ public class PurchaseManager : MonoBehaviour
     public static bool removedAdsOnce = false; // This one is saved locally and won't become false again.
 
     // Individual products as variables.
-    public Product productRemoveAds;
+    public static Product productRemoveAds;
 
     // Product IDs as strings.
     public const string PRODUCT_REMOVEADS_ID = "com.geometryspaceshooter.removeads";

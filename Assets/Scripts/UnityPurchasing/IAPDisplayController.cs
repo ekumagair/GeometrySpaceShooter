@@ -9,6 +9,7 @@ public class IAPDisplayController : MonoBehaviour
     [Header("Objects")]
     public GameObject availableObject;
     public GameObject boughtObject;
+    public GameObject placeholderObject;
 
     [Header("IAP Type")]
     public PurchaseManager.IAPType type;
@@ -22,6 +23,7 @@ public class IAPDisplayController : MonoBehaviour
     {
         availableObject.SetActive(false);
         boughtObject.SetActive(false);
+        placeholderObject.SetActive(true);
 
         yield return null;
 
@@ -35,11 +37,11 @@ public class IAPDisplayController : MonoBehaviour
 
     public void Display()
     {
-        if (PurchaseManager.productCollection != null && PurchaseManager.fetchedProducts != false)
+        if (PurchaseManager.productCollection != null && PurchaseManager.fetchedProducts != false && PurchaseManager.instance != null)
         {
             if (PurchaseManager.instance.GetProductFromType(type).hasReceipt == true)
             {
-                PurchaseUnavailable();
+                PurchaseAlreadyMade();
             }
             else
             {
@@ -50,13 +52,15 @@ public class IAPDisplayController : MonoBehaviour
         {
             if (type == PurchaseManager.IAPType.RemoveAds && PurchaseManager.removedAdsOnce == true)
             {
-                PurchaseUnavailable();
+                PurchaseAlreadyMade();
             }
             else
             {
                 PurchaseAvailable();
             }
         }
+
+        placeholderObject.SetActive(false);
     }
 
     private void PurchaseAvailable()
@@ -65,7 +69,7 @@ public class IAPDisplayController : MonoBehaviour
         boughtObject.SetActive(false);
     }
 
-    private void PurchaseUnavailable()
+    private void PurchaseAlreadyMade()
     {
         availableObject.SetActive(false);
         boughtObject.SetActive(true);
