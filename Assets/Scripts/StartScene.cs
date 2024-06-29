@@ -17,6 +17,7 @@ public class StartScene : MonoBehaviour
 
     [Header("Start Section")]
     public GameObject startButton;
+    public GameObject removeAdsButton;
     public GameObject startObjects;
     public TMP_Text versionText;
     public LocalizeStringEvent levelTextLocalize;
@@ -248,6 +249,9 @@ public class StartScene : MonoBehaviour
                 upgradePageText.text = "";
             }
         }
+
+        // Show/hide remove ads button.
+        removeAdsButton.SetActive(!PurchaseManager.instance.HasRemovedAds());
 
 #if UNITY_EDITOR || UNITY_STANDALONE
         // Debug inputs.
