@@ -137,6 +137,9 @@ public class StartScene : MonoBehaviour
         // Texts.
         UpdateTexts();
 
+        // Buttons.
+        UpdateButtons();
+
         // Start screen mode.
         switch (startOverride)
         {
@@ -250,8 +253,7 @@ public class StartScene : MonoBehaviour
             }
         }
 
-        // Show/hide remove ads button.
-        removeAdsButton.SetActive(!PurchaseManager.instance.HasRemovedAds());
+        UpdateButtons();
 
 #if UNITY_EDITOR || UNITY_STANDALONE
         // Debug inputs.
@@ -349,6 +351,12 @@ public class StartScene : MonoBehaviour
         }
     }
 
+    public void UpdateButtons()
+    {
+        // Show/hide remove ads button.
+        removeAdsButton.SetActive(!PurchaseManager.instance.HasRemovedAds());
+    }
+
     public void ChangeUpgradePage(int increment)
     {
         currentUpgradePage += increment;
@@ -419,6 +427,7 @@ public class StartScene : MonoBehaviour
         if (GameStats.loadStatsFinished == true)
         {
             GoToCanvas(0);
+
             if (Debug.isDebugBuild)
             {
                 Debug.Log("Stat loading successful. Going to canvas 0.");

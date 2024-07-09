@@ -33,7 +33,11 @@ public class PurchaseManager : MonoBehaviour
     public void RemoveAds()
     {
         removedAds = true;
-        removedAdsOnce = true;
+
+        if (UsingFakeStore() == false)
+        {
+            removedAdsOnce = true;
+        }
 
         if (AdBannerManager.instance != null)
         {
