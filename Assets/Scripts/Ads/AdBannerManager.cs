@@ -36,8 +36,10 @@ public class AdBannerManager : MonoBehaviour
         }
         yield return null;
 
+#if !DISABLE_ADS
         // Load banner.
         LoadBanner();
+#endif
 
         while (loaded == false)
         {
@@ -45,8 +47,10 @@ public class AdBannerManager : MonoBehaviour
         }
         yield return null;
 
+#if !DISABLE_ADS
         // Show banner.
         ShowBannerAd();
+#endif
     }
 
     // Implement a method to call when the Load Banner button is clicked:

@@ -46,8 +46,10 @@ public class AdRewardedManager : MonoBehaviour, IUnityAdsLoadListener, IUnityAds
         }
         yield return null;
 
+#if !DISABLE_ADS
         // Load reward ad.
         LoadAd();
+#endif
     }
 
     // Load content to the Ad Unit:

@@ -13,6 +13,7 @@ public class AdsInitializer : MonoBehaviour, IUnityAdsInitializationListener
     public static bool failed = false;
     public static AdsInitializer instance = null;
 
+#if !DISABLE_ADS
     void Awake()
     {
         InitializeAds();
@@ -25,6 +26,7 @@ public class AdsInitializer : MonoBehaviour, IUnityAdsInitializationListener
             : _androidGameId;
         Advertisement.Initialize(_gameId, _testMode, this);
     }
+#endif
 
     public void OnInitializationComplete()
     {

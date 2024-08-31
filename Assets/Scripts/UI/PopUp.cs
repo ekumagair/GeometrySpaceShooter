@@ -86,6 +86,30 @@ public class PopUp : MonoBehaviour
         }
     }
 
+    public void OverrideDescriptionText(string text)
+    {
+        StartCoroutine(OverrideDescriptionTextDelay(text));
+    }
+
+    private IEnumerator OverrideDescriptionTextDelay(string text)
+    {
+        yield return new WaitForSeconds(0.1f);
+
+        textDescription.text = text;
+    }
+
+    public void AppendDescriptionText(string text)
+    {
+        StartCoroutine (AppendDescriptionTextDelay(text));
+    }
+
+    private IEnumerator AppendDescriptionTextDelay(string text)
+    {
+        yield return new WaitForSeconds(0.1f);
+
+        textDescription.text += text;
+    }
+
     public void PressedButton(int btnId)
     {
         canvasGroup.interactable = false;

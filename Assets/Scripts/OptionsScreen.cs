@@ -20,6 +20,12 @@ public class OptionsScreen : MonoBehaviour
     [Header("Remove Ads")]
     public PopUp removeAdsPopUp;
 
+    [Header("Testing")]
+    public GameObject deleteButton;
+    public GameObject debugButton;
+    public bool showDeleteButton;
+    public bool showDebugButton;
+
     void Start()
     {
         if (SaveSystem.SaveExists())
@@ -34,11 +40,13 @@ public class OptionsScreen : MonoBehaviour
         }
 
         SetText();
+        SetTestButtons();
     }
 
     void Update()
     {
         SetText();
+        SetTestButtons();
     }
 
     private void OnEnable()
@@ -107,5 +115,11 @@ public class OptionsScreen : MonoBehaviour
     {
         PopUp.instance.SetButtonsTexts(new LocalizedString("PopUp", "button_ok"), null, null, null);
         PopUp.instance.OpenPopUp(new LocalizedString("PopUp", "online_error_title"), new LocalizedString("PopUp", "online_error_desc"), 1);
+    }
+
+    private void SetTestButtons()
+    {
+        deleteButton.gameObject.SetActive(showDeleteButton);
+        debugButton.gameObject.SetActive(showDebugButton);
     }
 }

@@ -27,7 +27,12 @@ public class PurchaseManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+
+#if !DISABLE_IAP
         StandardPurchasingModule.Instance().useFakeStoreAlways = _testMode;
+#else
+        StandardPurchasingModule.Instance().useFakeStoreAlways = true;
+#endif
     }
 
     public void RemoveAds()
@@ -54,6 +59,7 @@ public class PurchaseManager : MonoBehaviour
 
     public bool HasRemovedAds()
     {
+#if !DISABLE_IAP
         if (fetchedProducts)
         {
             // If has connection to the IAP service, check for product receipt.
@@ -64,11 +70,14 @@ public class PurchaseManager : MonoBehaviour
             // If the connection to the IAP service has failed, check for local save.
             return removedAdsOnce;
         }
+#else
+        return false;
+#endif
     }
 
     public bool UsingFakeStore()
     {
-#if UNITY_EDITOR
+#if UNITY_EDITOR || DISABLE_IAP
         return true;
 #else
         return StandardPurchasingModule.Instance().useFakeStoreAlways;

@@ -83,6 +83,14 @@ MonoBehaviour:
       and restart the game to try again.'
     m_Metadata:
       m_Items: []
+  - m_Id: 87708984506253312
+    m_Localized: DEBUG REPORT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87729788254093312
+    m_Localized: Temporary debug report description.
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

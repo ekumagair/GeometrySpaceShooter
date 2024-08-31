@@ -52,7 +52,7 @@ public static class GameStats
         PlayerPrefs.Save();
         SaveSystem.SaveData();
 
-        //if (Debug.isDebugBuild) { Debug.Log("Saved stats"); }
+        if (Debug.isDebugBuild) { Debug.Log("Saved stats"); }
     }
 
     public static void LoadStats()
@@ -97,16 +97,16 @@ public static class GameStats
                 upgradePurchaseAmount[i] = data.upgradePurchaseAmount[i];
             }
 
-            // Version conditions
-            if (data.savedVersion != "0.9" && data.savedVersion != "1.0" && data.savedVersion != "1.1")
+            // Version conditions.
+            if (!string.IsNullOrEmpty(data.savedVersion) && data.savedVersion != "0.9" && data.savedVersion != "1.0" && data.savedVersion != "1.1")
             {
-                // Versions 1.2 onwards.
+                // Version 1.2 onwards.
                 Player.projectileAutoDamage = data.projectileAutoDamage;
                 Player.projectilePerforation = data.projectilePerforation;
 
                 if (data.savedVersion != "1.2" && data.savedVersion != "1.2.1")
                 {
-                    // Versions 1.3 onwards.
+                    // Version 1.3 onwards.
                     Options.backgroundType = data.optionBackground;
                     GameStats.enemiesKilledTotal = data.enemiesKilledTotal;
 
@@ -139,23 +139,38 @@ public static class GameStats
                 }
                 else
                 {
-                    Options.backgroundType = 0;
-                    ScoreChain.scoreMultiplierAtStart = GameConstants.SCORE_MULTIPLIER_FLOOR;
-                    enemiesKilledTotal = 0;
-                    claimedRewardsTotal = 0;
-                    claimedRewards = new int[GameConstants.REWARDS_AMOUNT];
-                    completedExtraLevels = new int[GameConstants.EXTRA_LEVELS_AMOUNT];
+                    SetStatsToDefault(1);
                 }
             }
             else
             {
-                Player.projectileAutoDamage = 0;
-                Player.projectilePerforation = 1;
+                SetStatsToDefault(0);
             }
         }
 
         loadStatsFinished = true;
 
-        //if (Debug.isDebugBuild) { Debug.Log("Loaded stats"); }
+        if (Debug.isDebugBuild) { Debug.Log("Loaded stats"); }
+    }
+
+    public static void SetStatsToDefault(int tier)
+    {
+        if (tier <= 1)
+        {
+            // Versions before 1.3.
+            Options.backgroundType = 0;
+            ScoreChain.scoreMultiplierAtStart = GameConstants.SCORE_MULTIPLIER_FLOOR;
+            enemiesKilledTotal = 0;
+            claimedRewardsTotal = 0;
+            claimedRewards = new int[GameConstants.REWARDS_AMOUNT];
+            completedExtraLevels = new int[GameConstants.EXTRA_LEVELS_AMOUNT];
+        }
+
+        if (tier <= 0)
+        {
+            // Versions before 1.2.
+            Player.projectileAutoDamage = 0;
+            Player.projectilePerforation = 1;
+        }
     }
 }

@@ -16,7 +16,11 @@ public class IAPDisplayController : MonoBehaviour
 
     public void OnEnable()
     {
+#if !DISABLE_IAP
         StartCoroutine(OnEnableCoroutine());
+#else
+        gameObject.SetActive(false);
+#endif
     }
 
     private IEnumerator OnEnableCoroutine()

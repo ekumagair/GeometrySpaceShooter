@@ -7,6 +7,7 @@ using TMPro;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Components;
 using UnityEngine.Analytics;
+using UnityEngine.Advertisements;
 
 public class StartScene : MonoBehaviour
 {
@@ -353,8 +354,12 @@ public class StartScene : MonoBehaviour
 
     public void UpdateButtons()
     {
+#if !DISABLE_IAP && !DISABLE_ADS
         // Show/hide remove ads button.
         removeAdsButton.SetActive(!PurchaseManager.instance.HasRemovedAds());
+#else
+        removeAdsButton.SetActive(false);
+#endif
     }
 
     public void ChangeUpgradePage(int increment)
@@ -379,6 +384,35 @@ public class StartScene : MonoBehaviour
         PopUp.instance.OpenPopUp(new LocalizedString("PopUp", "fake_store_title"), new LocalizedString("PopUp", "fake_store_desc"), 1);
     }
 
+    public void PopUpDebugReport()
+    {
+        PopUp.instance.SetButtonsTexts(new LocalizedString("PopUp", "button_ok"), null, null, null);
+        PopUp.instance.OpenPopUp(new LocalizedString("PopUp", "debug_report_title"), new LocalizedString("PopUp", "debug_report_desc"), 1);
+        PopUp.instance.OverrideDescriptionText(
+            "Ver: " + Application.version.ToString() + "; " +
+            "\nDebug build: " + Debug.isDebugBuild.ToString() + "; " +
+            "\nEnable ad btns: " + GameStats.enableAdButttons.ToString() + "; " +
+            "\nAd is init: " + Advertisement.isInitialized.ToString() + "; " +
+            "\nAd init failed: " + AdsInitializer.failed.ToString() + "; " +
+            "\nAd init testing: " + AdsInitializer.instance.IsTesting() + "; " +
+            "\nAd reward errors: " + AdRewardedManager.instance.HasAnyError().ToString() + "; " +
+            "\nFake store: " + PurchaseManager.instance.UsingFakeStore() + "; " +
+            "\nRemoved ads: " + PurchaseManager.removedAds + "; " +
+            "\nRemoved ads once: " + PurchaseManager.removedAdsOnce + "; " +
+            "\nRemoved ads func: " + PurchaseManager.instance.HasRemovedAds() + "; " +
+            "\nFailed genuine: " + GameStats.failedGenuine.ToString());
+
+#if DISABLE_ADS
+        PopUp.instance.AppendDescriptionText("\nDISABLE_ADS");
+#endif
+#if DISABLE_IAP
+        PopUp.instance.AppendDescriptionText("\nDISABLE_IAP");
+#endif
+#if UNITY_ANDROID
+        PopUp.instance.AppendDescriptionText("\nUNITY_ANDROID");
+#endif
+    }
+
     public void PopUpDeleteSave()
     {
         PopUp.instance.SetButtonsTexts(new LocalizedString("PopUp", "button_accept"), new LocalizedString("PopUp", "button_cancel"), null, null);
@@ -399,6 +433,7 @@ public class StartScene : MonoBehaviour
     {
         yield return null;
 
+#if !DISABLE_IAP
         if (GameStats.enableAdButttons == false)
         {
             if (PurchaseManager.instance.UsingFakeStore() == true)
@@ -417,6 +452,7 @@ public class StartScene : MonoBehaviour
             PopUp.instance.ResetActions();
             PopUpFakeStore();
         }
+#endif
     }
 
     private IEnumerator AwakeCoroutine()

@@ -18,7 +18,9 @@ public class IAPButtonComplement : MonoBehaviour
 
     public void OnEnable()
     {
+#if !DISABLE_IAP
         StartCoroutine(OnEnableCoroutine());
+#endif
     }
 
     private IEnumerator OnEnableCoroutine()

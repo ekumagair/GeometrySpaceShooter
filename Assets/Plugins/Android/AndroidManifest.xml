@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.EduardoKumagai.GeometrySpaceShooter" >
+
+	<uses-permission android:name="com.google.android.gms.permission.AD_ID"/>
+
+	<queries>
+		<intent>
+			<action android:name="com.android.vending.billing.InAppBillingService.BIND" />
+		</intent>
+	</queries>
+	<!-- Although the *SdkVersion is captured in gradle build files, this is required for non gradle builds -->
+	<!-- <uses-sdk android:minSdkVersion="14"/> -->
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+	<application
+        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+        android:extractNativeLibs="true"
+        android:icon="@mipmap/app_icon"
+        android:label="@string/app_name" >
+		<meta-data
+            android:name="unity.splash-mode"
+            android:value="0" />
+		<meta-data
+            android:name="unity.splash-enable"
+            android:value="True" />
+		<meta-data
+            android:name="unity.launch-fullscreen"
+            android:value="True" />
+		<meta-data
+            android:name="unity.allow-resizable-window"
+            android:value="False" />
+		<meta-data
+            android:name="notch.config"
+            android:value="portrait|landscape" />
+		<meta-data
+            android:name="unity.auto-report-fully-drawn"
+            android:value="true" />
+
+		<activity
+            android:name="com.unity3d.player.UnityPlayerActivity"
+            android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale|layoutDirection|density"
+            android:exported="true"
+            android:hardwareAccelerated="false"
+            android:launchMode="singleTask"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/UnityThemeSelector" >
+			<intent-filter>
+				<category android:name="android.intent.category.LAUNCHER" />
+
+				<action android:name="android.intent.action.MAIN" />
+			</intent-filter>
+
+			<meta-data
+                android:name="unityplayer.UnityActivity"
+                android:value="true" />
+			<meta-data
+                android:name="notch_support"
+                android:value="true" />
+		</activity>
+
+		<receiver
+            android:name="com.unity.androidnotifications.UnityNotificationManager"
+            android:exported="false" />
+		<receiver
+            android:name="com.unity.androidnotifications.UnityNotificationRestartReceiver"
+            android:enabled="false"
+            android:exported="false" >
+			<intent-filter>
+				<action android:name="android.intent.action.BOOT_COMPLETED" />
+			</intent-filter>
+		</receiver>
+
+		<meta-data
+            android:name="reschedule_notifications_on_restart"
+            android:value="true" />
+		<meta-data
+            android:name="com.unity.androidnotifications.exact_scheduling"
+            android:value="0" />
+		<meta-data
+            android:name="com.google.android.play.billingclient.version"
+            android:value="6.2.1" />
+
+		<activity
+            android:name="com.android.billingclient.api.ProxyBillingActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:exported="false"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+		<activity
+            android:name="com.android.billingclient.api.ProxyBillingActivityV2"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:exported="false"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+		<activity
+            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+            android:exported="false"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+		<meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+		<service
+            android:name="com.google.android.datatransport.runtime.backends.TransportBackendDiscovery"
+            android:exported="false" >
+			<meta-data
+                android:name="backend:com.google.android.datatransport.cct.CctBackendFactory"
+                android:value="cct" />
+		</service>
+		<service
+            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.JobInfoSchedulerService"
+            android:exported="false"
+            android:permission="android.permission.BIND_JOB_SERVICE" >
+		</service>
+
+		<receiver
+            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.AlarmManagerSchedulerBroadcastReceiver"
+            android:exported="false" />
+	</application>
+
+</manifest>

@@ -155,6 +155,11 @@ public class Upgrade : MonoBehaviour
             default:
                 break;
         }
+
+#if DISABLE_ADS
+        adButton.gameObject.SetActive(false);
+        buyButton.transform.localPosition = new Vector3(0, buyButton.transform.localPosition.y, 0);
+#endif
     }
 
     public void BuyUpgradeWithPoints()

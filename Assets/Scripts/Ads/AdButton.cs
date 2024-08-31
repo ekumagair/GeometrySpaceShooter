@@ -16,6 +16,10 @@ public class AdButton : MonoBehaviour
     private void Awake()
     {
         _button = GetComponent<Button>();
+
+#if DISABLE_ADS
+        gameObject.SetActive(false);
+#endif
     }
 
     void Start()
@@ -72,7 +76,11 @@ public class AdButton : MonoBehaviour
 
     private bool GeneralAdCheck()
     {
+#if !DISABLE_ADS
         return GameStats.enableAdButttons == true && Advertisement.isInitialized == true && AdsInitializer.failed == false && AdRewardedManager.instance.HasAnyError() == false && GameStats.failedGenuine == false;
+#else
+        return false;
+#endif
     }
 
     private bool MultiplicationAdCheck()

@@ -203,7 +203,12 @@ public class HUD : MonoBehaviour
 
     private IEnumerator ShowWindowExtra()
     {
+#if !DISABLE_IAP && !DISABLE_ADS
         removeAdsButton.gameObject.SetActive(!PurchaseManager.instance.HasRemovedAds());
+#else
+        removeAdsButton.gameObject.SetActive(false);
+#endif
+
         windowExtra.gameObject.SetActive(false);
 
         yield return new WaitForSeconds(0.9f);

@@ -136,7 +136,7 @@ PlayerSettings:
   vulkanEnableLateAcquireNextImage: 0
   vulkanEnableCommandBufferRecycling: 1
   loadStoreDebugModeEnabled: 0
-  bundleVersion: 1.3.3
+  bundleVersion: 1.3.4
   preloadedAssets:
   - {fileID: 11400000, guid: a3bb24b3f74bcfd418ca7701f62489b5, type: 2}
   metroInputSource: 0
@@ -170,7 +170,7 @@ PlayerSettings:
     iPhone: 0
     tvOS: 0
   overrideDefaultApplicationIdentifier: 0
-  AndroidBundleVersionCode: 24
+  AndroidBundleVersionCode: 31
   AndroidMinSdkVersion: 22
   AndroidTargetSdkVersion: 34
   AndroidPreferredInstallLocation: 1
@@ -252,7 +252,7 @@ PlayerSettings:
   clonedFromGUID: f918f204a65eb664ba9e5b39d533ff8e
   templatePackageId: com.unity.template.mobile2d@2.0.1
   templateDefaultScene: Assets/Scenes/SampleScene.unity
-  useCustomMainManifest: 0
+  useCustomMainManifest: 1
   useCustomLauncherManifest: 0
   useCustomMainGradleTemplate: 0
   useCustomLauncherGradleManifest: 0
@@ -807,7 +807,9 @@ PlayerSettings:
   webGLMemoryGeometricGrowthStep: 0.2
   webGLMemoryGeometricGrowthCap: 96
   webGLPowerPreference: 2
-  scriptingDefineSymbols: {}
+  scriptingDefineSymbols:
+    Android: 
+    Standalone: DISABLE_ADS;DISABLE_IAP
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:

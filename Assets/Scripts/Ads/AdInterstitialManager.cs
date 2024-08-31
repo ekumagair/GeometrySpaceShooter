@@ -27,8 +27,10 @@ public class AdInterstitialManager : MonoBehaviour, IUnityAdsLoadListener, IUnit
         }
         yield return null;
 
+#if !DISABLE_ADS
         // Load reward ad.
         LoadAd();
+#endif
     }
 
     // Load content to the Ad Unit:

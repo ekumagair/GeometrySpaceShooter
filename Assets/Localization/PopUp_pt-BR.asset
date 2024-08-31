@@ -75,6 +75,14 @@ MonoBehaviour:
       \xE0 internet e reinicie o jogo para tentar de novo."
     m_Metadata:
       m_Items: []
+  - m_Id: 87708984506253312
+    m_Localized: "RELAT\xD3RIO DEBUG"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87729788254093312
+    m_Localized: "Descri\xE7\xE3o tempor\xE1ria do relat\xF3rio debug."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
