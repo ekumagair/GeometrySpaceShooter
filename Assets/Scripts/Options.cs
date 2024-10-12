@@ -9,4 +9,5 @@ public static class Options
     public static int projectileTrails = 1;
     public static int projectileImpacts = 1;
     public static int backgroundType = 0;
+    public static int fpsSetting = 0;
 }

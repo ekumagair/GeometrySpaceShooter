@@ -38,6 +38,14 @@ MonoBehaviour:
     m_Localized: Initial score multiplier
     m_Metadata:
       m_Items: []
+  - m_Id: 92369252913971200
+    m_Localized: Return to the top
+    m_Metadata:
+      m_Items: []
+  - m_Id: 92371980931235840
+    m_Localized: Check progress
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

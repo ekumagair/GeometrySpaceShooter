@@ -13,6 +13,8 @@ public class LoadingScreen : MonoBehaviour
     }
     public static Scenes sceneToLoad = Scenes.Start;
 
+    public static bool calledLoadScreen = false;
+
     void Awake()
     {
         Time.timeScale = 1.0f;
@@ -62,6 +64,8 @@ public class LoadingScreen : MonoBehaviour
                 break;
         }
 
+        calledLoadScreen = false;
+
         // Load async.
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
         
@@ -74,6 +78,7 @@ public class LoadingScreen : MonoBehaviour
 
     public static void CallLoadScreen(Scenes goToScene)
     {
+        calledLoadScreen = true;
         sceneToLoad = goToScene;
         SceneManager.LoadScene("Loading");
     }

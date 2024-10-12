@@ -29,6 +29,7 @@ public class Player : MonoBehaviour
     public static Player instance = null;
 
     [HideInInspector] public Health healthScript;
+    [HideInInspector] public int[] conditionTimers;
 
     private bool _detectedVictory = false;
     private float _inputDuration = 0;
@@ -39,6 +40,8 @@ public class Player : MonoBehaviour
     {
         Time.timeScale = 1.0f;
         instance = this;
+        conditionTimers = new int[GameConstants.PLAYER_COND_AMOUNT];
+        ResetConditions();
     }
 
     void Start()
@@ -119,7 +122,7 @@ public class Player : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.K) && ignoreInput == false)
             {
-                GameStats.enemiesKilledTotal += 100;
+                GameStats.enemiesKilledTotal += 1000;
                 GameStats.SaveStats();
             }
             if (Input.GetKeyDown(KeyCode.L) && ignoreInput == false)
@@ -138,17 +141,24 @@ public class Player : MonoBehaviour
         // Create shot if touching screen.
         if (hasInput && ignoreInput == false)
         {
-            Combat.CreateShot(projectile, transform, 0, gameObject, _spriteRenderer.color, projectileSpeedMultiplier, projectileDamage, projectilePerforation);
+            float shotScale = 1.0f;
+
+            if (conditionTimers[0] > 0)
+            {
+                shotScale *= 3.0f;
+            }
+
+            Combat.CreateShot(projectile, transform, 0, gameObject, _spriteRenderer.color, projectileSpeedMultiplier, projectileDamage, projectilePerforation, shotScale);
 
             if (shootLevel > 1)
             {
                 for (int i = 1; i < Mathf.RoundToInt((shootLevel - 1) / 2) + 1; i++)
                 {
-                    Combat.CreateShot(projectile, transform, 4 * i, gameObject, _spriteRenderer.color, projectileSpeedMultiplier, projectileDamage, projectilePerforation);
+                    Combat.CreateShot(projectile, transform, 4 * i, gameObject, _spriteRenderer.color, projectileSpeedMultiplier, projectileDamage, projectilePerforation, shotScale);
                 }
                 for (int i = 1; i < Mathf.RoundToInt((shootLevel - 1) / 2) + 1; i++)
                 {
-                    Combat.CreateShot(projectile, transform, -4 * i, gameObject, _spriteRenderer.color, projectileSpeedMultiplier, projectileDamage, projectilePerforation);
+                    Combat.CreateShot(projectile, transform, -4 * i, gameObject, _spriteRenderer.color, projectileSpeedMultiplier, projectileDamage, projectilePerforation, shotScale);
                 }
             }
 
@@ -180,9 +190,16 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(1.8f);
 
+        float shotScale = 1.0f;
+
+        if (conditionTimers[0] > 0)
+        {
+            shotScale *= 3.0f;
+        }
+
         if (projectileAutoDamage > 0 && GameObject.FindGameObjectsWithTag("Enemy").Length > 0 && victory == false && ignoreInput == false && ClosestEnemy(true) != null)
         {
-            Combat.CreateShot(projectileAuto, transform, Combat.AimDirection(ClosestEnemy(false).transform, transform), gameObject, _spriteRenderer.color, -1f, projectileAutoDamage);
+            Combat.CreateShot(projectileAuto, transform, Combat.AimDirection(ClosestEnemy(false).transform, transform), gameObject, _spriteRenderer.color, -1f, projectileAutoDamage, shotScale);
             
             if (attackAutoSound != null)
             {
@@ -191,6 +208,21 @@ public class Player : MonoBehaviour
         }
 
         StartCoroutine(ShootAuto());
+    }
+
+    private IEnumerator ConditionTimers()
+    {
+        yield return new WaitForSeconds(1.0f);
+
+        for (int i = 0; i < conditionTimers.Length; i++)
+        {
+            if (conditionTimers[i] > 0)
+            {
+                conditionTimers[i] -= 1;
+            }
+        }
+
+        StartCoroutine(ConditionTimers());
     }
 
     public void InitializePlayer(float invincibilityTime)
@@ -205,11 +237,21 @@ public class Player : MonoBehaviour
         StopAllCoroutines();
         StartCoroutine(Shoot());
         StartCoroutine(ShootAuto());
+        ResetConditions();
+        StartCoroutine(ConditionTimers());
         GameStats.SaveStats();
 
         if (invincibilityTime > 0)
         {
             StartCoroutine(healthScript.Invincibility(invincibilityTime));
+        }
+    }
+
+    public void ResetConditions()
+    {
+        for (int i = 0; i < conditionTimers.Length; i++)
+        {
+            conditionTimers[i] = 0;
         }
     }
 
@@ -251,6 +293,15 @@ public class Player : MonoBehaviour
             {
                 healthScript.health += itemScript.giveHealth;
                 PersistentCanvas.reference.CreateNumberChangeEffect(HUD.hudBottomRightCorner, "+" + itemScript.giveHealth.ToString(), Color.green, 0.55f, 0.25f);
+            }
+
+            // Give condition.
+            if (itemScript.giveCondition > -1)
+            {
+                if (conditionTimers[itemScript.giveCondition] < itemScript.giveConditionTime)
+                {
+                    conditionTimers[itemScript.giveCondition] = itemScript.giveConditionTime;
+                }
             }
 
             foreach (GameObject obj in itemScript.createOnCollect)

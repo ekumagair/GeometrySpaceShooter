@@ -25,6 +25,7 @@ public class PlayerData
     public int optionTrails;
     public int optionImpacts;
     public int optionBackground;
+    public int optionFps;
 
     public bool iapRemoveAds;
     public bool iapRemovedAdsOnce;
@@ -70,6 +71,7 @@ public class PlayerData
         optionTrails = Options.projectileTrails;
         optionImpacts = Options.projectileImpacts;
         optionBackground = Options.backgroundType;
+        optionFps = Options.fpsSetting;
 
         iapRemoveAds = PurchaseManager.removedAds;
         iapRemovedAdsOnce = PurchaseManager.removedAdsOnce;

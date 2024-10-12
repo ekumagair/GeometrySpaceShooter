@@ -17,6 +17,12 @@ public class GameplayManager : MonoBehaviour
         GameStats.initializedGame = true;
     }
 
+    void OnEnable()
+    {
+        LoadingScreen.calledLoadScreen = false;
+        GameStats.SetFPSFromConfiguration();
+    }
+
     public void RevivePlayer()
     {
         Player.instance.gameObject.SetActive(true);

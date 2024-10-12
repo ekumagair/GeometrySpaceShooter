@@ -37,6 +37,14 @@ MonoBehaviour:
     m_Key: reward_new_multiplier
     m_Metadata:
       m_Items: []
+  - m_Id: 92369252913971200
+    m_Key: reward_return
+    m_Metadata:
+      m_Items: []
+  - m_Id: 92371980931235840
+    m_Key: reward_check_progress
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

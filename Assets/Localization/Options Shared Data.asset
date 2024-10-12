@@ -59,6 +59,18 @@ MonoBehaviour:
     m_Key: option_remove_ads_bought
     m_Metadata:
       m_Items: []
+  - m_Id: 199578169682624512
+    m_Key: option_fps_cap
+    m_Metadata:
+      m_Items: []
+  - m_Id: 199578227387858944
+    m_Key: option_fps_30
+    m_Metadata:
+      m_Items: []
+  - m_Id: 199578267518959616
+    m_Key: option_fps_60
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

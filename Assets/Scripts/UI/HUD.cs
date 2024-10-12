@@ -22,6 +22,10 @@ public class HUD : MonoBehaviour
     public TMP_Text healthNumber;
     public Image healthShield;
 
+    [Header("Increase Shot Size")]
+    public TMP_Text increaseShotSizeTimer;
+    public GameObject increaseShotSizeIcon;
+
     [Header("Windows")]
     public GameObject windowVictory;
     public GameObject windowLose;
@@ -37,7 +41,7 @@ public class HUD : MonoBehaviour
     public Button exitButton;
 
     // HUD positions.
-    public static Vector3 hudTopLeftCorner = new Vector3(-85, 250, 0);
+    public static Vector3 hudTopLeftCorner = new Vector3(-60, 250, 0);
     public static Vector3 hudBottomRightCorner = new Vector3(100, -190, 0);
 
     public static float previousTimeScale = 1.0f;
@@ -90,6 +94,9 @@ public class HUD : MonoBehaviour
             healthNumber.color = Color.red;
         }
 
+        increaseShotSizeIcon.SetActive(Player.isDead == false && Player.instance.conditionTimers[0] > 0);
+        increaseShotSizeTimer.text = Player.instance.conditionTimers[0].ToString();
+
         pointsThisLevelNumberWin.text = GameStats.currentLevelPoints.ToString();
         pointsThisLevelNumberLose.text = GameStats.currentLevelPoints.ToString();
 
@@ -111,7 +118,8 @@ public class HUD : MonoBehaviour
                 CreatedWindow();
             }
 
-            if (GameStats.level <= 2 && Player.hasInput == false && Time.timeScale != 0.0f)
+            // Basic instructions text.
+            if (GameStats.level <= 2 && Player.hasInput == false && LoadingScreen.calledLoadScreen == false && Time.timeScale != 0.0f)
             {
                 basicInstructions.enabled = true;
             }

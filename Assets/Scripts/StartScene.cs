@@ -43,6 +43,8 @@ public class StartScene : MonoBehaviour
     public TMP_Text killedEnemiesText;
     public Image killedEnemiesBarBg;
     public Image killedEnemiesBarFill;
+    public ScrollRect rewardScrollRect;
+    public RectTransform rewardScrollContent;
 
     [HideInInspector] public int currentCanvas = 0;
 
@@ -198,6 +200,12 @@ public class StartScene : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        LoadingScreen.calledLoadScreen = false;
+        GameStats.SetFPSFromConfiguration();
+    }
+
     void Update()
     {
         // Show/hide upgrade pages.
@@ -308,7 +316,7 @@ public class StartScene : MonoBehaviour
     public void GoToRemoveAds()
     {
         GoToCanvas(3);
-        optionsScreenScript.scrollContent.anchoredPosition = new Vector2(0, 200);
+        optionsScreenScript.scrollContent.anchoredPosition = new Vector2(0, 300);
     }
 
     void ChooseOneCanvas(int c)
@@ -370,6 +378,18 @@ public class StartScene : MonoBehaviour
     public Upgrade[] GetAllUpgrades()
     {
         return _upgrades;
+    }
+
+    public void ResetRewardScroll()
+    {
+        rewardScrollRect.velocity = Vector3.zero;
+        rewardScrollContent.anchoredPosition = Vector2.zero;
+    }
+
+    public void RewardCheckProgress()
+    {
+        rewardScrollRect.velocity = Vector3.zero;
+        rewardScrollContent.anchoredPosition = new Vector2(0, Mathf.Clamp(GameStats.enemiesKilledTotal, 0, killedEnemiesBarBg.rectTransform.sizeDelta.y));
     }
 
     public void PopUpAdButtons()

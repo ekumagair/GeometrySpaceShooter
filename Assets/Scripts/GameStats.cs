@@ -108,7 +108,7 @@ public static class GameStats
                 {
                     // Version 1.3 onwards.
                     Options.backgroundType = data.optionBackground;
-                    GameStats.enemiesKilledTotal = data.enemiesKilledTotal;
+                    enemiesKilledTotal = data.enemiesKilledTotal;
 
                     if (data.iapRemovedAdsOnce == true)
                     {
@@ -136,6 +136,16 @@ public static class GameStats
                         }
                         completedExtraLevels[i] = data.completedExtraLevels[i];
                     }
+
+                    if (data.savedVersion != "1.3" && data.savedVersion != "1.3.1" && data.savedVersion != "1.3.2" && data.savedVersion != "1.3.3" && data.savedVersion != "1.3.4")
+                    {
+                        // Version 1.4 onwards.
+                        Options.fpsSetting = data.optionFps;
+                    }
+                    else
+                    {
+                        SetStatsToDefault(2);
+                    }
                 }
                 else
                 {
@@ -149,12 +159,33 @@ public static class GameStats
         }
 
         loadStatsFinished = true;
+        SetFPSFromConfiguration();
 
         if (Debug.isDebugBuild) { Debug.Log("Loaded stats"); }
     }
 
+    public static void SetFPSFromConfiguration()
+    {
+        switch (Options.fpsSetting)
+        {
+            default:
+                Application.targetFrameRate = 30;
+                break;
+
+            case 1:
+                Application.targetFrameRate = 60;
+                break;
+        }
+    }
+
     public static void SetStatsToDefault(int tier)
     {
+        if (tier <= 2)
+        {
+            // Versions before 1.4.
+            Options.fpsSetting = 0;
+        }
+
         if (tier <= 1)
         {
             // Versions before 1.3.

@@ -34,10 +34,18 @@ public class Combat : MonoBehaviour
         return script;
     }
 
-    public static Projectile CreateShot(GameObject prefab, Transform transformReference, float angle, GameObject shooter, Color color, float speedMultiplier, int overrideDamage, int overridePerforation)
+    public static Projectile CreateShot(GameObject prefab, Transform transformReference, float angle, GameObject shooter, Color color, float speedMultiplier, int overrideDamage, int overridePerforation, float overrideScale = 1.0f)
     {
         Projectile script = CreateShot(prefab, transformReference, angle, shooter, color, speedMultiplier, overrideDamage);
         script.perforation = overridePerforation;
+        script.gameObject.transform.localScale *= overrideScale;
+        return script;
+    }
+
+    public static Projectile CreateShot(GameObject prefab, Transform transformReference, float angle, GameObject shooter, Color color, float speedMultiplier, int overrideDamage, float overrideScale)
+    {
+        Projectile script = CreateShot(prefab, transformReference, angle, shooter, color, speedMultiplier, overrideDamage);
+        script.gameObject.transform.localScale *= overrideScale;
         return script;
     }
 

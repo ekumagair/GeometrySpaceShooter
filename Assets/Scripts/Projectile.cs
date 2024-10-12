@@ -9,6 +9,7 @@ public class Projectile : MonoBehaviour
     public int damage = 1;
     public int perforation = 1;
     public bool alwaysEnableEffects = false;
+    public bool limitEffectsScale = true;
 
     [Header("Impact")]
     public GameObject impactEffect;
@@ -19,6 +20,7 @@ public class Projectile : MonoBehaviour
 
     [Header("Extras")]
     public SpriteRenderer[] extraOutline;
+    public SpriteRenderer[] extraSprites;
     public ParticleSystem extraTrail;
     public GameObject extraImpactEffect;
     public ParticleSystem extraPerforationParticle;
@@ -27,6 +29,8 @@ public class Projectile : MonoBehaviour
     private ParticleSystem.MainModule _trailMainModule;
     private ParticleSystem.MainModule _extraTrailModule;
     private ParticleSystem.MainModule _extraPerforationModule;
+    private float _extrasScale = 1.0f;
+    private float _extrasTransparency = 1.0f;
 
     [HideInInspector] public GameObject shooter;
     [HideInInspector] public string ignoreTag = "EditorOnly";
@@ -65,21 +69,45 @@ public class Projectile : MonoBehaviour
 
         // Extra perforation particle: Perforation > 1.
 
+        // Set effects based on scale.
+        if (limitEffectsScale == true)
+        {
+            _extrasScale = Mathf.Clamp(gameObject.transform.localScale.x, 1.0f, 1.4f);
+        }
+        else
+        {
+            _extrasScale = gameObject.transform.localScale.x;
+        }
+
+        _extrasTransparency = Mathf.Clamp(gameObject.transform.localScale.x, 1.0f, 2.0f);
+
         ShowExtraOutline(0, 2);
         ShowExtraOutline(1, 14);
+
+        if (trail != null)
+        {
+            trail.gameObject.transform.localScale = new Vector3(_extrasScale, _extrasScale, _extrasScale);
+        }
 
         if (extraTrail != null)
         {
             extraTrail.gameObject.SetActive(damage >= 6 || alwaysEnableEffects);
             _extraTrailModule = extraTrail.main;
-            _extraTrailModule.startColor = new Color(_spriteRenderer.color.r, _spriteRenderer.color.g, _spriteRenderer.color.b, _spriteRenderer.color.a * 0.8f);
+            _extraTrailModule.startColor = ExtraEffectsColor(0.8f);
+            extraTrail.gameObject.transform.localScale = new Vector3(_extrasScale, _extrasScale, _extrasScale);
         }
 
         if (extraPerforationParticle != null)
         {
             extraPerforationParticle.gameObject.SetActive(perforation > 1 || alwaysEnableEffects);
             _extraPerforationModule = extraPerforationParticle.main;
-            _extraPerforationModule.startColor = new Color(_spriteRenderer.color.r, _spriteRenderer.color.g, _spriteRenderer.color.b, _spriteRenderer.color.a * 0.9f);
+            _extraPerforationModule.startColor = ExtraEffectsColor(0.9f);
+            extraPerforationParticle.gameObject.transform.localScale = new Vector3(_extrasScale, _extrasScale, _extrasScale);
+        }
+
+        for (int i = 0; i < extraSprites.Length; i++)
+        {
+            extraSprites[i].color = _spriteRenderer.color;
         }
     }
 
@@ -104,7 +132,7 @@ public class Projectile : MonoBehaviour
                     {
                         var effect = Instantiate(impactEffect, transform.position, transform.rotation);
                         ParticleSystem.MainModule effectMainModule = effect.GetComponent<ParticleSystem>().main;
-                        effectMainModule.startColor = _spriteRenderer.color;
+                        effectMainModule.startColor = ExtraEffectsColor(1.0f);
                     }
                     if (extraImpactEffect != null && Options.projectileImpacts == 1 && (damage >= 10 || alwaysEnableEffects))
                     {
@@ -112,7 +140,7 @@ public class Projectile : MonoBehaviour
                         SpriteRenderer[] sr = impact.GetComponentsInChildren<SpriteRenderer>();
                         foreach (SpriteRenderer item in sr)
                         {
-                            item.color = _spriteRenderer.color;
+                            item.color = ExtraEffectsColor(1.0f);
                         }
                     }
                     if (impactSound != null)
@@ -158,7 +186,12 @@ public class Projectile : MonoBehaviour
         if (extraOutline[i] != null)
         {
             extraOutline[i].gameObject.SetActive(damage >= damageMin || alwaysEnableEffects);
-            extraOutline[i].color = _spriteRenderer.color;
+            extraOutline[i].color = ExtraEffectsColor(1.0f);
         }
+    }
+
+    private Color ExtraEffectsColor(float transparency)
+    {
+        return new Color(_spriteRenderer.color.r, _spriteRenderer.color.g, _spriteRenderer.color.b, (_spriteRenderer.color.a * transparency) / _extrasTransparency);
     }
 }

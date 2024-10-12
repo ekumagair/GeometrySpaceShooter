@@ -5088,13 +5088,16 @@ MonoBehaviour:
   damage: 2
   perforation: 100
   alwaysEnableEffects: 1
+  limitEffectsScale: 1
   impactEffect: {fileID: 7461107298006254976, guid: 418135f2d29564f438af86d8ec7e9930, type: 3}
   impactSound: {fileID: 4803644159576522076, guid: df0ad02f2ead43e44bab783d0708b150, type: 3}
   trail: {fileID: 4394603141076573922}
   extraOutline:
   - {fileID: 2262099130637773302}
+  extraSprites: []
   extraTrail: {fileID: 0}
   extraImpactEffect: {fileID: 0}
+  extraPerforationParticle: {fileID: 0}
   shooter: {fileID: 0}
   ignoreTag: EditorOnly
 --- !u!114 &4023279439373529184

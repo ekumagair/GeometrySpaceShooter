@@ -62,6 +62,18 @@ MonoBehaviour:
     m_Localized: Removed ads!
     m_Metadata:
       m_Items: []
+  - m_Id: 199578169682624512
+    m_Localized: FPS cap
+    m_Metadata:
+      m_Items: []
+  - m_Id: 199578227387858944
+    m_Localized: 30 FPS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 199578267518959616
+    m_Localized: 60 FPS
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

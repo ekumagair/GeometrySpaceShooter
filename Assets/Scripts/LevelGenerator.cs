@@ -73,9 +73,11 @@ public class LevelGenerator : MonoBehaviour
             }
         }
 
-        // Create boss.
+        // Check if this is a boss level or not.
         if (GameStats.level % 7 == 0 && GameStats.level > 1)
         {
+            // Is a boss level.
+
             isBossStage = true;
             int chosenBoss = (GameStats.level / 7) - 1;
 
@@ -91,6 +93,7 @@ public class LevelGenerator : MonoBehaviour
         {
             // If this isn't a boss level.
 
+            // Items.
             if (GameStats.level > 20)
             {
                 // Create an extra health item.
@@ -101,10 +104,23 @@ public class LevelGenerator : MonoBehaviour
                 // Create extra points item.
                 CreateItem(0, Random.Range(bottomPositionY + 2, levelLength / 3));
             }
+            if (GameStats.level > 40)
+            {
+                // Create shot size increase item.
+                CreateItem(2, Random.Range(levelLength / 4, levelLength / 3));
+            }
             if (GameStats.level > 50)
             {
                 // Create another extra points item.
                 CreateItem(0, Random.Range(levelLength / 3, levelLength / 2));
+            }
+            if (GameStats.level > 60)
+            {
+                if (Random.Range(0, GameStats.level) >= 40)
+                {
+                    // Random chance: Create another shot size increase item.
+                    CreateItem(2, Random.Range(levelLength / 3, levelLength / 2));
+                }
             }
         }
     }

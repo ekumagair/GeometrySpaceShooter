@@ -10,7 +10,8 @@ public class OptionDropdown : MonoBehaviour
     public enum DropdownType
     {
         Locale,
-        Background
+        Background,
+        FramesPerSecond
     }
     public DropdownType optionType;
 
@@ -39,6 +40,10 @@ public class OptionDropdown : MonoBehaviour
 
             case DropdownType.Background:
                 _dropdown.value = Options.backgroundType;
+                break;
+
+            case DropdownType.FramesPerSecond:
+                _dropdown.value = Options.fpsSetting;
                 break;
 
             default:
@@ -70,6 +75,11 @@ public class OptionDropdown : MonoBehaviour
 
             case DropdownType.Background:
                 Options.backgroundType = _dropdown.value;
+                break;
+
+            case DropdownType.FramesPerSecond:
+                Options.fpsSetting = _dropdown.value;
+                GameStats.SetFPSFromConfiguration();
                 break;
 
             default:

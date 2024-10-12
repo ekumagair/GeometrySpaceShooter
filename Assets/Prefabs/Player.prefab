@@ -163,7 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39ead34578138ad4db4c9a13ad5a6791, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 10
+  moveSpeed: 8
   projectile: {fileID: 4132169524799448920, guid: 60b54fb045102994c977aec271d96d56, type: 3}
   attackSound: {fileID: 4803644159576522076, guid: a6f1f9eb6881e5d448dc2ea1cedd24b8, type: 3}
   projectileAuto: {fileID: 4132169524799448920, guid: 0fd1b5ca8088f0d4c88f1620ee0e1e1b, type: 3}
