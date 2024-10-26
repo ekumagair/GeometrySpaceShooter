@@ -79,7 +79,14 @@ public class Projectile : MonoBehaviour
             _extrasScale = gameObject.transform.localScale.x;
         }
 
-        _extrasTransparency = Mathf.Clamp(gameObject.transform.localScale.x, 1.0f, 2.0f);
+        if (alwaysEnableEffects == false)
+        {
+            _extrasTransparency = Mathf.Clamp(gameObject.transform.localScale.x, 1.0f, 2.0f);
+        }
+        else
+        {
+            _extrasTransparency = 1.0f;
+        }
 
         ShowExtraOutline(0, 2);
         ShowExtraOutline(1, 14);
@@ -173,6 +180,8 @@ public class Projectile : MonoBehaviour
             extraTrail.Stop(true, ParticleSystemStopBehavior.StopEmitting);
             _extraTrailModule.loop = false;
             extraTrail.gameObject.transform.parent = null;
+            extraTrail.gameObject.SetActive(true);
+            extraTrail = null;
         }
     }
 

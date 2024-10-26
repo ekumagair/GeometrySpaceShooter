@@ -31,8 +31,8 @@ public class PresetLevelButton : MonoBehaviour
         {
             _button.interactable = true;
             textLocked.enabled = false;
-            textUnlocked.enabled = GameStats.completedExtraLevels[extraLevelID] == 0;
-            check.enabled = GameStats.completedExtraLevels[extraLevelID] == 1;
+            textUnlocked.enabled = IsUnlocked();
+            check.enabled = IsCompleted();
         }
         else
         {
@@ -41,5 +41,15 @@ public class PresetLevelButton : MonoBehaviour
             textUnlocked.enabled = false;
             check.enabled = false;
         }
+    }
+
+    public bool IsUnlocked()
+    {
+        return GameStats.completedExtraLevels[extraLevelID] == 0 && GameStats.level > mustCompleteLevel;
+    }
+
+    public bool IsCompleted()
+    {
+        return GameStats.completedExtraLevels[extraLevelID] == 1 && GameStats.level > mustCompleteLevel;
     }
 }

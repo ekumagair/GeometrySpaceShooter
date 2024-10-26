@@ -10,6 +10,7 @@ public class LevelGenerator : MonoBehaviour
     public GameObject[] enemyPrefabs;
     public GameObject[] bossPrefabs;
     public GameObject[] itemPrefabs;
+    public GameObject[] formations;
 
     public static int campaignDifficulty = 0;
     public static bool isBossStage = false;
@@ -93,11 +94,19 @@ public class LevelGenerator : MonoBehaviour
         {
             // If this isn't a boss level.
 
+            #region Items
             // Items.
             if (GameStats.level > 20)
             {
                 // Create an extra health item.
-                CreateItem(1, Random.Range(bottomPositionY + 2, levelLength / 2));
+                int pos = Random.Range(bottomPositionY + 2, levelLength / 2);
+                CreateItem(1, pos);
+
+                if (Random.Range(0, 100) == 0)
+                {
+                    // If you are lucky, create another extra health item.
+                    CreateItem(1, pos + 1);
+                }
             }
             if (GameStats.level > 30)
             {
@@ -112,7 +121,16 @@ public class LevelGenerator : MonoBehaviour
             if (GameStats.level > 50)
             {
                 // Create another extra points item.
-                CreateItem(0, Random.Range(levelLength / 3, levelLength / 2));
+                int pos = Random.Range(levelLength / 3, levelLength / 2);
+                CreateItem(0, pos);
+
+                if (Random.Range(0, 100) == 0)
+                {
+                    // If you are lucky, create more points items.
+                    CreateItem(0, pos + 1);
+                    CreateItem(0, pos + 2);
+                    CreateItem(0, pos + 3);
+                }
             }
             if (GameStats.level > 60)
             {
@@ -122,6 +140,123 @@ public class LevelGenerator : MonoBehaviour
                     CreateItem(2, Random.Range(levelLength / 3, levelLength / 2));
                 }
             }
+            #endregion
+
+            #region Enemy Formations
+            // Formations.
+            int posPrimary = Random.Range(levelLength / 4, levelLength / 3);
+            int posSecondary = Random.Range((levelLength / 3) + 1, levelLength / 2);
+
+            int posOffset = Random.Range(5, 20) * (Random.Range(0, 2) == 0 ? 1 : -1);
+
+            if (GameStats.level >= 9 && GameStats.level <= 15)
+            {
+                // Triangles 1.
+                if (Random.Range(0, 5) == 0)
+                {
+                    CreateFormation(0, posPrimary);
+                }
+                if (Random.Range(0, GameStats.level) >= 12)
+                {
+                    CreateFormation(0, posSecondary);
+                }
+            }
+            else if (GameStats.level >= 16 && GameStats.level <= 22)
+            {
+                // Triangles 2.
+                if (Random.Range(0, 2) == 0)
+                {
+                    CreateFormation(1, posPrimary);
+                }
+                if (Random.Range(0, GameStats.level) >= 19)
+                {
+                    CreateFormation(1, posSecondary); // Extra.
+                }
+            }
+            else if (GameStats.level >= 23 && GameStats.level <= 29)
+            {
+                // Triangles 3.
+                CreateFormation(2, posPrimary);
+
+                if (Random.Range(0, GameStats.level) >= 26)
+                {
+                    CreateFormation(2, posSecondary); // Extra.
+                }
+            }
+            else if (GameStats.level >= 30 && GameStats.level <= 36)
+            {
+                // Triangles 4.
+                CreateFormation(3, posPrimary);
+
+                if (Random.Range(0, GameStats.level) >= 33)
+                {
+                    CreateFormation(3, posSecondary); // Extra.
+                }
+            }
+            else if (GameStats.level >= 37 && GameStats.level <= 43)
+            {
+                // Triangles 5.
+                CreateFormation(4, posPrimary);
+
+                if (Random.Range(0, GameStats.level) >= 40)
+                {
+                    CreateFormation(4, posSecondary); // Extra.
+                }
+            }
+            else if (GameStats.level >= 44 && GameStats.level <= 50)
+            {
+                // Triangles 6.
+                CreateFormation(5, posPrimary);
+
+                if (Random.Range(0, GameStats.level) >= 47)
+                {
+                    CreateFormation(5, posSecondary); // Extra.
+                }
+            }
+            else if (GameStats.level >= 51)
+            {
+                // Triangles 7.
+                CreateFormation(6, posPrimary);
+
+                if (Random.Range(0, GameStats.level) >= 54)
+                {
+                    CreateFormation(6, posSecondary); // Extra.
+                }
+            }
+
+            if (GameStats.level >= 45 && GameStats.level <= 65)
+            {
+                // Pentagons 6.
+                CreateFormation(7, posPrimary + posOffset);
+
+                if (Random.Range(0, GameStats.level) >= 50)
+                {
+                    CreateFormation(7, posSecondary + posOffset); // Extra.
+                }
+            }
+            else if (GameStats.level >= 66)
+            {
+                // Pentagons 7.
+                CreateFormation(8, posPrimary + posOffset);
+
+                if (Random.Range(0, GameStats.level) >= 70)
+                {
+                    CreateFormation(8, posSecondary + posOffset); // Extra.
+                }
+            }
+
+            // Hexagon wall.
+            if (Random.Range(0, GameStats.level) >= 50)
+            {
+                CreateFormation(9, Random.Range(bottomPositionY, levelLength / 2));
+            }
+
+            // Misc.
+            if (Random.Range(0, GameStats.level) >= 70)
+            {
+                CreateFormation(Random.Range(0, 2) == 0 ? 6 : 8, Random.Range(bottomPositionY, levelLength / 2));
+            }
+            #endregion
         }
     }
 
@@ -228,5 +363,10 @@ public class LevelGenerator : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    void CreateFormation(int type, float posY)
+    {
+        Instantiate(formations[type], new Vector3(0, bottomPositionY + posY, 0), transform.rotation);
     }
 }

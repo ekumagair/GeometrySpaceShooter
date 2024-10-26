@@ -21,7 +21,10 @@ public class StartScene : MonoBehaviour
     public GameObject removeAdsButton;
     public GameObject startObjects;
     public TMP_Text versionText;
+    public TMP_Text levelText;
     public LocalizeStringEvent levelTextLocalize;
+    public GameObject rewardsNotification;
+    public GameObject extraLevelsNotification;
 
     [Space]
 
@@ -39,7 +42,13 @@ public class StartScene : MonoBehaviour
 
     [Space]
 
+    [Header("Extra Levels Section")]
+    public PresetLevelButton[] presetLevelButtons;
+
+    [Space]
+
     [Header("Rewards Section")]
+    public RewardGoal[] rewardGoals;
     public TMP_Text killedEnemiesText;
     public Image killedEnemiesBarBg;
     public Image killedEnemiesBarFill;
@@ -204,6 +213,11 @@ public class StartScene : MonoBehaviour
     {
         LoadingScreen.calledLoadScreen = false;
         GameStats.SetFPSFromConfiguration();
+
+        if (levelText != null)
+        {
+            levelText.enabled = true;
+        }
     }
 
     void Update()
@@ -311,6 +325,7 @@ public class StartScene : MonoBehaviour
     {
         ChooseOneCanvas(c);
         UpdateTexts();
+        UpdateNotifications();
     }
 
     public void GoToRemoveAds()
@@ -354,9 +369,10 @@ public class StartScene : MonoBehaviour
         {
             versionText.text = "v" + Application.version.ToString();
         }
-        if (levelTextLocalize != null)
+        if (levelTextLocalize != null && levelText != null)
         {
             levelTextLocalize.RefreshString();
+            levelText.enabled = true;
         }
     }
 
@@ -368,6 +384,31 @@ public class StartScene : MonoBehaviour
 #else
         removeAdsButton.SetActive(false);
 #endif
+    }
+
+    public void UpdateNotifications()
+    {
+        // Rewards notifications.
+        int pendingRewards = 0;
+        for (int i = 0; i < rewardGoals.Length; i++)
+        {
+            if (rewardGoals[i].IsUnlocked() == true && rewardGoals[i].IsAlreadyClaimed() == false)
+            {
+                pendingRewards += 1;
+            }
+        }
+        rewardsNotification.SetActive(pendingRewards > 0);
+
+        // Extra levels notifications.
+        int pendingExtraLevels = 0;
+        for (int i = 0; i < presetLevelButtons.Length; i++)
+        {
+            if (presetLevelButtons[i].IsUnlocked() == true && presetLevelButtons[i].IsCompleted() == false)
+            {
+                pendingExtraLevels += 1;
+            }
+        }
+        extraLevelsNotification.SetActive(pendingExtraLevels > 0);
     }
 
     public void ChangeUpgradePage(int increment)
@@ -473,6 +514,15 @@ public class StartScene : MonoBehaviour
             PopUpFakeStore();
         }
 #endif
+
+        if (rewardGoals.Length != GameConstants.REWARDS_AMOUNT)
+        {
+            Debug.LogWarning("rewardGoals.Length is NOT equal to REWARDS_AMOUNT");
+        }
+        if (presetLevelButtons.Length != GameConstants.EXTRA_LEVELS_AMOUNT)
+        {
+            Debug.LogWarning("presetLevelButtons.Length is NOT equal to EXTRA_LEVELS_AMOUNT");
+        }
     }
 
     private IEnumerator AwakeCoroutine()

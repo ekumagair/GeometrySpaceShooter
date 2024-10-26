@@ -5718,6 +5718,17 @@ MonoBehaviour:
   - {fileID: 5349378906367868703, guid: 60baacb13fc921c4381bada386294d77, type: 3}
   - {fileID: 5349378906367868703, guid: 2e6fe1c5eba2ff34f8a4da78c97354ea, type: 3}
   - {fileID: 5349378906367868703, guid: 78b262c3caa7ca144b7fe23e2272ba8a, type: 3}
+  formations:
+  - {fileID: 725330579631870210, guid: 5d161658b98439343bb9adfca5b3ba31, type: 3}
+  - {fileID: 725330579631870210, guid: 338f95ecef0ca364daf1b494faef1eb5, type: 3}
+  - {fileID: 725330579631870210, guid: 271dd3eede7d478499b2ee4071e20964, type: 3}
+  - {fileID: 725330579631870210, guid: 3fc438b71bca8fc47989f570e1f71e16, type: 3}
+  - {fileID: 725330579631870210, guid: 45c5947e5f523654f8f1cd90de593a3b, type: 3}
+  - {fileID: 725330579631870210, guid: 52080943b343e1a42b79333323bd257f, type: 3}
+  - {fileID: 725330579631870210, guid: b8cd4daccafeddc42aa61bccdf32e2a7, type: 3}
+  - {fileID: 725330579631870210, guid: aebd357b8c12d7f41824df9c86054dbd, type: 3}
+  - {fileID: 725330579631870210, guid: 783bb7e644e00ba4385b68d34558b12a, type: 3}
+  - {fileID: 725330579631870210, guid: dd9fd7873e0e60145acbddcfacc9f3ac, type: 3}
 --- !u!4 &1851373989
 Transform:
   m_ObjectHideFlags: 0
