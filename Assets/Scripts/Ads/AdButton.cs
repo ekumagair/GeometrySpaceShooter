@@ -1,8 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Advertisements;
 using UnityEngine.UI;
+
+#if !DISABLE_ADS
+using UnityEngine.Advertisements;
+#endif
 
 public class AdButton : MonoBehaviour
 {

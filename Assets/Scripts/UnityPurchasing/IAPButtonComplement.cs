@@ -23,6 +23,7 @@ public class IAPButtonComplement : MonoBehaviour
 #endif
     }
 
+#if !DISABLE_IAP
     private IEnumerator OnEnableCoroutine()
     {
         if (textPrice != null)
@@ -44,6 +45,7 @@ public class IAPButtonComplement : MonoBehaviour
 
         ShowTexts();
     }
+#endif
 
     public void ShowTexts()
     {

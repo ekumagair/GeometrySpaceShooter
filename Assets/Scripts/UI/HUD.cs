@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.Localization;
+using UnityEngine.Localization.Components;
 
 public class HUD : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class HUD : MonoBehaviour
     public TMP_Text pointsThisLevelNumberWin;
     public TMP_Text pointsThisLevelNumberLose;
     public TMP_Text basicInstructions;
+    public LocalizeStringEvent basicInstructionsLocalize;
 
     [Header("Health")]
     public TMP_Text healthNumber;
@@ -76,6 +78,11 @@ public class HUD : MonoBehaviour
 
         levelText.enabled = GameStats.currentLevelType == GameStats.LevelType.MAIN;
         extraLevelText.enabled = GameStats.currentLevelType == GameStats.LevelType.PRESET;
+
+#if !UNITY_ANDROID && !UNITY_IOS
+        LocalizedString pcText = new LocalizedString("Main", "click_to_move_shoot");
+        basicInstructionsLocalize.StringReference = pcText;
+#endif
     }
 
     void Update()

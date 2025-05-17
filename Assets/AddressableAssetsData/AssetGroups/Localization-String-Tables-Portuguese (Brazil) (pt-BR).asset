@@ -17,8 +17,8 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 8b1657fc73c7e1048b210673006e71a0
   m_SerializeEntries:
-  - m_GUID: bf9aa44855f620f4d80900029da034bf
-    m_Address: Main_pt-BR
+  - m_GUID: 52d395874decbd844a92660a0a8c4d94
+    m_Address: Extra Levels_pt-BR
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-pt-BR
@@ -31,13 +31,6 @@ MonoBehaviour:
     - Locale-pt-BR
     - Preload
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: b26ef92847433304585f28d07aae621f
-    m_Address: Options_pt-BR
-    m_ReadOnly: 1
-    m_SerializedLabels:
-    - Locale-pt-BR
-    - Preload
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7e2fb37012ba7a4489e6ce0f6fa32712
     m_Address: Credits_pt-BR
     m_ReadOnly: 1
@@ -45,8 +38,21 @@ MonoBehaviour:
     - Locale-pt-BR
     - Preload
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 52d395874decbd844a92660a0a8c4d94
-    m_Address: Extra Levels_pt-BR
+  - m_GUID: 9768bf3ae54cc584fa44486a466026b1
+    m_Address: Rewards_pt-BR
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-pt-BR
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b26ef92847433304585f28d07aae621f
+    m_Address: Options_pt-BR
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-pt-BR
+    - Preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bf9aa44855f620f4d80900029da034bf
+    m_Address: Main_pt-BR
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-pt-BR
@@ -54,12 +60,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c2b18191a02c06c4487a56123f151e2f
     m_Address: PopUp_pt-BR
-    m_ReadOnly: 1
-    m_SerializedLabels:
-    - Locale-pt-BR
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 9768bf3ae54cc584fa44486a466026b1
-    m_Address: Rewards_pt-BR
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-pt-BR

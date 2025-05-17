@@ -23,6 +23,7 @@ public class IAPDisplayController : MonoBehaviour
 #endif
     }
 
+#if !DISABLE_IAP
     private IEnumerator OnEnableCoroutine()
     {
         availableObject.SetActive(false);
@@ -38,6 +39,7 @@ public class IAPDisplayController : MonoBehaviour
 
         Display();
     }
+#endif
 
     public void Display()
     {

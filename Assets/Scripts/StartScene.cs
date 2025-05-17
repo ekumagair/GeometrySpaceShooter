@@ -7,7 +7,10 @@ using TMPro;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Components;
 using UnityEngine.Analytics;
+
+#if !DISABLE_ADS
 using UnityEngine.Advertisements;
+#endif
 
 public class StartScene : MonoBehaviour
 {
@@ -17,7 +20,8 @@ public class StartScene : MonoBehaviour
     [Space]
 
     [Header("Start Section")]
-    public GameObject startButton;
+    public GameObject playButton;
+    public LocalizeStringEvent playText;
     public GameObject removeAdsButton;
     public GameObject startObjects;
     public TMP_Text versionText;
@@ -190,9 +194,9 @@ public class StartScene : MonoBehaviour
                 {
                     GameStats.failedGenuine = true;
 
-                    if (startButton != null)
+                    if (playButton != null)
                     {
-                        Destroy(startButton);
+                        Destroy(playButton);
                     }
                 }
                 else
@@ -369,10 +373,19 @@ public class StartScene : MonoBehaviour
         {
             versionText.text = "v" + Application.version.ToString();
         }
+
         if (levelTextLocalize != null && levelText != null)
         {
             levelTextLocalize.RefreshString();
             levelText.enabled = true;
+        }
+
+        if (playText != null)
+        {
+#if !UNITY_ANDROID && !UNITY_IOS
+            LocalizedString pcText = new LocalizedString("Main", "click_to_play");
+            playText.StringReference = pcText;
+#endif
         }
     }
 
@@ -453,7 +466,9 @@ public class StartScene : MonoBehaviour
             "Ver: " + Application.version.ToString() + "; " +
             "\nDebug build: " + Debug.isDebugBuild.ToString() + "; " +
             "\nEnable ad btns: " + GameStats.enableAdButttons.ToString() + "; " +
+#if !DISABLE_ADS
             "\nAd is init: " + Advertisement.isInitialized.ToString() + "; " +
+#endif
             "\nAd init failed: " + AdsInitializer.failed.ToString() + "; " +
             "\nAd init testing: " + AdsInitializer.instance.IsTesting() + "; " +
             "\nAd reward errors: " + AdRewardedManager.instance.HasAnyError().ToString() + "; " +

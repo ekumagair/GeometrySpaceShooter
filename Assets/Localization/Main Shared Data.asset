@@ -23,8 +23,16 @@ MonoBehaviour:
     m_Key: tap_to_play
     m_Metadata:
       m_Items: []
+  - m_Id: 282684435837157376
+    m_Key: click_to_play
+    m_Metadata:
+      m_Items: []
   - m_Id: 20013068779520
     m_Key: touch_to_move_shoot
+    m_Metadata:
+      m_Items: []
+  - m_Id: 282684588031672320
+    m_Key: click_to_move_shoot
     m_Metadata:
       m_Items: []
   - m_Id: 2247280492544

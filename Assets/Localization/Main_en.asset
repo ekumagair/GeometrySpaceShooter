@@ -96,10 +96,20 @@ MonoBehaviour:
     m_Localized: Buy
     m_Metadata:
       m_Items: []
+  - m_Id: 282684435837157376
+    m_Localized: Click here to play
+    m_Metadata:
+      m_Items: []
+  - m_Id: 282684588031672320
+    m_Localized: Click the screen to move and shoot
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:
     - rid: 4408134089919954946
       type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
       data:
-        m_Entries: 00005b4057030000
+        m_Entries: 
+        m_SharedEntries:
+        - id: 3673276743680

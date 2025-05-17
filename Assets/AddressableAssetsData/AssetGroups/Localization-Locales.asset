@@ -17,14 +17,14 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 32dc9405e7aa9184181e17cbc73aca53
   m_SerializeEntries:
-  - m_GUID: f5b9f752c666cc74083fff3793350d88
-    m_Address: English (en)
+  - m_GUID: 6d65ef13271987542bb8e8d379d54cae
+    m_Address: Portuguese (Brazil) (pt-BR)
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 6d65ef13271987542bb8e8d379d54cae
-    m_Address: Portuguese (Brazil) (pt-BR)
+  - m_GUID: f5b9f752c666cc74083fff3793350d88
+    m_Address: English (en)
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale

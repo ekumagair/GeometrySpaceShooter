@@ -69,6 +69,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6077504792567948200, guid: 0add3ac090ddcd64eab76839caf1e137, type: 3}
+      propertyPath: delay
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6077504792567948200, guid: 0add3ac090ddcd64eab76839caf1e137, type: 3}
       propertyPath: clips.Array.size
       value: 3
       objectReference: {fileID: 0}

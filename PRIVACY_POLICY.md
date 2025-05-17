@@ -20,4 +20,4 @@ This application collects the following data:
 
 This information can also be found on Unity's documentation: https://docs.unity.com/ads/en-us/manual/GoogleDataSafety
 
-Contact: ekumagairocha@gmail.com
+Contact: greenshape.games@gmail.com

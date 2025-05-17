@@ -44,10 +44,12 @@ public class PurchaseManager : MonoBehaviour
             removedAdsOnce = true;
         }
 
+#if !DISABLE_ADS
         if (AdBannerManager.instance != null)
         {
             AdBannerManager.instance.HideBannerAd();
         }
+#endif
 
         GameStats.SaveStats();
     }

@@ -1,11 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+#if !DISABLE_ADS
 using UnityEngine.Advertisements;
+#endif
 
 public class AdBannerManager : MonoBehaviour
 {
+#if !DISABLE_ADS
     [SerializeField] BannerPosition _bannerPosition = BannerPosition.BOTTOM_CENTER;
+#endif
 
     [SerializeField] string _androidAdUnitId = "Banner_Android";
     [SerializeField] string _iOSAdUnitId = "Banner_iOS";
@@ -27,6 +32,7 @@ public class AdBannerManager : MonoBehaviour
 
     private IEnumerator Start()
     {
+#if !DISABLE_ADS
         // Set the banner position:
         Advertisement.Banner.SetPosition(_bannerPosition);
 
@@ -36,7 +42,7 @@ public class AdBannerManager : MonoBehaviour
         }
         yield return null;
 
-#if !DISABLE_ADS
+
         // Load banner.
         LoadBanner();
 #endif
@@ -53,6 +59,7 @@ public class AdBannerManager : MonoBehaviour
 #endif
     }
 
+#if !DISABLE_ADS
     // Implement a method to call when the Load Banner button is clicked:
     public void LoadBanner()
     {
@@ -118,5 +125,5 @@ public class AdBannerManager : MonoBehaviour
 
     void OnBannerHidden() { }
 
-    void OnDestroy() { }
+#endif
 }
