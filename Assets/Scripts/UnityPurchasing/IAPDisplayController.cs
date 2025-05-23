@@ -2,7 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+
+#if !DISABLE_IAP
 using UnityEngine.Purchasing;
+#endif
 
 public class IAPDisplayController : MonoBehaviour
 {
@@ -43,6 +46,7 @@ public class IAPDisplayController : MonoBehaviour
 
     public void Display()
     {
+#if !DISABLE_IAP
         if (PurchaseManager.productCollection != null && PurchaseManager.fetchedProducts != false && PurchaseManager.instance != null)
         {
             if (PurchaseManager.instance.GetProductFromType(type).hasReceipt == true)
@@ -65,6 +69,9 @@ public class IAPDisplayController : MonoBehaviour
                 PurchaseAvailable();
             }
         }
+#else
+        gameObject.SetActive(false);
+#endif
 
         placeholderObject.SetActive(false);
     }

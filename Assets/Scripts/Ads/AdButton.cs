@@ -100,6 +100,7 @@ public class AdButton : MonoBehaviour
 
     public void DisplayAd()
     {
+#if !DISABLE_ADS
         if (rewardType == AdRewardedManager.RewardType.UPGRADE && _upgradeScript == null)
         {
             _upgradeScript = gameObject.transform.parent.gameObject.GetComponent<Upgrade>();
@@ -115,5 +116,6 @@ public class AdButton : MonoBehaviour
         }
 
         AdRewardedManager.instance.ShowAd(rewardType);
+#endif
     }
 }

@@ -1,16 +1,22 @@
 using UnityEngine;
+
+#if !DISABLE_IAP
 using UnityEngine.Purchasing;
+#endif
 
 public class PurchaseManager : MonoBehaviour
 {
-    [SerializeField] bool _testMode = true;
+    [SerializeField] bool _testMode = true; // Use fake ads for tests. Only use real ads for the final build.
 
     public enum IAPType
     {
         RemoveAds
     }
 
+#if !DISABLE_IAP
     public static ProductCollection productCollection;
+#endif
+
     public static PurchaseManager instance;
     public static bool fetchedProducts = false;
 
@@ -18,20 +24,20 @@ public class PurchaseManager : MonoBehaviour
     public static bool removedAds = false;
     public static bool removedAdsOnce = false; // This one is saved locally and won't become false again.
 
+#if !DISABLE_IAP
     // Individual products as variables.
     public static Product productRemoveAds;
+#endif
 
     // Product IDs as strings.
     public const string PRODUCT_REMOVEADS_ID = "com.geometryspaceshooter.removeads";
 
     private void Awake()
     {
+#if !DISABLE_IAP
         instance = this;
 
-#if !DISABLE_IAP
         StandardPurchasingModule.Instance().useFakeStoreAlways = _testMode;
-#else
-        StandardPurchasingModule.Instance().useFakeStoreAlways = true;
 #endif
     }
 
@@ -86,8 +92,10 @@ public class PurchaseManager : MonoBehaviour
 #endif
     }
 
-    public void OnProductsFetched(ProductCollection collection)
+
+    public void OnProductsFetched(UnityEngine.Purchasing.ProductCollection collection)
     {
+#if !DISABLE_IAP
         foreach (Product product in collection.all)
         {
             if (product != null)
@@ -110,10 +118,14 @@ public class PurchaseManager : MonoBehaviour
 
         productCollection = collection;
         fetchedProducts = true;
+#endif
     }
 
+
+#if !DISABLE_IAP
     public Product GetProductFromType(IAPType type)
     {
+
         switch (type)
         {
             case IAPType.RemoveAds:
@@ -123,4 +135,5 @@ public class PurchaseManager : MonoBehaviour
                 return null;
         }
     }
+#endif
 }

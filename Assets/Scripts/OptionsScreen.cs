@@ -100,6 +100,7 @@ public class OptionsScreen : MonoBehaviour
 
     public void RemoveAdsPopUp()
     {
+#if !DISABLE_IAP
         if (PurchaseManager.fetchedProducts == true && PurchaseManager.productCollection != null)
         {
             removeAdsPopUp.SetButtonsTexts(new LocalizedString("PopUp", "button_cancel"), null, null, null);
@@ -109,6 +110,7 @@ public class OptionsScreen : MonoBehaviour
         {
             PopUpOnlineError();
         }
+#endif
     }
 
     public void PopUpOnlineError()

@@ -9,7 +9,7 @@ using UnityEngine.Advertisements;
 public class AdBannerManager : MonoBehaviour
 {
 #if !DISABLE_ADS
-    [SerializeField] BannerPosition _bannerPosition = BannerPosition.BOTTOM_CENTER;
+    private BannerPosition _bannerPosition = BannerPosition.BOTTOM_CENTER;
 #endif
 
     [SerializeField] string _androidAdUnitId = "Banner_Android";

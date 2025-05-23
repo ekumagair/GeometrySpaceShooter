@@ -2,9 +2,16 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Advertisements;
 
+#if !DISABLE_ADS
+using UnityEngine.Advertisements;
+#endif
+
+#if !DISABLE_ADS
 public class AdRewardedManager : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowListener
+#else
+public class AdRewardedManager : MonoBehaviour
+#endif
 {
     [SerializeField] string _androidAdUnitId = "Rewarded_Android";
     [SerializeField] string _iOSAdUnitId = "Rewarded_iOS";
@@ -40,18 +47,21 @@ public class AdRewardedManager : MonoBehaviour, IUnityAdsLoadListener, IUnityAds
 
     private IEnumerator Start()
     {
+#if !DISABLE_ADS
         while (Advertisement.isInitialized == false)
         {
             yield return new WaitForSeconds(0.1f);
         }
         yield return null;
 
-#if !DISABLE_ADS
         // Load reward ad.
         LoadAd();
+#else
+        yield return null;
 #endif
     }
 
+#if !DISABLE_ADS
     // Load content to the Ad Unit:
     public void LoadAd()
     {
@@ -69,16 +79,21 @@ public class AdRewardedManager : MonoBehaviour, IUnityAdsLoadListener, IUnityAds
         instance = this;
         if (Debug.isDebugBuild) { Debug.Log("Finished loading: " + _adUnitId); }
     }
+#endif
 
     public void ShowAd(RewardType reward)
     {
+#if !DISABLE_ADS
         currentReward = reward;
         Advertisement.Show(_adUnitId, this);
+#endif
     }
 
+#if !DISABLE_ADS
     // Give reward if ad is completed.
     public void OnUnityAdsShowComplete(string adUnitId, UnityAdsShowCompletionState showCompletionState)
     {
+
         if (adUnitId.Equals(_adUnitId) && showCompletionState.Equals(UnityAdsShowCompletionState.COMPLETED))
         {
             if (Debug.isDebugBuild) { Debug.Log("Unity Ads Rewarded Ad Completed"); }
@@ -118,7 +133,8 @@ public class AdRewardedManager : MonoBehaviour, IUnityAdsLoadListener, IUnityAds
         upgradeScript = null;
 
         LoadAd();
-    }
+}
+#endif
 
     public void ResetErrorFlags()
     {
@@ -132,6 +148,7 @@ public class AdRewardedManager : MonoBehaviour, IUnityAdsLoadListener, IUnityAds
         return errorNoFill == true || errorInternal == true || errorInitializeFailed == true || errorUnknown == true;
     }
 
+#if !DISABLE_ADS
     public void OnUnityAdsFailedToLoad(string adUnitId, UnityAdsLoadError error, string message)
     {
         ResetErrorFlags();
@@ -175,4 +192,5 @@ public class AdRewardedManager : MonoBehaviour, IUnityAdsLoadListener, IUnityAds
     public void OnUnityAdsShowStart(string adUnitId) { }
 
     public void OnUnityAdsShowClick(string adUnitId) { }
+#endif
 }

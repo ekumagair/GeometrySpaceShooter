@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEngine.Purchasing;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
+
+#if !DISABLE_IAP
+using UnityEngine.Purchasing;
+#endif
 
 public class IAPButtonComplement : MonoBehaviour
 {
@@ -49,6 +52,7 @@ public class IAPButtonComplement : MonoBehaviour
 
     public void ShowTexts()
     {
+#if !DISABLE_IAP
         if (textTitle != null)
         {
             textTitle.text = PurchaseManager.instance.GetProductFromType(type).metadata.localizedTitle;
@@ -57,10 +61,12 @@ public class IAPButtonComplement : MonoBehaviour
         {
             textPrice.text = PurchaseManager.instance.GetProductFromType(type).metadata.localizedPriceString;
         }
+#endif
     }
 
     public void PurchaseComplete()
     {
+#if !DISABLE_IAP
         switch (type)
         {
             case PurchaseManager.IAPType.RemoveAds:
@@ -73,5 +79,6 @@ public class IAPButtonComplement : MonoBehaviour
         }
 
         displayController.Display();
+#endif
     }
 }

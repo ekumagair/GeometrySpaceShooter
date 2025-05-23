@@ -1,13 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Advertisements;
 
+#if !DISABLE_ADS
+using UnityEngine.Advertisements;
+#endif
+
+#if !DISABLE_ADS
 public class AdsInitializer : MonoBehaviour, IUnityAdsInitializationListener
+#else
+public class AdsInitializer : MonoBehaviour
+#endif
 {
     [SerializeField] string _androidGameId;
     [SerializeField] string _iOSGameId;
-    [SerializeField] bool _testMode = true;
+    [SerializeField] bool _testMode = true; // Use fake ads for tests. Only use real ads for the final build.
     private string _gameId;
 
     public static bool failed = false;
@@ -26,7 +33,6 @@ public class AdsInitializer : MonoBehaviour, IUnityAdsInitializationListener
             : _androidGameId;
         Advertisement.Initialize(_gameId, _testMode, this);
     }
-#endif
 
     public void OnInitializationComplete()
     {
@@ -41,6 +47,7 @@ public class AdsInitializer : MonoBehaviour, IUnityAdsInitializationListener
         failed = true;
         instance = this;
     }
+#endif
 
     public bool IsTesting()
     {
