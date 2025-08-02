@@ -45,6 +45,10 @@ public class IAPButtonComplement : MonoBehaviour
         {
             yield return null;
         }
+        while (PurchaseManager.fetchedProducts == false)
+        {
+            yield return null;
+        }
 
         ShowTexts();
     }
