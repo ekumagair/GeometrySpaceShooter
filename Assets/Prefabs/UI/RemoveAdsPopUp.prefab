@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 560901744232113929}
   - component: {fileID: 1370648246946490012}
   - component: {fileID: 5549032562754816881}
-  - component: {fileID: 73094362668916053}
   - component: {fileID: 1444255073733122575}
   m_Layer: 5
   m_Name: RemoveAdsButton
@@ -122,31 +121,10 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1370648246946490012}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
---- !u!114 &73094362668916053
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4018759928179863923}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b79b5624d944058bd39aad2b90fb275, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  productId: com.geometryspaceshooter.removeads
-  buttonType: 0
-  consumePurchase: 1
-  onTransactionsRestored:
-    m_PersistentCalls:
-      m_Calls: []
-  onPurchaseComplete:
-    m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1444255073733122575}
         m_TargetAssemblyTypeName: IAPButtonComplement, Assembly-CSharp
-        m_MethodName: PurchaseComplete
+        m_MethodName: OnClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -156,37 +134,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 119342442041434722}
-        m_TargetAssemblyTypeName: PopUp, Assembly-CSharp
-        m_MethodName: PressedButton
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  onPurchaseFailed:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 119342442041434722}
-        m_TargetAssemblyTypeName: PopUp, Assembly-CSharp
-        m_MethodName: PressedButton
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  onProductFetched:
-    m_PersistentCalls:
-      m_Calls: []
-  button: {fileID: 5549032562754816881}
 --- !u!114 &1444255073733122575
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -203,6 +150,21 @@ MonoBehaviour:
   textPrice: {fileID: 8369093551036579992}
   displayController: {fileID: 0}
   type: 0
+  OnPurchaseEnd:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 119342442041434722}
+        m_TargetAssemblyTypeName: PopUp, Assembly-CSharp
+        m_MethodName: PressedButton
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6689135706331075987
 GameObject:
   m_ObjectHideFlags: 0

@@ -121,6 +121,12 @@ public class OptionsScreen : MonoBehaviour
 
     private void SetTestButtons()
     {
+        if (!Debug.isDebugBuild)
+        {
+            showDebugButton = false;
+            showDeleteButton = false;
+        }
+
         deleteButton.gameObject.SetActive(showDeleteButton);
         debugButton.gameObject.SetActive(showDebugButton);
     }

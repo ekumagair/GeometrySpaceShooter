@@ -476,17 +476,27 @@ public class StartScene : MonoBehaviour
             "\nRemoved ads: " + PurchaseManager.removedAds + "; " +
             "\nRemoved ads once: " + PurchaseManager.removedAdsOnce + "; " +
             "\nRemoved ads func: " + PurchaseManager.instance.HasRemovedAds() + "; " +
+#if !DISABLE_IAP
+            "\nIAP fetched products: " + PurchaseManager.fetchedProducts.ToString() + "; " +
+            "\nIAP fetched purchases: " + PurchaseManager.fetchedPurchases.ToString() + "; " +
+            "\nIAP removeAds entitlement: " + ((int)PurchaseManager.entitlementRemoveAds.Status).ToString() + "; " +
+#endif
             "\nFailed genuine: " + GameStats.failedGenuine.ToString());
 
 #if DISABLE_ADS
         PopUp.instance.AppendDescriptionText("\nDISABLE_ADS");
 #endif
+
 #if DISABLE_IAP
         PopUp.instance.AppendDescriptionText("\nDISABLE_IAP");
 #endif
+
 #if UNITY_ANDROID
         PopUp.instance.AppendDescriptionText("\nUNITY_ANDROID");
 #endif
+
+        if (PurchaseManager.instance != null)
+            PurchaseManager.instance.ReportEntitlements();
     }
 
     public void PopUpDeleteSave()

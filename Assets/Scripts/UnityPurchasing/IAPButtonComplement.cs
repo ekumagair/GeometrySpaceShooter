@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
+using UnityEngine.Events;
 
 #if !DISABLE_IAP
 using UnityEngine.Purchasing;
@@ -19,10 +20,21 @@ public class IAPButtonComplement : MonoBehaviour
     [Header("IAP Type")]
     public PurchaseManager.IAPType type;
 
+    [Header("Events")]
+    public UnityEvent OnPurchaseEnd;
+
     public void OnEnable()
     {
 #if !DISABLE_IAP
         StartCoroutine(OnEnableCoroutine());
+#endif
+    }
+
+    public void OnDisable()
+    {
+#if !DISABLE_IAP
+        PurchaseManager.instance.ON_PRODUCT_FULFILLED -= PurchaseComplete;
+        PurchaseManager.instance.ON_PURCHASE_FAILED -= PurchaseFailed;
 #endif
     }
 
@@ -50,6 +62,9 @@ public class IAPButtonComplement : MonoBehaviour
             yield return null;
         }
 
+        PurchaseManager.instance.ON_PRODUCT_FULFILLED += PurchaseComplete;
+        PurchaseManager.instance.ON_PURCHASE_FAILED += PurchaseFailed;
+
         ShowTexts();
     }
 #endif
@@ -68,21 +83,22 @@ public class IAPButtonComplement : MonoBehaviour
 #endif
     }
 
-    public void PurchaseComplete()
+    public void OnClick()
+    {
+        PurchaseManager.storeController.PurchaseProduct(PurchaseManager.instance.GetProductFromType(type));
+    }
+
+    private void PurchaseComplete(Product product)
     {
 #if !DISABLE_IAP
-        switch (type)
-        {
-            case PurchaseManager.IAPType.RemoveAds:
-                PurchaseManager.instance.RemoveAds();
-                break;
-
-            default:
-                if (Debug.isDebugBuild) { Debug.LogError("IAP button error: invalid IAP type."); }
-                break;
-        }
-
         displayController.Display();
 #endif
+
+        OnPurchaseEnd?.Invoke();
+    }
+
+    private void PurchaseFailed()
+    {
+        PurchaseComplete(null);
     }
 }

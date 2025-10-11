@@ -2986,34 +2986,34 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5549032562754816881, guid: 0310c31cf8a2d3b4092731d447e7480a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5549032562754816881, guid: 0310c31cf8a2d3b4092731d447e7480a, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5549032562754816881, guid: 0310c31cf8a2d3b4092731d447e7480a, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 4083968496264651096}
-    - target: {fileID: 5549032562754816881, guid: 0310c31cf8a2d3b4092731d447e7480a, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5549032562754816881, guid: 0310c31cf8a2d3b4092731d447e7480a, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5549032562754816881, guid: 0310c31cf8a2d3b4092731d447e7480a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 4083968496264651096}
+    - target: {fileID: 5549032562754816881, guid: 0310c31cf8a2d3b4092731d447e7480a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5549032562754816881, guid: 0310c31cf8a2d3b4092731d447e7480a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: CreateButtonSound
       objectReference: {fileID: 0}
     - target: {fileID: 5549032562754816881, guid: 0310c31cf8a2d3b4092731d447e7480a, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: PersistentCanvas, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 5549032562754816881, guid: 0310c31cf8a2d3b4092731d447e7480a, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5549032562754816881, guid: 0310c31cf8a2d3b4092731d447e7480a, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 5867082329336322324, guid: 0310c31cf8a2d3b4092731d447e7480a, type: 3}
@@ -9748,7 +9748,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 387693158490902494, guid: 1d20f0d063cf9e742ae68c3e4183ac06, type: 3}
       propertyPath: m_fontSize
-      value: 13.4
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 387693158490902494, guid: 1d20f0d063cf9e742ae68c3e4183ac06, type: 3}
       propertyPath: m_sharedMaterial
@@ -15647,8 +15647,8 @@ MonoBehaviour:
   removeAdsPopUp: {fileID: 263027239}
   deleteButton: {fileID: 151927472}
   debugButton: {fileID: 2000060147}
-  showDeleteButton: 0
-  showDebugButton: 0
+  showDeleteButton: 1
+  showDebugButton: 1
 --- !u!1001 &1758966957
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16055,7 +16055,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 387693158490902494, guid: 1d20f0d063cf9e742ae68c3e4183ac06, type: 3}
       propertyPath: m_fontSize
-      value: 13.4
+      value: 12.8
       objectReference: {fileID: 0}
     - target: {fileID: 387693158490902494, guid: 1d20f0d063cf9e742ae68c3e4183ac06, type: 3}
       propertyPath: m_sharedMaterial
@@ -19529,7 +19529,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 387693158490902494, guid: 1d20f0d063cf9e742ae68c3e4183ac06, type: 3}
       propertyPath: m_fontSize
-      value: 13.4
+      value: 12.8
       objectReference: {fileID: 0}
     - target: {fileID: 387693158490902494, guid: 1d20f0d063cf9e742ae68c3e4183ac06, type: 3}
       propertyPath: m_sharedMaterial

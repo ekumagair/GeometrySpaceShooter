@@ -17,6 +17,16 @@ public class IAPDisplayController : MonoBehaviour
     [Header("IAP Type")]
     public PurchaseManager.IAPType type;
 
+    void Start()
+    {
+        PurchaseManager.instance.ON_PURCHASE_CONFIRMED += Display;
+    }
+
+    void OnDestroy()
+    {
+        PurchaseManager.instance.ON_PURCHASE_CONFIRMED -= Display;
+    }
+
     public void OnEnable()
     {
 #if !DISABLE_IAP
@@ -47,26 +57,32 @@ public class IAPDisplayController : MonoBehaviour
     public void Display()
     {
 #if !DISABLE_IAP
-        if (PurchaseManager.productCollection != null && PurchaseManager.fetchedProducts != false && PurchaseManager.instance != null)
+        if (PurchaseManager.fetchedProducts && PurchaseManager.fetchedPurchases)
         {
-            if (PurchaseManager.instance.GetProductFromType(type).hasReceipt == true)
+            if (type == PurchaseManager.IAPType.RemoveAds)
             {
-                PurchaseAlreadyMade();
-            }
-            else
-            {
-                PurchaseAvailable();
+                if (PurchaseManager.entitlementRemoveAds.Status != EntitlementStatus.NotEntitled)
+                {
+                    PurchaseAlreadyMade();
+                }
+                else
+                {
+                    PurchaseAvailable();
+                }
             }
         }
         else
         {
-            if (type == PurchaseManager.IAPType.RemoveAds && PurchaseManager.removedAdsOnce == true)
+            if (type == PurchaseManager.IAPType.RemoveAds)
             {
-                PurchaseAlreadyMade();
-            }
-            else
-            {
-                PurchaseAvailable();
+                if (PurchaseManager.removedAdsOnce == true)
+                {
+                    PurchaseAlreadyMade();
+                }
+                else
+                {
+                    PurchaseAvailable();
+                }
             }
         }
 #else

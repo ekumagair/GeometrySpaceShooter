@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 #if !DISABLE_IAP
@@ -13,12 +16,16 @@ public class PurchaseManager : MonoBehaviour
         RemoveAds
     }
 
+    public static string storeName = null;
+
 #if !DISABLE_IAP
-    public static ProductCollection productCollection;
+    public static List<Product> productCollection;
+    public static StoreController storeController;
 #endif
 
     public static PurchaseManager instance;
     public static bool fetchedProducts = false;
+    public static bool fetchedPurchases = false;
 
     // Flags for non-consumables.
     public static bool removedAds = false;
@@ -27,19 +34,31 @@ public class PurchaseManager : MonoBehaviour
 #if !DISABLE_IAP
     // Individual products as variables.
     public static Product productRemoveAds;
+    public static Entitlement entitlementRemoveAds;
 #endif
 
     // Product IDs as strings.
     public const string PRODUCT_REMOVEADS_ID = "com.geometryspaceshooter.removeads";
 
-    private void Awake()
-    {
+    // Actions.
+    public Action<Product> ON_PRODUCT_FULFILLED;
+    public Action ON_PURCHASE_CONFIRMED;
+    public Action ON_PURCHASE_FAILED;
+
 #if !DISABLE_IAP
+    void Awake()
+    {
         instance = this;
 
-        StandardPurchasingModule.Instance().useFakeStoreAlways = _testMode;
+#if DEVELOPMENT_BUILD || UNITY_EDITOR
+        _testMode = true;
 #endif
+
+        storeName = _testMode ? "fake" : null;
+
+        InitializeIAP();
     }
+#endif
 
     public void RemoveAds()
     {
@@ -85,32 +104,79 @@ public class PurchaseManager : MonoBehaviour
 
     public bool UsingFakeStore()
     {
-#if UNITY_EDITOR || DISABLE_IAP
+#if DISABLE_IAP || UNITY_EDITOR
         return true;
 #else
-        return StandardPurchasingModule.Instance().useFakeStoreAlways;
+        return storeName == "fake";
 #endif
     }
 
-
-    public void OnProductsFetched(UnityEngine.Purchasing.ProductCollection collection)
-    {
 #if !DISABLE_IAP
-        foreach (Product product in collection.all)
+    private async void InitializeIAP()
+    {
+        storeController = UnityIAPServices.StoreController(storeName);
+
+        storeController.OnStoreDisconnected += OnStoreDisconnected;
+        storeController.OnProductsFetchFailed += OnProductsFetchFailed;
+        storeController.OnPurchasesFetchFailed += OnPurchasesFetchFailed;
+        storeController.OnPurchaseConfirmed += OnPurchaseConfirmed;
+        storeController.OnPurchaseFailed += OnPurchaseFailed;
+        storeController.OnPurchaseDeferred += OnPurchaseDeferred;
+
+        storeController.OnPurchasePending += OnPurchasePending;
+
+        await storeController.Connect();
+
+        storeController.OnProductsFetched += OnProductsFetched;
+        storeController.OnPurchasesFetched += OnPurchasesFetched;
+
+        var initialProductsToFetch = new List<ProductDefinition>
+        {
+            new(PRODUCT_REMOVEADS_ID, ProductType.NonConsumable),
+        };
+
+        storeController.FetchProducts(initialProductsToFetch);
+
+        if (UsingFakeStore())
+        {
+            fetchedPurchases = true;
+            if (Debug.isDebugBuild) { Debug.LogWarning("Fake store. Forcing fetchedPurchases = true;"); }
+        }
+
+        while (!fetchedProducts || !fetchedPurchases)
+        {
+            await Task.Yield();
+        }
+
+        storeController.OnCheckEntitlement += OnCheckEntitlement;
+        CheckAllEntitlements();
+
+        if (Debug.isDebugBuild) { Debug.Log("Initialized IAP"); }
+    }
+
+    private void OnStoreDisconnected(StoreConnectionFailureDescription desc)
+    {
+        if (Debug.isDebugBuild) { Debug.Log("Store disconnected! " + desc.message); }
+    }
+
+    private void OnPurchasePending(PendingOrder order)
+    {
+        foreach (CartItem cItem in order.CartOrdered.Items())
+        {
+            FulfillProduct(cItem.Product, true);
+        }
+
+        storeController.ConfirmPurchase(order);
+    }
+
+    private void OnProductsFetched(List<Product> collection)
+    {
+        foreach (Product product in collection)
         {
             if (product != null)
             {
                 if (product.definition.id == PRODUCT_REMOVEADS_ID)
                 {
-                    if (product.hasReceipt == true)
-                    {
-                        RemoveAds();
-                    }
-                    else
-                    {
-                        EnableAds();
-                    }
-
                     productRemoveAds = product;
                 }
             }
@@ -118,14 +184,100 @@ public class PurchaseManager : MonoBehaviour
 
         productCollection = collection;
         fetchedProducts = true;
-#endif
     }
 
+    private void OnProductsFetchFailed(ProductFetchFailed fail)
+    {
+        if (Debug.isDebugBuild) { Debug.Log("Purchases fetch failed! " + fail.FailureReason); }
+    }
 
-#if !DISABLE_IAP
+    private void OnPurchasesFetched(Orders orders)
+    {
+        if (Debug.isDebugBuild) { Debug.Log("Purchases fetch success!"); }
+
+        fetchedPurchases = true;
+    }
+
+    private void OnPurchasesFetchFailed(PurchasesFetchFailureDescription desc)
+    {
+        if (Debug.isDebugBuild) { Debug.Log("Purchases fetch failed! " + desc.message); }
+    }
+
+    private void CheckAllEntitlements()
+    {
+        storeController.CheckEntitlement(productRemoveAds);
+    }
+
+    private void OnCheckEntitlement(Entitlement entitlement)
+    {
+        string id = entitlement.Product.definition.id;
+
+        switch (id)
+        {
+            case PRODUCT_REMOVEADS_ID:
+                entitlementRemoveAds = entitlement;
+                break;
+
+            default:
+                if (Debug.isDebugBuild) { Debug.LogError("Checked entitlement of an invalid product!"); }
+                break;
+        }
+
+        FulfillProduct(entitlement.Product, entitlement.Status != EntitlementStatus.NotEntitled);
+    }
+
+    public void FulfillProduct(Product product, bool entitled)
+    {
+        string id = product.definition.id;
+
+        switch (id)
+        {
+            case PRODUCT_REMOVEADS_ID:
+                if (entitled)
+                {
+                    RemoveAds();
+                }
+                else
+                {
+                    EnableAds();
+                }
+                break;
+
+            default:
+                if (Debug.isDebugBuild) { Debug.LogError("Tried to fulfill invalid product!"); }
+                break;
+        }
+
+        ON_PRODUCT_FULFILLED?.Invoke(product);
+    }
+
+    private void OnPurchaseConfirmed(Order order)
+    {
+        if (Debug.isDebugBuild) { Debug.Log("Purchase confirmed!"); }
+
+        CheckAllEntitlements();
+        ON_PURCHASE_CONFIRMED?.Invoke();
+
+        ReportEntitlements();
+    }
+
+    private void OnPurchaseFailed(FailedOrder failedOrder)
+    {
+        if (Debug.isDebugBuild) { Debug.Log("Purchase failed!"); }
+
+        ON_PURCHASE_FAILED?.Invoke();
+
+        ReportEntitlements();
+    }
+
+    private void OnPurchaseDeferred(DeferredOrder deferredOrder)
+    {
+        if (Debug.isDebugBuild) { Debug.Log("Purchase deferred!"); }
+    }
+#endif
+
     public Product GetProductFromType(IAPType type)
     {
-
         switch (type)
         {
             case IAPType.RemoveAds:
@@ -135,5 +287,11 @@ public class PurchaseManager : MonoBehaviour
                 return null;
         }
     }
+
+    public void ReportEntitlements()
+    {
+#if DEVELOPMENT_BUILD || UNITY_EDITOR
+        Debug.Log("RemoveAds entitlement: " + entitlementRemoveAds.Status.ToString());
 #endif
+    }
 }

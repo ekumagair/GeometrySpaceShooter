@@ -23,6 +23,10 @@ public class AdsInitializer : MonoBehaviour
 #if !DISABLE_ADS
     void Awake()
     {
+#if DEVELOPMENT_BUILD || UNITY_EDITOR
+        _testMode = true;
+#endif
+
         InitializeAds();
     }
 
