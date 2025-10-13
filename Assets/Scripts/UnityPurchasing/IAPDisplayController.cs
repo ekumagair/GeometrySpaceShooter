@@ -19,12 +19,16 @@ public class IAPDisplayController : MonoBehaviour
 
     void Start()
     {
+#if !DISABLE_IAP
         PurchaseManager.instance.ON_PURCHASE_CONFIRMED += Display;
+#endif
     }
 
     void OnDestroy()
     {
+#if !DISABLE_IAP
         PurchaseManager.instance.ON_PURCHASE_CONFIRMED -= Display;
+#endif
     }
 
     public void OnEnable()

@@ -85,15 +85,15 @@ public class IAPButtonComplement : MonoBehaviour
 
     public void OnClick()
     {
+#if !DISABLE_IAP
         PurchaseManager.storeController.PurchaseProduct(PurchaseManager.instance.GetProductFromType(type));
+#endif
     }
 
+#if !DISABLE_IAP
     private void PurchaseComplete(Product product)
     {
-#if !DISABLE_IAP
         displayController.Display();
-#endif
-
         OnPurchaseEnd?.Invoke();
     }
 
@@ -101,4 +101,5 @@ public class IAPButtonComplement : MonoBehaviour
     {
         PurchaseComplete(null);
     }
+#endif
 }

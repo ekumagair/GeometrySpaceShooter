@@ -41,9 +41,11 @@ public class PurchaseManager : MonoBehaviour
     public const string PRODUCT_REMOVEADS_ID = "com.geometryspaceshooter.removeads";
 
     // Actions.
+#if !DISABLE_IAP
     public Action<Product> ON_PRODUCT_FULFILLED;
     public Action ON_PURCHASE_CONFIRMED;
     public Action ON_PURCHASE_FAILED;
+#endif
 
 #if !DISABLE_IAP
     void Awake()
@@ -274,7 +276,6 @@ public class PurchaseManager : MonoBehaviour
     {
         if (Debug.isDebugBuild) { Debug.Log("Purchase deferred!"); }
     }
-#endif
 
     public Product GetProductFromType(IAPType type)
     {
@@ -287,10 +288,11 @@ public class PurchaseManager : MonoBehaviour
                 return null;
         }
     }
+#endif
 
     public void ReportEntitlements()
     {
-#if DEVELOPMENT_BUILD || UNITY_EDITOR
+#if !DISABLE_IAP && (DEVELOPMENT_BUILD || UNITY_EDITOR)
         Debug.Log("RemoveAds entitlement: " + entitlementRemoveAds.Status.ToString());
 #endif
     }
