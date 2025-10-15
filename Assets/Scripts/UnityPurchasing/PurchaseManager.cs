@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Unity.Services.Core;
+using Unity.Services.Core.Environments;
 using UnityEngine;
 
 #if !DISABLE_IAP
@@ -17,6 +19,7 @@ public class PurchaseManager : MonoBehaviour
     }
 
     public static string storeName = null;
+    public static string environment = "editor";
 
 #if !DISABLE_IAP
     public static List<Product> productCollection;
@@ -57,6 +60,7 @@ public class PurchaseManager : MonoBehaviour
 #endif
 
         storeName = _testMode ? "fake" : null;
+        environment = _testMode ? "editor" : "production";
 
         InitializeIAP();
     }
@@ -116,6 +120,15 @@ public class PurchaseManager : MonoBehaviour
 #if !DISABLE_IAP
     private async void InitializeIAP()
     {
+        if (Debug.isDebugBuild) { Debug.Log("Initialized IAP [start]"); }
+
+        await Task.Delay(1000);
+
+        var options = new InitializationOptions().SetEnvironmentName(environment);
+        await UnityServices.InitializeAsync(options);
+
+        if (Debug.isDebugBuild) { Debug.Log("Unity services initialized!"); }
+
         storeController = UnityIAPServices.StoreController(storeName);
 
         storeController.OnStoreDisconnected += OnStoreDisconnected;
@@ -138,12 +151,7 @@ public class PurchaseManager : MonoBehaviour
         };
 
         storeController.FetchProducts(initialProductsToFetch);
-
-        if (UsingFakeStore())
-        {
-            fetchedPurchases = true;
-            if (Debug.isDebugBuild) { Debug.LogWarning("Fake store. Forcing fetchedPurchases = true;"); }
-        }
+        storeController.FetchPurchases();
 
         while (!fetchedProducts || !fetchedPurchases)
         {
@@ -153,12 +161,12 @@ public class PurchaseManager : MonoBehaviour
         storeController.OnCheckEntitlement += OnCheckEntitlement;
         CheckAllEntitlements();
 
-        if (Debug.isDebugBuild) { Debug.Log("Initialized IAP"); }
+        if (Debug.isDebugBuild) { Debug.Log("Initialized IAP [end]"); }
     }
 
     private void OnStoreDisconnected(StoreConnectionFailureDescription desc)
     {
-        if (Debug.isDebugBuild) { Debug.Log("Store disconnected! " + desc.message); }
+        if (Debug.isDebugBuild) { Debug.Log("Store disconnected. " + desc.message); }
     }
 
     private void OnPurchasePending(PendingOrder order)
@@ -190,19 +198,23 @@ public class PurchaseManager : MonoBehaviour
 
     private void OnProductsFetchFailed(ProductFetchFailed fail)
     {
-        if (Debug.isDebugBuild) { Debug.Log("Purchases fetch failed! " + fail.FailureReason); }
+        if (Debug.isDebugBuild) { Debug.Log("Purchases fetch failed. " + fail.FailureReason); }
+
+        fetchedProducts = true;
     }
 
     private void OnPurchasesFetched(Orders orders)
     {
-        if (Debug.isDebugBuild) { Debug.Log("Purchases fetch success!"); }
+        if (Debug.isDebugBuild) { Debug.Log("Purchases fetch success! Confirmed orders: " + orders.ConfirmedOrders.Count.ToString()); }
 
         fetchedPurchases = true;
     }
 
     private void OnPurchasesFetchFailed(PurchasesFetchFailureDescription desc)
     {
-        if (Debug.isDebugBuild) { Debug.Log("Purchases fetch failed! " + desc.message); }
+        if (Debug.isDebugBuild) { Debug.Log("Purchases fetch failed. " + desc.message); }
+
+        fetchedPurchases = true;
     }
 
     private void CheckAllEntitlements()
@@ -221,7 +233,7 @@ public class PurchaseManager : MonoBehaviour
                 break;
 
             default:
-                if (Debug.isDebugBuild) { Debug.LogError("Checked entitlement of an invalid product!"); }
+                if (Debug.isDebugBuild) { Debug.LogError("Checked entitlement of an invalid product."); }
                 break;
         }
 
@@ -246,7 +258,7 @@ public class PurchaseManager : MonoBehaviour
                 break;
 
             default:
-                if (Debug.isDebugBuild) { Debug.LogError("Tried to fulfill invalid product!"); }
+                if (Debug.isDebugBuild) { Debug.LogError("Tried to fulfill invalid product."); }
                 break;
         }
 
@@ -265,7 +277,7 @@ public class PurchaseManager : MonoBehaviour
 
     private void OnPurchaseFailed(FailedOrder failedOrder)
     {
-        if (Debug.isDebugBuild) { Debug.Log("Purchase failed!"); }
+        if (Debug.isDebugBuild) { Debug.Log("Purchase failed."); }
 
         ON_PURCHASE_FAILED?.Invoke();
 
@@ -274,7 +286,7 @@ public class PurchaseManager : MonoBehaviour
 
     private void OnPurchaseDeferred(DeferredOrder deferredOrder)
     {
-        if (Debug.isDebugBuild) { Debug.Log("Purchase deferred!"); }
+        if (Debug.isDebugBuild) { Debug.Log("Purchase deferred."); }
     }
 
     public Product GetProductFromType(IAPType type)

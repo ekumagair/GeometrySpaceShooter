@@ -23,8 +23,7 @@ public class OptionsScreen : MonoBehaviour
     [Header("Testing")]
     public GameObject deleteButton;
     public GameObject debugButton;
-    public bool showDeleteButton;
-    public bool showDebugButton;
+    public bool showDebugButtons;
 
     void Start()
     {
@@ -46,7 +45,10 @@ public class OptionsScreen : MonoBehaviour
     void Update()
     {
         SetText();
+
+#if !UNITY_EDITOR
         SetTestButtons();
+#endif
     }
 
     private void OnEnable()
@@ -82,6 +84,7 @@ public class OptionsScreen : MonoBehaviour
         {
             Options.projectileTrails = 0;
         }
+
         GameStats.SaveStats();
     }
 
@@ -95,6 +98,7 @@ public class OptionsScreen : MonoBehaviour
         {
             Options.projectileImpacts = 0;
         }
+
         GameStats.SaveStats();
     }
 
@@ -121,13 +125,7 @@ public class OptionsScreen : MonoBehaviour
 
     private void SetTestButtons()
     {
-        if (!Debug.isDebugBuild)
-        {
-            showDebugButton = false;
-            showDeleteButton = false;
-        }
-
-        deleteButton.gameObject.SetActive(showDeleteButton);
-        debugButton.gameObject.SetActive(showDebugButton);
+        deleteButton.gameObject.SetActive(showDebugButtons);
+        debugButton.gameObject.SetActive(showDebugButtons);
     }
 }

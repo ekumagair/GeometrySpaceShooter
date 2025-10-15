@@ -77,6 +77,9 @@ public class IAPDisplayController : MonoBehaviour
         }
         else
         {
+            ShowPlaceholder();
+
+            /*
             if (type == PurchaseManager.IAPType.RemoveAds)
             {
                 if (PurchaseManager.removedAdsOnce == true)
@@ -87,24 +90,31 @@ public class IAPDisplayController : MonoBehaviour
                 {
                     PurchaseAvailable();
                 }
-            }
+            }*/
         }
 #else
         gameObject.SetActive(false);
 #endif
-
-        placeholderObject.SetActive(false);
     }
 
     private void PurchaseAvailable()
     {
         availableObject.SetActive(true);
         boughtObject.SetActive(false);
+        placeholderObject.SetActive(false);
     }
 
     private void PurchaseAlreadyMade()
     {
         availableObject.SetActive(false);
         boughtObject.SetActive(true);
+        placeholderObject.SetActive(false);
+    }
+
+    private void ShowPlaceholder()
+    {
+        availableObject.SetActive(false);
+        boughtObject.SetActive(false);
+        placeholderObject.SetActive(true);
     }
 }

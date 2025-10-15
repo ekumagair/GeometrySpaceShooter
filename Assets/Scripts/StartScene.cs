@@ -468,15 +468,17 @@ public class StartScene : MonoBehaviour
             "\nEnable ad btns: " + GameStats.enableAdButttons.ToString() + "; " +
 #if !DISABLE_ADS
             "\nAd is init: " + Advertisement.isInitialized.ToString() + "; " +
-#endif
             "\nAd init failed: " + AdsInitializer.failed.ToString() + "; " +
             "\nAd init testing: " + AdsInitializer.instance.IsTesting() + "; " +
             "\nAd reward errors: " + AdRewardedManager.instance.HasAnyError().ToString() + "; " +
-            "\nFake store: " + PurchaseManager.instance.UsingFakeStore() + "; " +
+#endif
+#if !DISABLE_ADS && !DISABLE_IAP
             "\nRemoved ads: " + PurchaseManager.removedAds + "; " +
             "\nRemoved ads once: " + PurchaseManager.removedAdsOnce + "; " +
             "\nRemoved ads func: " + PurchaseManager.instance.HasRemovedAds() + "; " +
+#endif
 #if !DISABLE_IAP
+            "\nFake store: " + PurchaseManager.instance.UsingFakeStore() + "; " +
             "\nIAP fetched products: " + PurchaseManager.fetchedProducts.ToString() + "; " +
             "\nIAP fetched purchases: " + PurchaseManager.fetchedPurchases.ToString() + "; " +
             "\nIAP removeAds entitlement: " + ((int)PurchaseManager.entitlementRemoveAds.Status).ToString() + "; " +

@@ -17,7 +17,7 @@ public class BottomGlow : MonoBehaviour
     {
         _spriteRenderer.color = new Color(_spriteRenderer.color.r, _spriteRenderer.color.g, _spriteRenderer.color.b, _alpha);
 
-        if(_touchingEnemy && _alpha < 1)
+        if (_touchingEnemy && _alpha < 1)
         {
             _alpha += Time.deltaTime;
         }
@@ -29,7 +29,7 @@ public class BottomGlow : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Enemy"))
+        if (collision.CompareTag("Enemy"))
         {
             _touchingEnemy = true;
         }

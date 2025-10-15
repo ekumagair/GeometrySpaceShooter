@@ -93,19 +93,19 @@ public class PopUp : MonoBehaviour
 
     private IEnumerator OverrideDescriptionTextDelay(string text)
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.2f);
 
         textDescription.text = text;
     }
 
     public void AppendDescriptionText(string text)
     {
-        StartCoroutine (AppendDescriptionTextDelay(text));
+        StartCoroutine(AppendDescriptionTextDelay(text));
     }
 
     private IEnumerator AppendDescriptionTextDelay(string text)
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.2f);
 
         textDescription.text += text;
     }

@@ -9748,7 +9748,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 387693158490902494, guid: 1d20f0d063cf9e742ae68c3e4183ac06, type: 3}
       propertyPath: m_fontSize
-      value: 14
+      value: 12.8
       objectReference: {fileID: 0}
     - target: {fileID: 387693158490902494, guid: 1d20f0d063cf9e742ae68c3e4183ac06, type: 3}
       propertyPath: m_sharedMaterial
@@ -12104,7 +12104,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 387693158490902494, guid: 1d20f0d063cf9e742ae68c3e4183ac06, type: 3}
       propertyPath: m_fontSize
-      value: 14
+      value: 13.4
       objectReference: {fileID: 0}
     - target: {fileID: 387693158490902494, guid: 1d20f0d063cf9e742ae68c3e4183ac06, type: 3}
       propertyPath: m_sharedMaterial
@@ -13172,7 +13172,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 387693158490902494, guid: 1d20f0d063cf9e742ae68c3e4183ac06, type: 3}
       propertyPath: m_fontSize
-      value: 14
+      value: 10.95
       objectReference: {fileID: 0}
     - target: {fileID: 387693158490902494, guid: 1d20f0d063cf9e742ae68c3e4183ac06, type: 3}
       propertyPath: m_sharedMaterial
@@ -15647,8 +15647,7 @@ MonoBehaviour:
   removeAdsPopUp: {fileID: 263027239}
   deleteButton: {fileID: 151927472}
   debugButton: {fileID: 2000060147}
-  showDeleteButton: 1
-  showDebugButton: 1
+  showDebugButtons: 0
 --- !u!1001 &1758966957
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16055,7 +16054,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 387693158490902494, guid: 1d20f0d063cf9e742ae68c3e4183ac06, type: 3}
       propertyPath: m_fontSize
-      value: 12.8
+      value: 13.8
       objectReference: {fileID: 0}
     - target: {fileID: 387693158490902494, guid: 1d20f0d063cf9e742ae68c3e4183ac06, type: 3}
       propertyPath: m_sharedMaterial
@@ -17673,7 +17672,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 387693158490902494, guid: 1d20f0d063cf9e742ae68c3e4183ac06, type: 3}
       propertyPath: m_fontSize
-      value: 14
+      value: 13.4
       objectReference: {fileID: 0}
     - target: {fileID: 387693158490902494, guid: 1d20f0d063cf9e742ae68c3e4183ac06, type: 3}
       propertyPath: m_sharedMaterial
@@ -19529,7 +19528,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 387693158490902494, guid: 1d20f0d063cf9e742ae68c3e4183ac06, type: 3}
       propertyPath: m_fontSize
-      value: 12.8
+      value: 10.75
       objectReference: {fileID: 0}
     - target: {fileID: 387693158490902494, guid: 1d20f0d063cf9e742ae68c3e4183ac06, type: 3}
       propertyPath: m_sharedMaterial
@@ -20922,7 +20921,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3680202026452357779, guid: 360946aa1d885dc43907df91c580a62c, type: 3}
       propertyPath: m_Value
-      value: 1
+      value: 1.0000037
       objectReference: {fileID: 0}
     - target: {fileID: 3981903725028412181, guid: 360946aa1d885dc43907df91c580a62c, type: 3}
       propertyPath: m_AnchorMax.x
@@ -20950,7 +20949,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5141653304244907427, guid: 360946aa1d885dc43907df91c580a62c, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -0.0000016390302
       objectReference: {fileID: 0}
     - target: {fileID: 7199903214884243035, guid: 360946aa1d885dc43907df91c580a62c, type: 3}
       propertyPath: m_Pivot.x
