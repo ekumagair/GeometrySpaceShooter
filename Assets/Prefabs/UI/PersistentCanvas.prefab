@@ -32,11 +32,10 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4083968495855275551}
-  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 40, y: -70}
+  m_AnchoredPosition: {x: 40, y: -80}
   m_SizeDelta: {x: 170, y: 30}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &3045123578396488242
@@ -185,7 +184,6 @@ RectTransform:
   - {fileID: 4083968497512789292}
   - {fileID: 8547929504104199736}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -209,7 +207,9 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
+  m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 11
   m_TargetDisplay: 0
@@ -266,6 +266,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pointsNumber: {fileID: 4083968496704870538}
+  levelText: {fileID: 0}
+  numberChangeEffect: {fileID: 512185723668498091, guid: 0ec4ecad28cbd354b99a81f2655c0ed0, type: 3}
+  fadeOutOverlay: {fileID: 602005384435668080, guid: ba6220b2b5e05f048b00bf387a9197e5, type: 3}
   soundButton:
   - {fileID: 4803644159576522076, guid: 0f8f1ebc80d3ac9488fd3407a711dad6, type: 3}
   - {fileID: 4803644159576522076, guid: 44f0d2c98af3aa444b66fa04c5d96808, type: 3}
@@ -273,9 +276,6 @@ MonoBehaviour:
   - {fileID: 4803644159576522076, guid: e5a86305e69de8c4aa15812405c3ae7c, type: 3}
   - {fileID: 4803644159576522076, guid: b6400b7de57d7744ca7d4ef30dd9c049, type: 3}
   - {fileID: 4803644159576522076, guid: dee1ace29b0e50a4f8362a6cc729b631, type: 3}
-  numberChangeEffect: {fileID: 512185723668498091, guid: 0ec4ecad28cbd354b99a81f2655c0ed0, type: 3}
-  fadeOutOverlay: {fileID: 602005384435668080, guid: ba6220b2b5e05f048b00bf387a9197e5, type: 3}
-  levelText: {fileID: 0}
 --- !u!114 &3290675473484974860
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -319,11 +319,10 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4083968495855275551}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 40, y: -7}
+  m_AnchoredPosition: {x: 40, y: -17}
   m_SizeDelta: {x: 170, y: 30}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &4083968496704870537
@@ -428,6 +427,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 4083968495855275551}
     m_Modifications:
     - target: {fileID: 8962063054769379710, guid: 5bcffdfbe5f5cca4cbedd743ca4b189f, type: 3}
@@ -500,7 +500,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8962063054769379710, guid: 5bcffdfbe5f5cca4cbedd743ca4b189f, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -20
+      value: -30
       objectReference: {fileID: 0}
     - target: {fileID: 8962063054769379710, guid: 5bcffdfbe5f5cca4cbedd743ca4b189f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -519,6 +519,9 @@ PrefabInstance:
       value: StarIcon
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5bcffdfbe5f5cca4cbedd743ca4b189f, type: 3}
 --- !u!224 &4083968497512789292 stripped
 RectTransform:

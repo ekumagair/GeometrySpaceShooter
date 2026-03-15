@@ -11,9 +11,12 @@ public class LoadingScreen : MonoBehaviour
         Start,
         Game
     }
-    public static Scenes sceneToLoad = Scenes.Start;
 
+    public static Scenes sceneToLoad = Scenes.Start;
     public static bool calledLoadScreen = false;
+    public static bool hideLoadingAnimation = false;
+
+    public RectTransform loadingAnimation;
 
     void Awake()
     {
@@ -22,6 +25,12 @@ public class LoadingScreen : MonoBehaviour
 
     void Start()
     {
+        if (loadingAnimation != null)
+        {
+            loadingAnimation.gameObject.SetActive(!hideLoadingAnimation);
+            hideLoadingAnimation = false;
+        }
+
         StartCoroutine(StartLoad());
     }
 
@@ -76,9 +85,10 @@ public class LoadingScreen : MonoBehaviour
         }
     }
 
-    public static void CallLoadScreen(Scenes goToScene)
+    public static void CallLoadScreen(Scenes goToScene, bool hideLoadAnim = false)
     {
         calledLoadScreen = true;
+        hideLoadingAnimation = hideLoadAnim;
         sceneToLoad = goToScene;
         SceneManager.LoadScene("Loading");
     }

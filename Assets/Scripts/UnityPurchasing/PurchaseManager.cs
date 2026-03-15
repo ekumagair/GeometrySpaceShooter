@@ -11,7 +11,7 @@ using UnityEngine.Purchasing;
 
 public class PurchaseManager : MonoBehaviour
 {
-    [SerializeField] bool _testMode = true; // Use fake ads for tests. Only use real ads for the final build.
+    [SerializeField] bool _testMode; // Use fake ads for tests. Only use real ads for the final build.
 
     public enum IAPType
     {

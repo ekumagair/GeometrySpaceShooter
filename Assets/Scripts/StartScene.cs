@@ -77,11 +77,6 @@ public class StartScene : MonoBehaviour
     {
         Time.timeScale = 1.0f;
         reference = this;
-        Analytics.initializeOnStartup = false;
-        Analytics.enabled = false;
-        PerformanceReporting.enabled = false;
-        Analytics.limitUserTracking = true;
-        Analytics.deviceStatsEnabled = false;
 
         // Awake coroutine.
         if (GameStats.initializedGame == false)

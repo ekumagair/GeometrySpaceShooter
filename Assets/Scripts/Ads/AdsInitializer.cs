@@ -14,7 +14,7 @@ public class AdsInitializer : MonoBehaviour
 {
     [SerializeField] string _androidGameId;
     [SerializeField] string _iOSGameId;
-    [SerializeField] bool _testMode = true; // Use fake ads for tests. Only use real ads for the final build.
+    [SerializeField] bool _testMode; // Use fake ads for tests. Only use real ads for the final build.
     private string _gameId;
 
     public static bool failed = false;
@@ -27,7 +27,31 @@ public class AdsInitializer : MonoBehaviour
         _testMode = true;
 #endif
 
+        SetMetaData();
         InitializeAds();
+    }
+
+    private void SetMetaData()
+    {
+        if (!Init.IsPlayerAdult)
+        {
+            // Disable targeted ads if the player is not an adult.
+
+            // COPPA
+            MetaData userMeta = new MetaData("user");
+            userMeta.Set("nonbehavioral", "true");
+            Advertisement.SetMetaData(userMeta);
+
+            // GDPR/CCPA
+            MetaData privacyMeta = new MetaData("privacy");
+            privacyMeta.Set("consent", "false");
+            Advertisement.SetMetaData(privacyMeta);
+
+            // GDPR
+            MetaData gdprMeta = new MetaData("gdpr");
+            gdprMeta.Set("consent", "false");
+            Advertisement.SetMetaData(gdprMeta);
+        }
     }
 
     public void InitializeAds()
