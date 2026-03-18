@@ -62,7 +62,7 @@ public class AgeSignalsPlugin {
 						message
 					);
 					
-					UnityPlayer.UnitySendMessage(unityGameObject, "OnAgeSignalsDebug", "addOnSuccessListener");
+					UnityPlayer.UnitySendMessage(unityGameObject, "OnAgeSignalsDebug", "[addOnSuccessListener]");
 				}
 			)
 			.addOnFailureListener(
@@ -74,7 +74,7 @@ public class AgeSignalsPlugin {
 						e.getMessage()
 					);
 					
-					UnityPlayer.UnitySendMessage(unityGameObject, "OnAgeSignalsDebug", "addOnFailureListener");
+					UnityPlayer.UnitySendMessage(unityGameObject, "OnAgeSignalsDebug", "[addOnFailureListener]");
 				}
 			);
 		

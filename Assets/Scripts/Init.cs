@@ -54,10 +54,10 @@ public class Init : MonoBehaviour
 
         if (testMode)
         {
-            AppendDebugText("privacySettings = " + privacySettings);
-            AppendDebugText("Player considered adult? " + IsPlayerAdult.ToString());
+            AppendDebugText("privacySettings = [" + privacySettings + "]");
+            AppendDebugText("Player considered adult? [" + IsPlayerAdult.ToString() + "]", "#7477ff");
 
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(3);
 
             for (int i = 6; i > 0; i--)
             {
@@ -75,7 +75,7 @@ public class Init : MonoBehaviour
 
     #region Debug
 
-    private void AppendDebugText(string s)
+    private void AppendDebugText(string s, string color = "#FFFFFF")
     {
         if (!testMode)
         {
@@ -86,7 +86,9 @@ public class Init : MonoBehaviour
         if (debugText.text != "")
             debugText.text += "<br>";
 
+        debugText.text += "<color=" + color + ">";
         debugText.text += s;
+        debugText.text += "</color>";
     }
 
     #endregion
@@ -118,7 +120,7 @@ public class Init : MonoBehaviour
 
     public void OnAgeSignalsDebug(string message)
     {
-        AppendDebugText("From java: " + message);
+        AppendDebugText("[From java] " + message, "#ffe7a6");
     }
 
     public void OnAgeSignalsResult(string data)
@@ -137,7 +139,7 @@ public class Init : MonoBehaviour
         if (testMode)
         {
             Debug.LogError("Age Signals failed: " + error);
-            AppendDebugText("Age Signals failed: " + error);
+            AppendDebugText("Age Signals failed: " + error, "#ff2929");
         }
     }
 
@@ -173,7 +175,10 @@ public class Init : MonoBehaviour
         if (testMode)
         {
             Debug.Log("Age Signals success: " + data);
-            AppendDebugText("Age Signals success: " + data);
+            AppendDebugText("Status: [" + status + "]", "#bfbfbf");
+            AppendDebugText("Age lower: [" + ageLower.ToString() + "]", "#bfbfbf");
+            AppendDebugText("Age upper: [" + ageUpper.ToString() + "]", "#bfbfbf");
+            AppendDebugText("Age Signals success: [" + data + "]", "#29ff34");
         }
     }
 
