@@ -102,7 +102,7 @@ public class Init : MonoBehaviour
             AppendDebugText("Request age signals [start].");
         }
 
-#if UNITY_ANDROID && !UNITY_EDITOR
+#if UNITY_ANDROID && !UNITY_EDITOR && !DISABLE_JAVA
         using (AndroidJavaClass plugin = new AndroidJavaClass("com.EduardoKumagai.GeometrySpaceShooter.agesignals.AgeSignalsPlugin"))
         {
             plugin.CallStatic("CheckAgeSignals", gameObject.name);
@@ -174,11 +174,16 @@ public class Init : MonoBehaviour
 
         if (testMode)
         {
-            Debug.Log("Age Signals success: " + data);
             AppendDebugText("Status: [" + status + "]", "#bfbfbf");
             AppendDebugText("Age lower: [" + ageLower.ToString() + "]", "#bfbfbf");
             AppendDebugText("Age upper: [" + ageUpper.ToString() + "]", "#bfbfbf");
+
+#if !UNITY_EDITOR && !DISABLE_JAVA
+            Debug.Log("Age Signals success: " + data);
             AppendDebugText("Age Signals success: [" + data + "]", "#29ff34");
+#else
+            AppendDebugText("Age Signals not used: [" + data + "]", "#29ff34");
+#endif
         }
     }
 

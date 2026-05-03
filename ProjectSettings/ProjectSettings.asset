@@ -178,7 +178,7 @@ PlayerSettings:
     iPhone: 0
     tvOS: 0
   overrideDefaultApplicationIdentifier: 0
-  AndroidBundleVersionCode: 57
+  AndroidBundleVersionCode: 60
   AndroidMinSdkVersion: 24
   AndroidTargetSdkVersion: 35
   AndroidPreferredInstallLocation: 1
@@ -822,8 +822,8 @@ PlayerSettings:
   webGLPowerPreference: 2
   scriptingDefineSymbols:
     Android: 
-    Standalone: DISABLE_ADS;DISABLE_IAP
-    WebGL: DISABLE_ADS;DISABLE_IAP
+    Standalone: DISABLE_ADS;DISABLE_IAP;DISABLE_JAVA
+    WebGL: DISABLE_ADS;DISABLE_IAP;DISABLE_JAVA
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:

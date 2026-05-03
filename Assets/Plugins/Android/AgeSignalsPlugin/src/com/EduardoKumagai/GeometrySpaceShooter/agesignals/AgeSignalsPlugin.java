@@ -46,7 +46,14 @@ public class AgeSignalsPlugin {
             .addOnSuccessListener(
 				ageSignalsResult -> {
 
-					String status = ageSignalsResult.userStatus().toString();
+					String status;
+					
+					if (ageSignalsResult.userStatus() != null) {
+						status = ageSignalsResult.userStatus().toString();
+					}
+					else {
+						status = "NULL";
+					}
 
 					Integer lowerObj = ageSignalsResult.ageLower();
 					int lowerAge = lowerObj != null ? lowerObj : -1;
