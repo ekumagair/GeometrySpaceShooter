@@ -42,7 +42,6 @@ public class AdBannerManager : MonoBehaviour
         }
         yield return null;
 
-
         // Load banner.
         LoadBanner();
 #endif

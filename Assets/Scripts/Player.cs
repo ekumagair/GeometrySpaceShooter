@@ -173,7 +173,7 @@ public class Player : MonoBehaviour
         {
             Instantiate(finishLine, new Vector3(-3, 7, 0), Quaternion.Euler(0, 0, 0));
 
-            MovingObject[] bgs = FindObjectsOfType<MovingObject>();
+            MovingObject[] bgs = FindObjectsByType<MovingObject>(FindObjectsSortMode.None);
 
             foreach (MovingObject bg in bgs)
             {

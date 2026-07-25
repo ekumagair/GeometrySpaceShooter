@@ -10,7 +10,7 @@ using UnityEngine.Advertisements;
 
 public class Init : MonoBehaviour
 {
-    public static bool IsPlayerAdult { get; private set; }
+    public static bool IsPlayerAdult { get; private set; } = false;
 
     public bool testMode;
     public TMP_Text debugText;
@@ -75,7 +75,7 @@ public class Init : MonoBehaviour
 
     #region Debug
 
-    private void AppendDebugText(string s, string color = "#FFFFFF")
+    private void AppendDebugText(string s, string color = "#FFFFFF", bool error = false)
     {
         if (!testMode)
         {
@@ -89,6 +89,11 @@ public class Init : MonoBehaviour
         debugText.text += "<color=" + color + ">";
         debugText.text += s;
         debugText.text += "</color>";
+
+        if (!error)
+            Debug.Log(s);
+        else
+            Debug.LogError(s);
     }
 
     #endregion
@@ -138,15 +143,14 @@ public class Init : MonoBehaviour
 
         if (testMode)
         {
-            Debug.LogError("Age Signals failed: " + error);
-            AppendDebugText("Age Signals failed: " + error, "#ff2929");
+            AppendDebugText("Age Signals failed: " + error, "#ff2929", true);
         }
     }
 
     private void ApplyPrivacySettings(string data)
     {
         var parts = data.Split('|');
-        string status = parts[0];
+        string installId = parts[0];
         int ageLower = 0;
         int ageUpper = 0;
 
@@ -156,11 +160,7 @@ public class Init : MonoBehaviour
             int.TryParse(parts[2], out ageUpper);
         }
 
-        if (status != "VERIFIED" && status != "DECLARED")
-        {
-            RestrictedAgeSettings();
-        }
-        else if (ageLower < 18 || ageUpper < 18)
+        if (ageLower < 18 || ageUpper < 18)
         {
             RestrictedAgeSettings();
         }
@@ -174,13 +174,12 @@ public class Init : MonoBehaviour
 
         if (testMode)
         {
-            AppendDebugText("Status: [" + status + "]", "#bfbfbf");
+            AppendDebugText("Status: [" + installId + "]", "#bfbfbf");
             AppendDebugText("Age lower: [" + ageLower.ToString() + "]", "#bfbfbf");
             AppendDebugText("Age upper: [" + ageUpper.ToString() + "]", "#bfbfbf");
 
 #if !UNITY_EDITOR && !DISABLE_JAVA
-            Debug.Log("Age Signals success: " + data);
-            AppendDebugText("Age Signals success: [" + data + "]", "#29ff34");
+            AppendDebugText("Age Signals finished: [" + data + "]", "#29ff34");
 #else
             AppendDebugText("Age Signals not used: [" + data + "]", "#29ff34");
 #endif

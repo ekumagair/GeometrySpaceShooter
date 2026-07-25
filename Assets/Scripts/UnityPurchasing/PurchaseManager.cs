@@ -131,6 +131,7 @@ public class PurchaseManager : MonoBehaviour
 
         storeController = UnityIAPServices.StoreController(storeName);
 
+        storeController.OnStoreConnected += OnStoreConnected;
         storeController.OnStoreDisconnected += OnStoreDisconnected;
         storeController.OnProductsFetchFailed += OnProductsFetchFailed;
         storeController.OnPurchasesFetchFailed += OnPurchasesFetchFailed;
@@ -162,6 +163,11 @@ public class PurchaseManager : MonoBehaviour
         CheckAllEntitlements();
 
         if (Debug.isDebugBuild) { Debug.Log("Initialized IAP [end]"); }
+    }
+
+    private void OnStoreConnected()
+    {
+        if (Debug.isDebugBuild) { Debug.Log("Store connected."); }
     }
 
     private void OnStoreDisconnected(StoreConnectionFailureDescription desc)

@@ -304,8 +304,9 @@ public class LevelGenerator : MonoBehaviour
 
     public static void MoveEnemies(float y)
     {
-        Enemy[] enemies = FindObjectsOfType<Enemy>();
-        foreach(Enemy enemy in enemies)
+        Enemy[] enemies = FindObjectsByType<Enemy>(FindObjectsSortMode.None);
+
+        foreach (Enemy enemy in enemies)
         {
             if (enemy.gameObject.transform.position.y > 6 && enemy.gameObject.transform.position.y + y >= 6 && spread > 2 && enemy.canBeMovedY)
             {
@@ -335,7 +336,8 @@ public class LevelGenerator : MonoBehaviour
 
     public static void DestroyAllEnemiesAboveY(float y)
     {
-        Enemy[] enemies = FindObjectsOfType<Enemy>();
+        Enemy[] enemies = FindObjectsByType<Enemy>(FindObjectsSortMode.None);
+
         foreach (Enemy enemy in enemies)
         {
             if (enemy.transform.position.y > y)

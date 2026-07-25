@@ -90,7 +90,8 @@ public class StartScene : MonoBehaviour
         // If has saved data, load the data and the prices for each upgrade.
         if (SaveSystem.SaveExists())
         {
-            _upgrades = FindObjectsOfType<Upgrade>();
+            _upgrades = FindObjectsByType<Upgrade>(FindObjectsSortMode.None);
+
             foreach (var upgrade in _upgrades)
             {
                 int gameStatsPrice = GameStats.upgradePrice[(int)upgrade.upgradeType];

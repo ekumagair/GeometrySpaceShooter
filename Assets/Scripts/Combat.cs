@@ -60,7 +60,7 @@ public class Combat : MonoBehaviour
 
     public static void DestroyAllProjectiles()
     {
-        Projectile[] projectiles = GameObject.FindObjectsOfType<Projectile>();
+        Projectile[] projectiles = GameObject.FindObjectsByType<Projectile>(FindObjectsSortMode.None);
 
         if (projectiles.Length > 0)
         {
