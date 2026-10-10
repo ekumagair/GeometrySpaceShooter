@@ -119,8 +119,8 @@ public class OptionsScreen : MonoBehaviour
 
     public void PopUpOnlineError()
     {
-        PopUp.instance.SetButtonsTexts(new LocalizedString("PopUp", "button_ok"), null, null, null);
-        PopUp.instance.OpenPopUp(new LocalizedString("PopUp", "online_error_title"), new LocalizedString("PopUp", "online_error_desc"), 1);
+        PopUp.Instance.SetButtonsTexts(new LocalizedString("PopUp", "button_ok"), null, null, null);
+        PopUp.Instance.OpenPopUp(new LocalizedString("PopUp", "online_error_title"), new LocalizedString("PopUp", "online_error_desc"), 1);
     }
 
     private void SetTestButtons()

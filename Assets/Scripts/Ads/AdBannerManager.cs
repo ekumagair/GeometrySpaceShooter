@@ -14,11 +14,10 @@ public class AdBannerManager : MonoBehaviour
 
     [SerializeField] string _androidAdUnitId = "Banner_Android";
     [SerializeField] string _iOSAdUnitId = "Banner_iOS";
-    string _adUnitId = null; // This will remain null for unsupported platforms.
+    private string _adUnitId = null; // This will remain null for unsupported platforms.
 
-    [HideInInspector] public bool loaded = false;
-
-    public static AdBannerManager instance = null;
+    public bool Loaded { get; private set; } = false;
+    public static AdBannerManager Instance { get; private set; } = null;
 
     void Awake()
     {
@@ -46,7 +45,7 @@ public class AdBannerManager : MonoBehaviour
         LoadBanner();
 #endif
 
-        while (loaded == false)
+        while (Loaded == false)
         {
             yield return new WaitForSeconds(0.1f);
         }
@@ -62,7 +61,7 @@ public class AdBannerManager : MonoBehaviour
     // Implement a method to call when the Load Banner button is clicked:
     public void LoadBanner()
     {
-        loaded = false;
+        Loaded = false;
 
         // Set up options to notify the SDK of load events:
         BannerLoadOptions options = new BannerLoadOptions
@@ -78,8 +77,9 @@ public class AdBannerManager : MonoBehaviour
     // Implement code to execute when the loadCallback event triggers:
     void OnBannerLoaded()
     {
-        loaded = true;
-        instance = this;
+        Loaded = true;
+        Instance = this;
+
         if (Debug.isDebugBuild) { Debug.Log("Finished loading: " + _adUnitId); }
     }
 
@@ -93,7 +93,7 @@ public class AdBannerManager : MonoBehaviour
     // Implement a method to call when the Show Banner button is clicked:
     private void ShowBannerAd()
     {
-        if (PurchaseManager.instance.HasRemovedAds() == true)
+        if (PurchaseManager.Instance.HasRemovedAds() == true)
         {
             if (Debug.isDebugBuild) { Debug.LogWarning("Tried to show banner ad, but ads were removed."); }
             return;

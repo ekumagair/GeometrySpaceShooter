@@ -33,8 +33,8 @@ public class IAPButtonComplement : MonoBehaviour
     public void OnDisable()
     {
 #if !DISABLE_IAP
-        PurchaseManager.instance.ON_PRODUCT_FULFILLED -= PurchaseComplete;
-        PurchaseManager.instance.ON_PURCHASE_FAILED -= PurchaseFailed;
+        PurchaseManager.Instance.ON_PRODUCT_FULFILLED -= PurchaseComplete;
+        PurchaseManager.Instance.ON_PURCHASE_FAILED -= PurchaseFailed;
 #endif
     }
 
@@ -49,7 +49,7 @@ public class IAPButtonComplement : MonoBehaviour
 
         yield return null;
 
-        while (PurchaseManager.instance == null)
+        while (PurchaseManager.Instance == null)
         {
             yield return null;
         }
@@ -62,8 +62,8 @@ public class IAPButtonComplement : MonoBehaviour
             yield return null;
         }
 
-        PurchaseManager.instance.ON_PRODUCT_FULFILLED += PurchaseComplete;
-        PurchaseManager.instance.ON_PURCHASE_FAILED += PurchaseFailed;
+        PurchaseManager.Instance.ON_PRODUCT_FULFILLED += PurchaseComplete;
+        PurchaseManager.Instance.ON_PURCHASE_FAILED += PurchaseFailed;
 
         ShowTexts();
     }
@@ -74,11 +74,11 @@ public class IAPButtonComplement : MonoBehaviour
 #if !DISABLE_IAP
         if (textTitle != null)
         {
-            textTitle.text = PurchaseManager.instance.GetProductFromType(type).metadata.localizedTitle;
+            textTitle.text = PurchaseManager.Instance.GetProductFromType(type).metadata.localizedTitle;
         }
         if (textPrice != null)
         {
-            textPrice.text = PurchaseManager.instance.GetProductFromType(type).metadata.localizedPriceString;
+            textPrice.text = PurchaseManager.Instance.GetProductFromType(type).metadata.localizedPriceString;
         }
 #endif
     }
@@ -86,7 +86,7 @@ public class IAPButtonComplement : MonoBehaviour
     public void OnClick()
     {
 #if !DISABLE_IAP
-        PurchaseManager.storeController.PurchaseProduct(PurchaseManager.instance.GetProductFromType(type));
+        PurchaseManager.storeController.PurchaseProduct(PurchaseManager.Instance.GetProductFromType(type));
 #endif
     }
 

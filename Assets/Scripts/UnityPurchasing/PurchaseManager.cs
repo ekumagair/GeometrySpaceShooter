@@ -11,7 +11,7 @@ using UnityEngine.Purchasing;
 
 public class PurchaseManager : MonoBehaviour
 {
-    [SerializeField] bool _testMode; // Use fake ads for tests. Only use real ads for the final build.
+    private bool _testMode = false; // Use fake ads for tests. Only use real ads for the final build.
 
     public enum IAPType
     {
@@ -26,7 +26,7 @@ public class PurchaseManager : MonoBehaviour
     public static StoreController storeController;
 #endif
 
-    public static PurchaseManager instance;
+    public static PurchaseManager Instance { get; private set; }
     public static bool fetchedProducts = false;
     public static bool fetchedPurchases = false;
 
@@ -53,9 +53,9 @@ public class PurchaseManager : MonoBehaviour
 #if !DISABLE_IAP
     void Awake()
     {
-        instance = this;
+        Instance = this;
 
-#if DEVELOPMENT_BUILD || UNITY_EDITOR
+#if SERVICE_TEST || DEVELOPMENT_BUILD || UNITY_EDITOR
         _testMode = true;
 #endif
 
@@ -76,9 +76,9 @@ public class PurchaseManager : MonoBehaviour
         }
 
 #if !DISABLE_ADS
-        if (AdBannerManager.instance != null)
+        if (AdBannerManager.Instance != null)
         {
-            AdBannerManager.instance.HideBannerAd();
+            AdBannerManager.Instance.HideBannerAd();
         }
 #endif
 

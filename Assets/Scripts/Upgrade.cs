@@ -82,9 +82,9 @@ public class Upgrade : MonoBehaviour
             // If you don't have enough points, disable buy button and enable ad button.
             buyButton.interactable = false;
 
-            if (adButton != null && AdRewardedManager.instance != null)
+            if (adButton != null && AdRewardedManager.Instance != null)
             {
-                if (AdRewardedManager.instance.loaded == true && _adButtonScript != null)
+                if (AdRewardedManager.Instance.loaded == true && _adButtonScript != null)
                 {
                     _adButtonScript.EnableAdButton();
                 }
@@ -169,7 +169,7 @@ public class Upgrade : MonoBehaviour
 
     public void BuyUpgradeFromAd()
     {
-        BuyUpgrade(false, !PurchaseManager.instance.HasRemovedAds());
+        BuyUpgrade(false, !PurchaseManager.Instance.HasRemovedAds());
     }
 
     public void BuyUpgradeAsBonus()
@@ -333,7 +333,7 @@ public class Upgrade : MonoBehaviour
             PersistentCanvas.reference.CreateButtonSound(5);
         }
 
-        PopUp.instance.SetButtonsTexts(new LocalizedString("PopUp", "button_ok"), null, null, null);
-        PopUp.instance.OpenPopUp(_titleLocalization.StringReference, descriptionLocalization, 1);
+        PopUp.Instance.SetButtonsTexts(new LocalizedString("PopUp", "button_ok"), null, null, null);
+        PopUp.Instance.OpenPopUp(_titleLocalization.StringReference, descriptionLocalization, 1);
     }
 }

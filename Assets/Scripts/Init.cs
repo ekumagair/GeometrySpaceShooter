@@ -12,27 +12,26 @@ public class Init : MonoBehaviour
 {
     public static bool IsPlayerAdult { get; private set; } = false;
 
-    public bool testMode;
     public TMP_Text debugText;
 
-    private bool appliedPrivacySettings = false;
-    private string privacySettings = "";
+    private bool _testMode;
+    private bool _appliedPrivacySettings = false;
+    private string _privacySettings = "";
 
     #region Init
 
     void Start()
     {
-        if (Debug.isDebugBuild)
-        {
-            testMode = true;
-        }
+#if SERVICE_TEST || DEVELOPMENT_BUILD || UNITY_EDITOR
+        _testMode = true;
+#endif
 
         StartCoroutine(InitCoroutine());
     }
 
     private IEnumerator InitCoroutine()
     {
-        if (testMode)
+        if (_testMode)
         {
             debugText.gameObject.SetActive(true);
             AppendDebugText("Init begin. " + Application.productName + " version " + Application.version.ToString());
@@ -49,12 +48,12 @@ public class Init : MonoBehaviour
         // Age Verification.
         RequestAgeSignals();
 
-        while (!appliedPrivacySettings)
+        while (!_appliedPrivacySettings)
             yield return null;
 
-        if (testMode)
+        if (_testMode)
         {
-            AppendDebugText("privacySettings = [" + privacySettings + "]");
+            AppendDebugText("privacySettings = [" + _privacySettings + "]");
             AppendDebugText("Player considered adult? [" + IsPlayerAdult.ToString() + "]", "#7477ff");
 
             yield return new WaitForSeconds(3);
@@ -77,7 +76,7 @@ public class Init : MonoBehaviour
 
     private void AppendDebugText(string s, string color = "#FFFFFF", bool error = false)
     {
-        if (!testMode)
+        if (!_testMode)
         {
             debugText.text = "";
             return;
@@ -102,7 +101,7 @@ public class Init : MonoBehaviour
 
     private void RequestAgeSignals()
     {
-        if (testMode)
+        if (_testMode)
         {
             AppendDebugText("Request age signals [start].");
         }
@@ -117,7 +116,7 @@ public class Init : MonoBehaviour
         OnAgeSignalsResult("UNKNOWN||");
 #endif
 
-        if (testMode)
+        if (_testMode)
         {
             AppendDebugText("Requested age signals [end].");
         }
@@ -138,10 +137,10 @@ public class Init : MonoBehaviour
         // Safest fallback: treat as child.
         RestrictedAgeSettings();
 
-        appliedPrivacySettings = true;
-        privacySettings = "";
+        _appliedPrivacySettings = true;
+        _privacySettings = "";
 
-        if (testMode)
+        if (_testMode)
         {
             AppendDebugText("Age Signals failed: " + error, "#ff2929", true);
         }
@@ -169,10 +168,10 @@ public class Init : MonoBehaviour
             IsPlayerAdult = true;
         }
 
-        appliedPrivacySettings = true;
-        privacySettings = data;
+        _appliedPrivacySettings = true;
+        _privacySettings = data;
 
-        if (testMode)
+        if (_testMode)
         {
             AppendDebugText("Status: [" + installId + "]", "#bfbfbf");
             AppendDebugText("Age lower: [" + ageLower.ToString() + "]", "#bfbfbf");

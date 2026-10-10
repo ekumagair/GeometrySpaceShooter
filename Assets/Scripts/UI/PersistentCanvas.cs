@@ -36,7 +36,7 @@ public class PersistentCanvas : MonoBehaviour
     {
         pointsNumber.text = GameStats.points.ToString();
 
-#if UNITY_EDITOR || UNITY_STANDALONE
+#if DEVELOPMENT_BUILD || UNITY_EDITOR
         // Debug inputs.
         if (Debug.isDebugBuild)
         {
@@ -73,8 +73,8 @@ public class PersistentCanvas : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.V))
             {
-                GameplayManager.instance.NextLevel();
-                GameplayManager.instance.GoToStartScene();
+                GameplayManager.Instance.NextLevel();
+                GameplayManager.Instance.GoToStartScene();
             }
         }
 #endif

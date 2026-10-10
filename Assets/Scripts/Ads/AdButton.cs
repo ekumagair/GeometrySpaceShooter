@@ -27,7 +27,7 @@ public class AdButton : MonoBehaviour
 
     void Start()
     {
-        if (GameStats.enableAdButttons == false || AdsInitializer.failed == true)
+        if (GameStats.enableAdButttons == false || AdsInitializer.Failed == true)
         {
             _button.interactable = false;
         }
@@ -67,7 +67,7 @@ public class AdButton : MonoBehaviour
             _button = GetComponent<Button>();
         }
 
-        if (AdRewardedManager.instance != null)
+        if (AdRewardedManager.Instance != null)
         {
             _button.interactable = GeneralAdCheck() && MultiplicationAdCheck();
         }
@@ -80,7 +80,7 @@ public class AdButton : MonoBehaviour
     private bool GeneralAdCheck()
     {
 #if !DISABLE_ADS
-        return GameStats.enableAdButttons == true && Advertisement.isInitialized == true && AdsInitializer.failed == false && AdRewardedManager.instance.HasAnyError() == false && GameStats.failedGenuine == false;
+        return GameStats.enableAdButttons == true && Advertisement.isInitialized == true && AdsInitializer.Failed == false && AdRewardedManager.Instance.HasAnyError() == false && GameStats.failedGenuine == false;
 #else
         return false;
 #endif
@@ -108,14 +108,14 @@ public class AdButton : MonoBehaviour
 
         if (rewardType == AdRewardedManager.RewardType.UPGRADE && _upgradeScript != null)
         {
-            AdRewardedManager.instance.upgradeScript = _upgradeScript;
+            AdRewardedManager.Instance.upgradeScript = _upgradeScript;
         }
         else
         {
-            AdRewardedManager.instance.upgradeScript = null;
+            AdRewardedManager.Instance.upgradeScript = null;
         }
 
-        AdRewardedManager.instance.ShowAd(rewardType);
+        AdRewardedManager.Instance.ShowAd(rewardType);
 #endif
     }
 }

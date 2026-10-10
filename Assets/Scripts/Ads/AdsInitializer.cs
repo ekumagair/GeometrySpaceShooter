@@ -14,16 +14,17 @@ public class AdsInitializer : MonoBehaviour
 {
     [SerializeField] string _androidGameId;
     [SerializeField] string _iOSGameId;
-    [SerializeField] bool _testMode; // Use fake ads for tests. Only use real ads for the final build.
+
+    private bool _testMode = false; // Use fake ads for tests. Only use real ads for the final build.
     private string _gameId;
 
-    public static bool failed = false;
-    public static AdsInitializer instance = null;
+    public static bool Failed { get; private set; } = false;
+    public static AdsInitializer Instance { get; private set; } = null;
 
 #if !DISABLE_ADS
     void Awake()
     {
-#if DEVELOPMENT_BUILD || UNITY_EDITOR
+#if SERVICE_TEST || DEVELOPMENT_BUILD || UNITY_EDITOR
         _testMode = true;
 #endif
 
@@ -65,15 +66,15 @@ public class AdsInitializer : MonoBehaviour
     public void OnInitializationComplete()
     {
         if (Debug.isDebugBuild) { Debug.Log("Unity Ads initialization complete."); }
-        failed = false;
-        instance = this;
+        Failed = false;
+        Instance = this;
     }
 
     public void OnInitializationFailed(UnityAdsInitializationError error, string message)
     {
         Debug.LogError($"Unity Ads Initialization Failed: {error.ToString()} - {message}");
-        failed = true;
-        instance = this;
+        Failed = true;
+        Instance = this;
     }
 #endif
 

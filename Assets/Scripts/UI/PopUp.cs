@@ -18,7 +18,7 @@ public class PopUp : MonoBehaviour
     public Button[] buttons;
     public TMP_Text[] buttonTexts;
 
-    public static PopUp instance;
+    public static PopUp Instance { get; private set; }
 
     private System.Action action1 = null;
     private System.Action action2 = null;
@@ -29,7 +29,7 @@ public class PopUp : MonoBehaviour
     {
         if (generic)
         {
-            instance = this;
+            Instance = this;
         }
     }
 

@@ -17,7 +17,7 @@ public class AdRewardedManager : MonoBehaviour
     [SerializeField] string _iOSAdUnitId = "Rewarded_iOS";
     string _adUnitId = null; // This will remain null for unsupported platforms
 
-    public static AdRewardedManager instance = null;
+    public static AdRewardedManager Instance { get; private set; } = null;
 
     public enum RewardType
     {
@@ -76,7 +76,7 @@ public class AdRewardedManager : MonoBehaviour
     public void OnUnityAdsAdLoaded(string adUnitId) 
     {
         loaded = true;
-        instance = this;
+        Instance = this;
         if (Debug.isDebugBuild) { Debug.Log("Finished loading: " + _adUnitId); }
     }
 #endif
@@ -110,16 +110,16 @@ public class AdRewardedManager : MonoBehaviour
                     break;
 
                 case RewardType.MULTIPLY_SCORE:
-                    if (GameplayManager.instance != null)
+                    if (GameplayManager.Instance != null)
                     {
-                        GameplayManager.instance.MultiplyCurrentScoreBy2();
+                        GameplayManager.Instance.MultiplyCurrentScoreBy2();
                     }
                     break;
 
                 case RewardType.REVIVE:
-                    if (GameplayManager.instance != null)
+                    if (GameplayManager.Instance != null)
                     {
-                        GameplayManager.instance.RevivePlayer();
+                        GameplayManager.Instance.RevivePlayer();
                     }
                     break;
 

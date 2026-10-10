@@ -142,9 +142,9 @@ public class RewardGoal : MonoBehaviour
         GameStats.SaveStats();
         
         // Show ad.
-        if (AdInterstitialManager.instance != null && PurchaseManager.instance.HasRemovedAds() == false && GameStats.claimedRewardsTotal > 1)
+        if (AdInterstitialManager.Instance != null && PurchaseManager.Instance.HasRemovedAds() == false && GameStats.claimedRewardsTotal > 1)
         {
-            AdInterstitialManager.instance.ShowAd();
+            AdInterstitialManager.Instance.ShowAd();
         }
 
         PersistentCanvas.reference.CreateButtonSound(4);

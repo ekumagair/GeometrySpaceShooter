@@ -1,15 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Advertisements;
 
+#if !DISABLE_ADS
+using UnityEngine.Advertisements;
+#endif
+
+#if !DISABLE_ADS
 public class AdInterstitialManager : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowListener
+#else
+public class AdInterstitialManager : MonoBehaviour
+#endif
 {
     [SerializeField] string _androidAdUnitId = "Interstitial_Android";
     [SerializeField] string _iOSAdUnitId = "Interstitial_iOS";
     string _adUnitId = null;
 
-    public static AdInterstitialManager instance = null;
+    public static AdInterstitialManager Instance { get; private set; } = null;
 
     void Awake()
     {
@@ -19,6 +26,7 @@ public class AdInterstitialManager : MonoBehaviour, IUnityAdsLoadListener, IUnit
             : _androidAdUnitId;
     }
 
+#if !DISABLE_ADS
     private IEnumerator Start()
     {
         while (Advertisement.isInitialized == false)
@@ -27,25 +35,28 @@ public class AdInterstitialManager : MonoBehaviour, IUnityAdsLoadListener, IUnit
         }
         yield return null;
 
-#if !DISABLE_ADS
+
         // Load reward ad.
         LoadAd();
-#endif
     }
+#endif
 
     // Load content to the Ad Unit:
     public void LoadAd()
     {
+#if !DISABLE_ADS
         // IMPORTANT! Only load content AFTER initialization (initialization is handled in a different script).
         if (Debug.isDebugBuild) { Debug.Log("Loading Ad: " + _adUnitId); }
+
         Advertisement.Load(_adUnitId, this);
+#endif
     }
 
     // Show the loaded content in the Ad Unit:
     public void ShowAd()
     {
 #if !DISABLE_ADS
-        if (PurchaseManager.instance.HasRemovedAds() == true)
+        if (PurchaseManager.Instance.HasRemovedAds() == true)
         {
             if (Debug.isDebugBuild) { Debug.LogWarning("Tried to show interstitial ad, but ads were removed."); }
             return;
@@ -53,15 +64,18 @@ public class AdInterstitialManager : MonoBehaviour, IUnityAdsLoadListener, IUnit
 
         // Note that if the ad content wasn't previously loaded, this method will fail
         if (Debug.isDebugBuild) { Debug.Log("Showing Ad: " + _adUnitId); }
+
         Advertisement.Show(_adUnitId, this);
 #endif
     }
 
+#if !DISABLE_ADS
     // Implement Load Listener and Show Listener interface methods: 
     public void OnUnityAdsAdLoaded(string adUnitId)
     {
         // Optionally execute code if the Ad Unit successfully loads content.
-        instance = this;
+        Instance = this;
+
         if (Debug.isDebugBuild) { Debug.Log("Finished loading: " + _adUnitId); }
     }
 
@@ -80,4 +94,5 @@ public class AdInterstitialManager : MonoBehaviour, IUnityAdsLoadListener, IUnit
     public void OnUnityAdsShowClick(string adUnitId) { }
 
     public void OnUnityAdsShowComplete(string adUnitId, UnityAdsShowCompletionState showCompletionState) { }
+#endif
 }

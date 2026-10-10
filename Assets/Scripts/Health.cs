@@ -69,7 +69,7 @@ public class Health : MonoBehaviour
         // Check tag.
         if (tag.Contains("Player"))
         {
-            ScoreChain.instance.RemoveTier();
+            ScoreChain.Instance.RemoveTier();
         }
 
         // Reduce health.
@@ -119,9 +119,9 @@ public class Health : MonoBehaviour
         else if (tag.Contains("Player"))
         {
             // Show player death ad.
-            if (AdInterstitialManager.instance != null && PurchaseManager.instance.HasRemovedAds() == false && GameStats.level > 2)
+            if (AdInterstitialManager.Instance != null && PurchaseManager.Instance.HasRemovedAds() == false && GameStats.level > 2)
             {
-                AdInterstitialManager.instance.ShowAd();
+                AdInterstitialManager.Instance.ShowAd();
             }
         }
 
@@ -162,7 +162,7 @@ public class Health : MonoBehaviour
             case DeathType.Deactivate:
                 if (_playerComponent != null)
                 {
-                    Player.instance.StopAllCoroutines();
+                    Player.Instance.StopAllCoroutines();
                     Player.isDead = true;
                 }
                 gameObject.SetActive(false);
@@ -180,10 +180,10 @@ public class Health : MonoBehaviour
             yield break;
         }
 
-        if (HUD.instance != null)
+        if (HUD.Instance != null)
         {
-            HUD.instance.shieldTimerMax = time;
-            HUD.instance.shieldTimer = HUD.instance.shieldTimerMax;
+            HUD.Instance.shieldTimerMax = time;
+            HUD.Instance.shieldTimer = HUD.Instance.shieldTimerMax;
         }
 
         invincible = true;

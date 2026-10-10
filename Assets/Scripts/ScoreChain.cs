@@ -12,7 +12,7 @@ public class ScoreChain : MonoBehaviour
     public Image starIcon;
     public GameObject tierUpSound;
 
-    public static ScoreChain instance;
+    public static ScoreChain Instance { get; private set; }
     public static float scoreMultiplier;
     public static float scoreMultiplierAtStart = 1.0f;
     public static int tier;
@@ -21,7 +21,7 @@ public class ScoreChain : MonoBehaviour
 
     private void Awake()
     {
-        instance = this;
+        Instance = this;
         ResetVariables();
     }
 

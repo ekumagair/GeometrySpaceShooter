@@ -26,7 +26,7 @@ public class Player : MonoBehaviour
     public static bool victory = false;
 
     public static bool hasInput = false;
-    public static Player instance = null;
+    public static Player Instance { get; private set; } = null;
 
     [HideInInspector] public Health healthScript;
     [HideInInspector] public int[] conditionTimers;
@@ -39,7 +39,7 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         Time.timeScale = 1.0f;
-        instance = this;
+        Instance = this;
         conditionTimers = new int[GameConstants.PLAYER_COND_AMOUNT];
         ResetConditions();
     }
@@ -271,9 +271,9 @@ public class Player : MonoBehaviour
             GameStats.SaveStats();
 
             // Show level end ad.
-            if (AdInterstitialManager.instance != null && PurchaseManager.instance.HasRemovedAds() == false)
+            if (AdInterstitialManager.Instance != null && PurchaseManager.Instance.HasRemovedAds() == false)
             {
-                AdInterstitialManager.instance.ShowAd();
+                AdInterstitialManager.Instance.ShowAd();
             }
         }
         else if (collision.gameObject.CompareTag("Item"))
@@ -319,9 +319,9 @@ public class Player : MonoBehaviour
 
     private bool IsTouchingButton()
     {
-        if (HUD.instance != null)
+        if (HUD.Instance != null)
         {
-            return _targetPosition.x > HUD.instance.pauseButtonWorldPosition.x - 2.1f && _targetPosition.x < HUD.instance.pauseButtonWorldPosition.x + 2.1f && _targetPosition.y > HUD.instance.pauseButtonWorldPosition.y - 2.1f && _targetPosition.y < HUD.instance.pauseButtonWorldPosition.y + 2.1f;
+            return _targetPosition.x > HUD.Instance.pauseButtonWorldPosition.x - 2.1f && _targetPosition.x < HUD.Instance.pauseButtonWorldPosition.x + 2.1f && _targetPosition.y > HUD.Instance.pauseButtonWorldPosition.y - 2.1f && _targetPosition.y < HUD.Instance.pauseButtonWorldPosition.y + 2.1f;
         }
         else
         {

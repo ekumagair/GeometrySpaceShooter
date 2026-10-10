@@ -47,7 +47,7 @@ public class HUD : MonoBehaviour
     public static Vector3 hudBottomRightCorner = new Vector3(100, -190, 0);
 
     public static float previousTimeScale = 1.0f;
-    public static HUD instance;
+    public static HUD Instance { get; private set; }
 
     [HideInInspector] public bool createdWindow = false;
     [HideInInspector] public Vector3 pauseButtonWorldPosition;
@@ -59,7 +59,7 @@ public class HUD : MonoBehaviour
 
     private void Awake()
     {
-        instance = this;
+        Instance = this;
     }
 
     void Start()
@@ -74,7 +74,7 @@ public class HUD : MonoBehaviour
         pauseButtonWorldPosition = Camera.main.ScreenToWorldPoint(pauseButton.transform.position);
         pauseText.gameObject.SetActive(false);
         exitButton.gameObject.SetActive(false);
-        ScoreChain.instance.Display(true);
+        ScoreChain.Instance.Display(true);
 
         levelText.enabled = GameStats.currentLevelType == GameStats.LevelType.MAIN;
         extraLevelText.enabled = GameStats.currentLevelType == GameStats.LevelType.PRESET;
@@ -101,8 +101,8 @@ public class HUD : MonoBehaviour
             healthNumber.color = Color.red;
         }
 
-        increaseShotSizeIcon.SetActive(Player.isDead == false && Player.instance.conditionTimers[0] > 0);
-        increaseShotSizeTimer.text = Player.instance.conditionTimers[0].ToString();
+        increaseShotSizeIcon.SetActive(Player.isDead == false && Player.Instance.conditionTimers[0] > 0);
+        increaseShotSizeTimer.text = Player.Instance.conditionTimers[0].ToString();
 
         pointsThisLevelNumberWin.text = GameStats.currentLevelPoints.ToString();
         pointsThisLevelNumberLose.text = GameStats.currentLevelPoints.ToString();
@@ -164,7 +164,7 @@ public class HUD : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.R))
             {
-                GameplayManager.instance.RevivePlayer();
+                GameplayManager.Instance.RevivePlayer();
             }
             if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
@@ -211,7 +211,7 @@ public class HUD : MonoBehaviour
     private void CreatedWindow()
     {
         GameStats.SaveStats();
-        ScoreChain.instance.Display(false);
+        ScoreChain.Instance.Display(false);
         StartCoroutine(ShowWindowExtra());
         createdWindow = true;
     }
@@ -219,7 +219,7 @@ public class HUD : MonoBehaviour
     private IEnumerator ShowWindowExtra()
     {
 #if !DISABLE_IAP && !DISABLE_ADS
-        removeAdsButton.gameObject.SetActive(!PurchaseManager.instance.HasRemovedAds());
+        removeAdsButton.gameObject.SetActive(!PurchaseManager.Instance.HasRemovedAds());
 #else
         removeAdsButton.gameObject.SetActive(false);
 #endif

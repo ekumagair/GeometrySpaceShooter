@@ -5,11 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class GameplayManager : MonoBehaviour
 {
-    public static GameplayManager instance;
+    public static GameplayManager Instance { get; private set; }
 
     void Awake()
     {
-        instance = this;
+        Instance = this;
     }
 
     void Start()
@@ -25,14 +25,14 @@ public class GameplayManager : MonoBehaviour
 
     public void RevivePlayer()
     {
-        Player.instance.gameObject.SetActive(true);
-        Player.instance.InitializePlayer(6);
-        Player.instance.healthScript.Revive();
-        HUD.instance.windowVictory.SetActive(false);
-        HUD.instance.windowLose.SetActive(false);
-        HUD.instance.removeAdsButton.gameObject.SetActive(false);
-        HUD.instance.windowExtra.gameObject.SetActive(false);
-        HUD.instance.createdWindow = false;
+        Player.Instance.gameObject.SetActive(true);
+        Player.Instance.InitializePlayer(6);
+        Player.Instance.healthScript.Revive();
+        HUD.Instance.windowVictory.SetActive(false);
+        HUD.Instance.windowLose.SetActive(false);
+        HUD.Instance.removeAdsButton.gameObject.SetActive(false);
+        HUD.Instance.windowExtra.gameObject.SetActive(false);
+        HUD.Instance.createdWindow = false;
     }
 
     public void MultiplyCurrentScoreBy2()

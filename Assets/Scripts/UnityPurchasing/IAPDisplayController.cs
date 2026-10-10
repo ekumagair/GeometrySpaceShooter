@@ -20,14 +20,14 @@ public class IAPDisplayController : MonoBehaviour
     void Start()
     {
 #if !DISABLE_IAP
-        PurchaseManager.instance.ON_PURCHASE_CONFIRMED += Display;
+        PurchaseManager.Instance.ON_PURCHASE_CONFIRMED += Display;
 #endif
     }
 
     void OnDestroy()
     {
 #if !DISABLE_IAP
-        PurchaseManager.instance.ON_PURCHASE_CONFIRMED -= Display;
+        PurchaseManager.Instance.ON_PURCHASE_CONFIRMED -= Display;
 #endif
     }
 
@@ -49,7 +49,7 @@ public class IAPDisplayController : MonoBehaviour
 
         yield return null;
 
-        while (PurchaseManager.instance == null)
+        while (PurchaseManager.Instance == null)
         {
             yield return null;
         }
